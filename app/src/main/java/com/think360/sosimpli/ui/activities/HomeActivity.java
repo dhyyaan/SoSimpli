@@ -2,11 +2,15 @@ package com.think360.sosimpli.ui.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -64,12 +68,21 @@ public class HomeActivity extends AppCompatActivity implements ScheduleFragment.
 
         // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.abs_layout);
+
+        Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_menu, null);
+        drawable = DrawableCompat.wrap(drawable);
+        DrawableCompat.setTint(drawable, Color.WHITE);
+        getSupportActionBar().setHomeAsUpIndicator(drawable);
+
+      //  getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+      //  getSupportActionBar().setCustomView(R.layout.abs_layout);
 
         getSupportActionBar().setHomeButtonEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
+
+
+
 
 
         drawerFragment = (FragmentDrawer)
@@ -222,6 +235,15 @@ public class HomeActivity extends AppCompatActivity implements ScheduleFragment.
 
                 break;
             case 1:
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(new Intent(HomeActivity.this, CompletedSchedulesActivity.class));
+                        overridePendingTransition(R.anim.zoom_exit, 0);
+                    }
+                }, 200);
+
                 break;
             case 2:
 

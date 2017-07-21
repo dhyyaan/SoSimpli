@@ -7,7 +7,7 @@
     android:gravity="center_vertical|start"
     android:orientation="vertical">
 
-    <include layout="@layout/single_item_sos" />
+    <include layout="@layout/single_item_schedule_completed" />
 
     <TextView
         android:id="@+id/material_drawer_name"

@@ -39,7 +39,11 @@
         <activity android:name=".ui.activities.ContactToOperatorActivity" />
         <activity android:name=".ui.activities.AddAvailabilityActivity" />
         <activity android:name=".ui.activities.SoSDetailActivity" />
-        <activity android:name=".ui.activities.ChangeScheduleActivity"></activity>
+        <activity
+            android:name=".ui.activities.ChangeScheduleActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".ui.activities.CompletedSchedulesActivity" />
+        <activity android:name=".ui.activities.CompletedScheduleDetailActivity"></activity>
     </application>
 
 </manifest>

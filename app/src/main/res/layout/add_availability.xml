@@ -28,6 +28,9 @@
             android:layout_height="wrap_content"
             android:background="@drawable/circle_green"
             android:text="i"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_gravity="center"
             android:textColor="@color/white" />
 
         <TextView
@@ -35,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="5dp"
-            android:text="Hi Arizo..! You can set your schedule for next 2 weeks" />
+            android:text=" Hi Roger..! You can set your schedule for next 2 weeks" />
 
     </LinearLayout>
 
