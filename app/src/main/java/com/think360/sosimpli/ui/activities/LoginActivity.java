@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     public void loginFailed(Throwable t) {
         Snackbar.make(activityMainBinding.loginMainLayout, t.getStackTrace() + "", Snackbar.LENGTH_SHORT).show();
 
-        Timber.d("FAILED", t.getStackTrace());
+        //Timber.d("FAILED", t.getStackTrace());
     }
 
     @Override
