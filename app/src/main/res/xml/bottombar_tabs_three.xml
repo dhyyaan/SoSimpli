@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        barColorWhenSelected="@color/colorAppBackGround"
+        icon="@drawable/ic_favorites"
+        id="@+id/tab_favorites"
+        title="Availability" />
+    <tab
+        barColorWhenSelected="@color/colorAppBackGround"
+        icon="@drawable/ic_nearby"
+        id="@+id/tab_nearby"
+        title="Schedule" />
+    <tab
+        barColorWhenSelected="@color/colorAppBackGround"
+        icon="@drawable/ic_friends"
+        id="@+id/tab_friends1"
+        title="SOS" />
+
+    <tab
+        barColorWhenSelected="@color/colorAppBackGround"
+        icon="@drawable/ic_friends"
+        id="@+id/tab_friend"
+        title="Profile" />
+</tabs>

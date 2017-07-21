@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="@dimen/activity_horizontal_margin"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:id="@+id/ll_timeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="09:00AM - 12:00PM"
+            android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="2.5dp"
+            android:text="EAST ZONE, Toronto" />
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="0.45"
+        android:background="@drawable/rectangle_light_grey"
+        android:gravity="center_vertical|center_horizontal"
+        android:padding="5dp"
+        android:paddingBottom="3.5dp"
+        android:paddingTop="3.5dp"
+        android:text="$122145"
+        android:textColor="@android:color/background_dark" />
+
+    <ImageView
+        android:id="@+id/iv_Right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="0.05"
+        android:foregroundGravity="center_vertical"
+        android:src="@drawable/ic_right" />
+</LinearLayout>

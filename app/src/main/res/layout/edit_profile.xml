@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:id="@+id/profiledetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/sgn"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorAccent"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_gravity="center"
+                            android:gravity="center">
+
+                            <com.think360.sosimpli.widgets.CircleImageview
+                                android:id="@+id/ivUser"
+                                android:src="@drawable/hugh"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                                app:civ_border_color="@color/colorPrimaryDark"
+                                app:civ_border_width="7.5dp"
+                                app:civ_fill_color="@color/appYellow" />
+
+                            <com.think360.sosimpli.widgets.CircleImageview
+                                android:id="@+id/fabImagePickup"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginTop="10dp"
+                                android:elevation="3dp"
+                                android:padding="5dp"
+                                android:src="@drawable/ic_edit"
+                                app:civ_fill_color="@color/white" />
+
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                            android:layout_marginTop="@dimen/activity_horizontal_margin"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tvName"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
+                                android:gravity="center"
+                                android:hint="Roger Fed."
+                                android:textColor="@color/white"
+                                android:textColorHint="@color/white"
+
+                                />
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/TextViewHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/userName" />
+
+
+                    <EditText
+                        android:id="@+id/editName"
+                        style="@style/EditTextRoboto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Roger Fed."
+                        android:inputType="textPersonName" />
+
+
+                    <!-- Signup Button -->
+                    <!-- Signup Button -->
+                    <TextView
+                        android:id="@+id/btnSave"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="7.5dp"
+                        android:layout_marginLeft="72dp"
+                        android:layout_marginRight="72dp"
+                        android:layout_marginTop="28dp"
+                        android:background="@drawable/rectangle_red"
+                        android:elevation="3dp"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="@string/save"
+                        android:textColor="@color/white" />
+
+
+                </LinearLayout>
+            </ScrollView>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</layout>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#EC1F2C</color>
+    <color name="colorPrimaryDark">#D51D25</color>
+    <color name="colorAccent">#EC1F2C</color>
+
+    <color name="black_overlay">#66000000</color>
+
+    <color name="appYellow">#EC1F2C</color>
+    <color name="primary_text">#ffffff</color>
+    <color name="colorAppGreyOverlay">#F3F3F3</color>
+    <color name="appGray">#66000000</color>
+    <color name="colorAppLightGray">#DCDCDC</color>
+    <color name="white">#fff</color>
+    <color name="appGreen">#70C260</color>
+    <color name="appRed">#ED2228</color>
+    <color name="appHoursBack">#E6E7EB</color>
+    <color name="black">#000</color>
+    <color name="colorDarkGrey">#4B4B4B</color>
+    <color name="colorAppVeryLightGrey">#ededed</color>
+    <color name="background_material_light">#f5f9f7</color>
+
+    <color name="colorAppBackGround">#f0f6f3</color>
+
+</resources>

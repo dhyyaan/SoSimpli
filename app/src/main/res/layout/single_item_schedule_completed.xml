@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="7.5dp"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:id="@+id/layoutLeft"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.65"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvZone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            android:text="SOUTH ZONE"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="2.5dp"
+            android:text="6th April, 2017"
+            android:textColor="@color/colorDarkGrey"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="2.5dp"
+            android:text="12:00AM - 15:00PM"
+            android:textColor="@color/colorDarkGrey"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="2.5dp"
+        android:layout_weight="0.35"
+        android:background="@drawable/rectangle_light_red"
+        android:elevation="3dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:padding="5dp"
+        android:paddingBottom="3.5dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="3.5dp"
+        android:text="VIEW DETAILS"
+        android:textColor="@color/white" />
+
+</LinearLayout>
