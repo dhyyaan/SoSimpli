@@ -38,7 +38,8 @@
         <activity android:name=".ui.activities.AssignedScheduleDeatilActivity" />
         <activity android:name=".ui.activities.ContactToOperatorActivity" />
         <activity android:name=".ui.activities.AddAvailabilityActivity" />
-        <activity android:name=".ui.activities.SoSDetailActivity"></activity>
+        <activity android:name=".ui.activities.SoSDetailActivity" />
+        <activity android:name=".ui.activities.ChangeScheduleActivity"></activity>
     </application>
 
 </manifest>

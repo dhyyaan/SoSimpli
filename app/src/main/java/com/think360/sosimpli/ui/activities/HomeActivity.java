@@ -1,14 +1,17 @@
 package com.think360.sosimpli.ui.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
@@ -17,6 +20,7 @@ import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
 import com.think360.sosimpli.AppController;
+import com.think360.sosimpli.FragmentDrawer;
 import com.think360.sosimpli.R;
 import com.think360.sosimpli.adapter.PagerAdapter;
 import com.think360.sosimpli.ui.fragments.AvailabilityFragment;
@@ -31,7 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class HomeActivity extends AppCompatActivity implements ScheduleFragment.OnFragmentInteractionListener, ProfileFragment.OnFragmentInteractionListener, SoSFragment.OnFragmentInteractionListener {
+public class HomeActivity extends AppCompatActivity implements ScheduleFragment.OnFragmentInteractionListener, ProfileFragment.OnFragmentInteractionListener, SoSFragment.OnFragmentInteractionListener, FragmentDrawer.FragmentDrawerListener {
 
 
 /*    @BindView(R.id.drawerLayout)
@@ -48,7 +52,7 @@ public class HomeActivity extends AppCompatActivity implements ScheduleFragment.
     protected BottomBar bottomBar;
 
     private TextView title;
-
+    private FragmentDrawer drawerFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +66,18 @@ public class HomeActivity extends AppCompatActivity implements ScheduleFragment.
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.abs_layout);
+
+        getSupportActionBar().setHomeButtonEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+
+
+        drawerFragment = (FragmentDrawer)
+                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
+        drawerFragment.setDrawerListener(this);
+
+
         title = (TextView) findViewById(getResources().getIdentifier("action_bar_title", "id", getPackageName()));
 
 
@@ -187,6 +203,51 @@ public class HomeActivity extends AppCompatActivity implements ScheduleFragment.
 
     @Override
     public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onDrawerItemSelected(View view, int position) {
+
+        switch (position) {
+            case 0:
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(new Intent(HomeActivity.this, AddAvailabilityActivity.class));
+                        overridePendingTransition(R.anim.zoom_exit, 0);
+                    }
+                }, 200);
+
+
+                break;
+            case 1:
+                break;
+            case 2:
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(new Intent(HomeActivity.this, ChangeScheduleActivity.class));
+                        overridePendingTransition(R.anim.zoom_exit, 0);
+                    }
+                }, 200);
+
+                break;
+            case 3:
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                        overridePendingTransition(R.anim.zoom_exit, 0);
+                        finish();
+                    }
+                }, 200);
+
+                break;
+        }
+
 
     }
 }

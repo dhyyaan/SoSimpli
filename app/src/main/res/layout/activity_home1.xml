@@ -8,7 +8,7 @@
 
 
     <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/drawerLayout"
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -64,15 +64,13 @@
 
         </RelativeLayout>
         <!-- The navigation drawer -->
-       <!-- <fragment
-            android:name="com.pharmacognize.activities.FragmentDrawer"
-            app:layout="@layout/navigation_drawer_layout"
-            android:id="@+id/navigation_view"
-            tools:layout="@layout/navigation_drawer_layout"
-            android:layout_width="200dp"
+        <fragment
+            android:id="@+id/fragment_navigation_drawer"
+            android:name="com.think360.sosimpli.FragmentDrawer"
+            android:layout_width="250dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:fitsSystemWindows="true" />-->
+            android:fitsSystemWindows="true" />
     </android.support.v4.widget.DrawerLayout>
 
 </android.support.design.widget.CoordinatorLayout>

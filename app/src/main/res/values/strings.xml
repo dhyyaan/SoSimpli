@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SoSimpli</string>
+    <string name="app_name">SoSimply</string>
     <string name="title_availability">Availability</string>
     <string name="title_schedule">Completed Schedule</string>
     <string name="title_sos">SOS</string>
@@ -40,5 +40,18 @@ Vivamus placerat lacus vel vehicula scelerisque, dui enim adipiscing lacus sit a
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- navigation drawer item labels  -->
+    <string-array name="nav_drawer_labels">
+
+
+        <item>Add Availability</item>
+        <item>Completed Schedules</item>
+        <item>Change Assigned Schedule</item>
+        <item>Logout</item>
+
+    </string-array>
+
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
 
 </resources>

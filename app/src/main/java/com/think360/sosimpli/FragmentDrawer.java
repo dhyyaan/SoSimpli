@@ -1,10 +1,4 @@
-/*
 package com.think360.sosimpli;
-
-*/
-/**
- * Created by Ravi on 29/07/15.
- *//*
 
 
 import android.content.Context;
@@ -21,11 +15,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.pharmacognize.adapters.NavigationDrawerAdapter;
-import com.pharmacognize.model.NavDrawerItem;
-import com.pharmacognize.utils.MyOpenSans;
-import com.pharmacognize.utils.MyTextApexBold;
-import com.pharmacognize.utils.ParseApplication;
+import com.think360.sosimpli.adapter.NavigationDrawerAdapter;
+import com.think360.sosimpli.model.NavDrawerItem;
+import com.think360.sosimpli.widgets.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,9 +34,7 @@ public class FragmentDrawer extends Fragment {
     private View containerView;
     private FragmentDrawerListener drawerListener;
 
-    private MyTextApexBold stylistname1;
 
-    private MyOpenSans phoneNumber;
 
     public FragmentDrawer() {
 
@@ -52,11 +42,12 @@ public class FragmentDrawer extends Fragment {
 
     public static List<NavDrawerItem> getData() {
         List<NavDrawerItem> data = new ArrayList<>();
-
+        int drawable[] = {R.drawable.add_availability, R.drawable.schedules, R.drawable.change_schedule, R.drawable.logout};
         // preparing navigation drawer items
         for (int i = 0; i < titles.length; i++) {
-            NavDrawerItem navItem = new NavDrawerItem();
+            NavDrawerItem navItem = new NavDrawerItem(false, titles[i], drawable[i]);
             navItem.setTitle(titles[i]);
+
             data.add(navItem);
         }
         return data;
@@ -78,13 +69,15 @@ public class FragmentDrawer extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflating view layout
-        View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        View layout = inflater.inflate(R.layout.navigation_drawer_layout, container, false);
 
         recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
 
         adapter = new NavigationDrawerAdapter(getActivity(), getData());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), R.drawable.recyclerview_divider));
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -185,11 +178,9 @@ public class FragmentDrawer extends Fragment {
 
             if (child != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
                 if (rv.getChildAdapterPosition(child) == 1 || rv.getChildAdapterPosition(child) == 2 || rv.getChildAdapterPosition(child) == 5 || rv.getChildAdapterPosition(child) == 6 || rv.getChildAdapterPosition(child) == 8 || rv.getChildAdapterPosition(child) == 9) {
-                    if (ParseApplication.getConnectivityStatus(getActivity())) {
-                        clickListener.onClick(child, rv.getChildAdapterPosition(child));
-                    } else {
-                        MainActivity.self.showSnackbar("You are not connected to internet\n Please try Again");
-                    }
+
+                    clickListener.onClick(child, rv.getChildAdapterPosition(child));
+
 
                 } else {
                     clickListener.onClick(child, rv.getChildAdapterPosition(child));
@@ -211,4 +202,3 @@ public class FragmentDrawer extends Fragment {
 
     }
 }
-*/

@@ -1,6 +1,7 @@
 package com.think360.sosimpli.ui.activities;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +15,7 @@ import com.think360.sosimpli.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class AddAvailabilityActivity extends AppCompatActivity {
 
@@ -77,5 +79,9 @@ public class AddAvailabilityActivity extends AppCompatActivity {
             return (float) (-1 * Math.pow(Math.E, -time / mAmplitude) *
                     Math.cos(mFrequency * time) + 1);
         }
+    }
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

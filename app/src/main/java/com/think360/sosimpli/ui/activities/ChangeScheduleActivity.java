@@ -17,35 +17,25 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class SoSDetailActivity extends AppCompatActivity {
+public class ChangeScheduleActivity extends AppCompatActivity {
+
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    @BindView(R.id.tvDecline)
-    TextView tvDecline;
 
-    @BindView(R.id.tvAccept)
-    TextView tvAccept;
+    @BindView(R.id.updateAvailability)
+    TextView updateAvailability;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sos_detail);
+        setContentView(R.layout.edit_availability);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("SOS Details");
+        getSupportActionBar().setTitle("Update Availability");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-    }
-
-    @OnClick(R.id.tvDecline)
-    void onClickDecline() {
-        showDialog("Your decline request has been successfully sent");
-    }
-
-    @OnClick(R.id.tvAccept)
-    void onClickAccept() {
-        showDialog("Your accept request has been successfully sent");
     }
 
     @Override
@@ -54,12 +44,15 @@ public class SoSDetailActivity extends AppCompatActivity {
         return true;
     }
 
-    void showDialog(String text) {
+    @OnClick(R.id.updateAvailability)
+    public void onClickUpdateAvailability() {
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_send_request);
+
+        ((TextView) dialog.findViewById(R.id.text)).setText("Your mentioned availability updated successfully ");
         dialog.show();
-        ((TextView) dialog.findViewById(R.id.text)).setText(text);
         animatemy(dialog.findViewById(R.id.imageView));
+
     }
 
     private void animatemy(View view) {
@@ -84,6 +77,7 @@ public class SoSDetailActivity extends AppCompatActivity {
                     Math.cos(mFrequency * time) + 1);
         }
     }
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));

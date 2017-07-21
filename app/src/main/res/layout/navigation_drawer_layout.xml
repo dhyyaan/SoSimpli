@@ -5,6 +5,7 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
+        android:background="@color/colorAppVeryLightGrey"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
@@ -42,10 +43,11 @@
 
                             <com.think360.sosimpli.widgets.CircleImageview
                                 android:id="@+id/ivUser"
+                                android:src="@drawable/hugh"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginTop="@dimen/activity_horizontal_margin"
-                                app:civ_border_color="#B5BBC6"
+                                app:civ_border_color="@color/colorPrimaryDark"
                                 app:civ_border_width="7.5dp"
                                 app:civ_fill_color="@color/appYellow" />
 
@@ -67,7 +69,7 @@
                                 android:layout_marginLeft="5dp"
                                 android:layout_marginRight="5dp"
                                 android:gravity="center"
-                                android:hint="Surinder Singh"
+                                android:hint="Roger Federer"
                                 android:textColor="@color/white"
                                 android:textColorHint="@color/white"
                                 android:textSize="20sp"
@@ -78,15 +80,13 @@
                         </LinearLayout>
                     </LinearLayout>
 
-                    <TextView
-                        style="@style/TextViewHeader"
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/drawerList"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/userName" />
 
-
-                    \
-
+                        />
 
                 </LinearLayout>
             </ScrollView>
