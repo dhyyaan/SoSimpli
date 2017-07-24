@@ -165,11 +165,11 @@
 
 
             <TextView
+                android:id="@+id/tvTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/activity_horizontal_margin"
                 android:background="@drawable/rectangle_dark_grey_boundary"
-                android:elevation="3dp"
                 android:gravity="center"
                 android:padding="12dp"
                 android:text="00:00:00"
@@ -177,7 +177,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/tvCheckIn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/activity_horizontal_margin"

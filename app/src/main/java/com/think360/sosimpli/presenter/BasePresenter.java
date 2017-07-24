@@ -18,15 +18,18 @@ public class BasePresenter {
     public BasePresenter(Context context) {
 
 
-        AlertDialog.Builder alertDialogBuilder;
-        alertDialogBuilder = new AlertDialog.Builder(context);
+
 
         pDialog = new ProgressDialog(context);
         pDialog.setMessage("Loading...");
         pDialog.setCancelable(false);
         pDialog.setCanceledOnTouchOutside(true);
-        alertDialogBuilder.setCancelable(true);
 
+
+        AlertDialog.Builder alertDialogBuilder;
+        alertDialogBuilder = new AlertDialog.Builder(context);
+
+        alertDialogBuilder.setCancelable(true);
         alertDialogBuilder.setPositiveButton(
                 "Ok",
                 new DialogInterface.OnClickListener() {
