@@ -14,11 +14,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
-
 import com.think360.sosimpli.AppController;
 import com.think360.sosimpli.R;
 import com.think360.sosimpli.databinding.EditProfileBinding;
 import com.think360.sosimpli.manager.ApiService;
+import com.think360.sosimpli.model.user.UserProfileResponse;
 import com.think360.sosimpli.presenter.EditProfilePresenter;
 import com.think360.sosimpli.utils.AppConstants;
 import com.vansuita.pickimage.bean.PickResult;
@@ -27,6 +27,9 @@ import com.vansuita.pickimage.dialog.PickImageDialog;
 import com.vansuita.pickimage.listeners.IPickResult;
 
 import javax.inject.Inject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -102,6 +105,27 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, E
             editProfileBinding.editName.setText(AppController.sharedPreferencesCompat.getString(AppConstants.DRIVER_NAME, ""));
             editProfileBinding.tvName.setText(AppController.sharedPreferencesCompat.getString(AppConstants.DRIVER_NAME, ""));
         }
+        if (AppController.sharedPreferencesCompat.getInt(AppConstants.DRIVER_ID, 0) != 0) {
+            apiService.getDriverHistory(AppController.sharedPreferencesCompat.getInt(AppConstants.DRIVER_ID, 0)).enqueue(new Callback<UserProfileResponse>() {
+                @Override
+                public void onResponse(Call<UserProfileResponse> call, retrofit2.Response<UserProfileResponse> response) {
+                    if (response.isSuccessful()) {
+                        if (!TextUtils.isEmpty(response.body().getData().getDriverImage())) {
+                            Picasso.with(getActivity()).load(response.body().getData().getDriverImage()).error(R.drawable.user).placeholder(R.drawable.user).into(editProfileBinding.ivUser);
+                        }
+                    } else {
+                        Log.d("PROFILE_RES", response.body().getMessage());
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<UserProfileResponse> call, Throwable t) {
+                    t.printStackTrace();
+                }
+            });
+        }
+
 
         return editProfileBinding.getRoot();
     }
@@ -111,8 +135,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, E
         super.onViewCreated(view, savedInstanceState);
 
 
-       // editProfileBinding.fabImagePickup.setOnClickListener(this);
-       // editProfileBinding.btnSave.setOnClickListener(this);
+        editProfileBinding.fabImagePickup.setOnClickListener(this);
+        editProfileBinding.btnSave.setOnClickListener(this);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

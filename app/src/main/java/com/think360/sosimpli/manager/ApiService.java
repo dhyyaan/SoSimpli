@@ -2,11 +2,15 @@ package com.think360.sosimpli.manager;
 
 
 import com.think360.sosimpli.model.WorkerEditProfileModel;
+import com.think360.sosimpli.model.availability.AvailabilityResponse;
 import com.think360.sosimpli.model.city.CityResponse;
 import com.think360.sosimpli.model.country.CountryResponse;
 import com.think360.sosimpli.model.states.StateResponse;
 import com.think360.sosimpli.model.user.User;
+import com.think360.sosimpli.model.user.UserProfileResponse;
 import com.think360.sosimpli.model.work.WorkHistory;
+
+import java.util.Date;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -43,6 +47,11 @@ public interface ApiService {
     @POST("getState ")
     Call<CityResponse> getCity(@Field("country_id") String country_id, @Field("state_id") String state_id);
 
+
+    @FormUrlEncoded
+    @POST("addavailability/")
+    Call<AvailabilityResponse> addAvailability(@Field("driver_id") int driver_id, @Field("start_date") String start_date, @Field("from_time") String from_time, @Field("to_time") String to_time, @Field("country_id") String country_id, @Field("state_id") String state_id, @Field("city_id") String city_id, @Field("zones") String zones);
+
     @FormUrlEncoded
     @POST("workerprofile")
     Call<WorkHistory> getWorkHistoryWithCall(@Field("id") int id);
@@ -58,10 +67,15 @@ public interface ApiService {
     Observable<WorkHistory> getWorkHistory(@Field("id") int password);
 
 
+    @FormUrlEncoded
+    @POST("driver_history/")
+    Call<UserProfileResponse> getDriverHistory(@Field("id") int id);
+
+
     @Multipart
-    @POST("workeredit/")
-    Call<WorkerEditProfileModel> editWorkerProfile(@Part("id") RequestBody userid,
-                                                   @Part("firstname") RequestBody name,
+    @POST("driveredit/")
+    Call<WorkerEditProfileModel> editDriverProfile(@Part("id") RequestBody userid,
+                                                   @Part("driver_name") RequestBody name,
                                                    @Part MultipartBody.Part file);
 
 

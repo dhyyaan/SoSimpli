@@ -3,8 +3,11 @@ package com.think360.sosimpli.ui.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 
+import com.think360.sosimpli.AppController;
 import com.think360.sosimpli.R;
+import com.think360.sosimpli.utils.AppConstants;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -12,6 +15,7 @@ import com.think360.sosimpli.R;
  */
 public class SplashActivity extends BaseActivity {
 
+    private static final String TAG = SplashActivity.class.getSimpleName();
     private Handler handler = new Handler();
     private Runnable runnable;
 
@@ -23,14 +27,23 @@ public class SplashActivity extends BaseActivity {
         runnable = new Runnable() {
             @Override
             public void run() {
-                callMainActivity();
+
+                if (AppController.sharedPreferencesCompat.getBoolean(AppConstants.IS_LOGIN, false) && AppController.sharedPreferencesCompat.getBoolean(AppConstants.IS_REMEMBER_TAPPED, false)) {
+                    callActivity(HomeActivity.class);
+                    // Contacts permissions have not been granted.
+                    Log.i(TAG, "Contact permissions has NOT been granted. Requesting permissions.");
+                } else {
+                    callActivity(LoginActivity.class);
+                }
+                finish();
+
             }
         };
 
     }
 
-    private void callMainActivity() {
-        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+    private void callActivity(Class aClass) {
+        startActivity(new Intent(SplashActivity.this, aClass));
         finish();
         overridePendingTransition(R.anim.zoom_exit, 0);
     }

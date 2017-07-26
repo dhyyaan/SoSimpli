@@ -160,7 +160,7 @@
                     android:id="@+id/progressBarCountry"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
-                    android:layout_gravity="right|center_vertical"
+                    android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_marginRight="30dp" />
 
                 <EditText
@@ -193,7 +193,7 @@
                     android:id="@+id/progressBarStates"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
-                    android:layout_gravity="right|center_vertical"
+                    android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_marginRight="30dp"
                     android:visibility="gone" />
 
@@ -206,7 +206,6 @@
                     android:focusable="false"
                     android:hint="SELECT STATE"
                     android:inputType="textPersonName" />
-
 
             </FrameLayout>
 
@@ -226,7 +225,7 @@
                     android:id="@+id/progressBarCity"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
-                    android:layout_gravity="right|center_vertical"
+                    android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_marginRight="30dp"
                     android:visibility="gone" />
 

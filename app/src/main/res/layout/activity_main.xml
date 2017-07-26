@@ -38,6 +38,7 @@
 
 
                 <EditText
+                    android:text="aa@gmail.com"
                     android:id="@+id/etEmail"
                     style="@style/EditTextRoboto"
                     android:layout_width="match_parent"

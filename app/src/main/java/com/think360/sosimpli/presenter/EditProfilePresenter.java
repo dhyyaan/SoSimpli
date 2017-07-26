@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
-
 import com.think360.sosimpli.AppController;
 import com.think360.sosimpli.manager.ApiService;
 import com.think360.sosimpli.model.WorkerEditProfileModel;
@@ -52,7 +51,7 @@ public class EditProfilePresenter extends BasePresenter {
         RequestBody etName = RequestBody.create(MediaType.parse("text/plain"), name);
 
 
-        api.editWorkerProfile(userId, etName, imageuri == null ? null : prepareFilePart("profilepic", imageuri, context)).enqueue(new Callback<WorkerEditProfileModel>() {
+        api.editDriverProfile(userId, etName, imageuri == null ? null : prepareFilePart("driver_pic", imageuri, context)).enqueue(new Callback<WorkerEditProfileModel>() {
             @Override
             public void onResponse(Call<WorkerEditProfileModel> call, Response<WorkerEditProfileModel> response) {
                 if (response.isSuccessful()) {

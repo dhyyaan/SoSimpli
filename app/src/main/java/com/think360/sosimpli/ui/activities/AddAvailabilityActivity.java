@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -23,11 +24,13 @@ import android.widget.Toast;
 import com.think360.sosimpli.AppController;
 import com.think360.sosimpli.R;
 import com.think360.sosimpli.manager.ApiService;
+import com.think360.sosimpli.model.availability.AvailabilityResponse;
 import com.think360.sosimpli.model.city.CityResponse;
 import com.think360.sosimpli.model.country.Country;
 import com.think360.sosimpli.model.country.CountryResponse;
 import com.think360.sosimpli.model.states.StateResponse;
 import com.think360.sosimpli.ui.fragments.CountriesDialogFragment;
+import com.think360.sosimpli.utils.AppConstants;
 
 import java.util.AbstractList;
 import java.util.Calendar;
@@ -46,6 +49,8 @@ public class AddAvailabilityActivity extends BaseActivity implements CountriesDi
 
     private static String startTime, endTime;
     private static Calendar startTimeCalendar, endTimeCalendar;
+    private static Calendar startdate;
+    private String country_id, state_id, city_id, zones;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -87,23 +92,23 @@ public class AddAvailabilityActivity extends BaseActivity implements CountriesDi
     private CountriesDialogFragment statesDialogFragment;
     private CountriesDialogFragment cityDialogFragment;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_availability);
+
         ((AppController) getApplication()).getComponent().inject(this);
+
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Add Availability");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-
         progressBarCountry.setIndeterminate(true);
         progressBarCountry.setVisibility(View.VISIBLE);
         etCountry.setClickable(false);
+
         apiService.getCountries().enqueue(new Callback<CountryResponse>() {
             @Override
             public void onResponse(Call<CountryResponse> call, Response<CountryResponse> response) {
@@ -121,7 +126,7 @@ public class AddAvailabilityActivity extends BaseActivity implements CountriesDi
 
             @Override
             public void onFailure(Call<CountryResponse> call, Throwable t) {
-
+                t.printStackTrace();
             }
         });
     }
@@ -155,12 +160,34 @@ public class AddAvailabilityActivity extends BaseActivity implements CountriesDi
 
     @OnClick(R.id.tvAddAvailability)
     public void onClickAddAvailability() {
-        Dialog dialog = new Dialog(this);
+        final Dialog dialog = new Dialog(AddAvailabilityActivity.this);
         dialog.setContentView(R.layout.dialog_send_request);
-
-        ((TextView) dialog.findViewById(R.id.text)).setText("Your mentioned availability added successfully ");
+        ((ProgressBar) dialog.findViewById(R.id.progressbar)).setIndeterminate(true);
+        (dialog.findViewById(R.id.progressbar)).setVisibility(View.VISIBLE);
+        ((TextView) dialog.findViewById(R.id.text)).setText("Sending Request..");
         dialog.show();
-        animatemy(dialog.findViewById(R.id.imageView));
+
+        apiService.addAvailability(AppController.sharedPreferencesCompat.getInt(AppConstants.DRIVER_ID, 0), String.valueOf(startdate.getTimeInMillis() / 1000L), String.valueOf(startTimeCalendar.getTimeInMillis() / 1000L), String.valueOf(endTimeCalendar.getTimeInMillis() / 1000L), country_id, state_id, city_id, "4").enqueue(new Callback<AvailabilityResponse>() {
+            @Override
+            public void onResponse(Call<AvailabilityResponse> call, Response<AvailabilityResponse> response) {
+                Log.d("ADD_AVAIL", response.body().getMessage());
+                if (response.body().getStatus()) {
+                    (dialog.findViewById(R.id.progressbar)).setVisibility(View.GONE);
+                    (dialog.findViewById(R.id.imageView)).setVisibility(View.VISIBLE);
+                    ((TextView) dialog.findViewById(R.id.text)).setText(response.body().getMessage());
+                    animatemy(dialog.findViewById(R.id.imageView));
+                } else {
+                    dialog.dismiss();
+                    Toast.makeText(AddAvailabilityActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AvailabilityResponse> call, Throwable t) {
+
+            }
+        });
+
     }
 
 
@@ -188,21 +215,6 @@ public class AddAvailabilityActivity extends BaseActivity implements CountriesDi
         view.startAnimation(myAnim);
     }
 
-
-    /*  class MyBounceInterpolator implements android.view.animation.Interpolator {
-          private double mAmplitude = 5;
-          private double mFrequency = 10;
-
-          MyBounceInterpolator(double amplitude, double frequency) {
-              mAmplitude = amplitude;
-              mFrequency = frequency;
-          }
-
-          public float getInterpolation(float time) {
-              return (float) (-1 * Math.pow(Math.E, -time / mAmplitude) *
-                      Math.cos(mFrequency * time) + 1);
-          }
-      }*/
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -213,6 +225,7 @@ public class AddAvailabilityActivity extends BaseActivity implements CountriesDi
         if (object instanceof Country) {
             progressBarStates.setVisibility(View.VISIBLE);
             etCountry.setText(((Country) object).getCountryName());
+            country_id = ((Country) object).getId();
             apiService.getStates(((Country) object).getId() + "", "").enqueue(new Callback<StateResponse>() {
                 @Override
                 public void onResponse(Call<StateResponse> call, Response<StateResponse> response) {
@@ -236,6 +249,7 @@ public class AddAvailabilityActivity extends BaseActivity implements CountriesDi
         }
         if (object instanceof StateResponse.State) {
             etStates.setText(((StateResponse.State) object).getName());
+            state_id = ((StateResponse.State) object).getId();
             progressBarCity.setVisibility(View.VISIBLE);
             apiService.getCity("", ((StateResponse.State) object).getId() + "").enqueue(new Callback<CityResponse>() {
                 @Override
@@ -260,6 +274,7 @@ public class AddAvailabilityActivity extends BaseActivity implements CountriesDi
         }
         if (object instanceof CityResponse.City) {
             etCity.setText(((CityResponse.City) object).getName());
+            city_id = ((CityResponse.City) object).getId();
             progressBarCity.setVisibility(View.GONE);
             etCity.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_down, 0);
             etCity.setClickable(true);
@@ -376,11 +391,10 @@ public class AddAvailabilityActivity extends BaseActivity implements CountriesDi
                 etDateAvailability.setText("");
                 Toast.makeText(getActivity(), "You can't set Event Date in past.", Toast.LENGTH_SHORT).show();
             } else {
+                startdate = calendarSelected;
                 month = month + 1;
                 etDateAvailability.setText(year + "/" + convertTo(month) + "/" + convertTo(day));
             }
-
-
         }
 
     }
@@ -395,4 +409,6 @@ public class AddAvailabilityActivity extends BaseActivity implements CountriesDi
         return result;
 
     }
+
+
 }
