@@ -29,7 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class CompletedSchedulesActivity extends AppCompatActivity {
+public class CompletedSchedulesActivity extends BaseActivity {
 
 
     @BindView(R.id.toolbar)

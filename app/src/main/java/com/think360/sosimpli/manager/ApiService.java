@@ -1,8 +1,10 @@
 package com.think360.sosimpli.manager;
 
 
-
 import com.think360.sosimpli.model.WorkerEditProfileModel;
+import com.think360.sosimpli.model.city.CityResponse;
+import com.think360.sosimpli.model.country.CountryResponse;
+import com.think360.sosimpli.model.states.StateResponse;
 import com.think360.sosimpli.model.user.User;
 import com.think360.sosimpli.model.work.WorkHistory;
 
@@ -28,6 +30,18 @@ public interface ApiService {
     Call<User> loginUser(@Field("email") String name,
                          @Field("password") String password);
 
+
+    @POST("getcountry/")
+    Call<CountryResponse> getCountries();
+
+    @FormUrlEncoded
+    @POST("getState ")
+    Call<StateResponse> getStates(@Field("country_id") String country_id, @Field("state_id") String state_id);
+
+
+    @FormUrlEncoded
+    @POST("getState ")
+    Call<CityResponse> getCity(@Field("country_id") String country_id, @Field("state_id") String state_id);
 
     @FormUrlEncoded
     @POST("workerprofile")

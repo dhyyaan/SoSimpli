@@ -16,7 +16,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class AssignedScheduleDeatilActivity extends AppCompatActivity {
+public class AssignedScheduleDeatilActivity extends BaseActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;

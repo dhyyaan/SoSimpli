@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class ContactToOperatorActivity extends AppCompatActivity {
+public class ContactToOperatorActivity extends BaseActivity {
 
 
     @BindView(R.id.tvSendRequest)
@@ -53,13 +53,13 @@ public class ContactToOperatorActivity extends AppCompatActivity {
     }
 
     private void animatemy(View view) {
-        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.20, 30);
+      //  MyBounceInterpolator interpolator = new MyBounceInterpolator(0.20, 30);
         Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        myAnim.setInterpolator(interpolator);
+        myAnim.setInterpolator(new MyBounceInterpolator(0.20, 30));
         view.startAnimation(myAnim);
     }
 
-
+/*
     class MyBounceInterpolator implements android.view.animation.Interpolator {
         private double mAmplitude = 5;
         private double mFrequency = 10;
@@ -73,7 +73,7 @@ public class ContactToOperatorActivity extends AppCompatActivity {
             return (float) (-1 * Math.pow(Math.E, -time / mAmplitude) *
                     Math.cos(mFrequency * time) + 1);
         }
-    }
+    }*/
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));

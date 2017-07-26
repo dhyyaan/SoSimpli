@@ -1,17 +1,27 @@
 package com.think360.sosimpli.ui.fragments;
 
+import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.IAdapter;
@@ -27,16 +37,16 @@ import com.think360.sosimpli.StickyHeaderAdapter;
 import com.think360.sosimpli.model.adapter_items.SimpleItem;
 import com.think360.sosimpli.ui.activities.AddAvailabilityActivity;
 import com.think360.sosimpli.ui.activities.AssignedScheduleDeatilActivity;
-import com.think360.sosimpli.ui.activities.LoginActivity;
-import com.think360.sosimpli.ui.activities.SplashActivity;
 import com.think360.sosimpli.widgets.DividerItemDecoration;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class AvailabilityFragment extends Fragment {
-
+    private static String startTime, endTime;
+    private static Calendar startTimeCalendar, endTimeCalendar;
 
     private static final String[] headers = new String[]{"Wed, 12 July 2017", "Wed, 12 July 2017", "Wed, 12 July 2017", "Wed, 12 July 2017", "Wed, 12 July 2017", "Tue,13 July 2017", "Thus,14 July 2017", "Thus,15 July 2017"};
     //save our FastAdapter
@@ -186,4 +196,137 @@ public class AvailabilityFragment extends Fragment {
         super.onSaveInstanceState(outState);
     }*/
 
+
+    public static class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
+
+        public EditText et;
+
+        public void TimePickerFragment(EditText view) {
+            this.et = view;
+        }
+
+        public TimePickerFragment() {
+        }
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the current time as the default values for the picker
+            final Calendar c = Calendar.getInstance();
+            int hour = c.get(Calendar.HOUR_OF_DAY);
+            int minute = c.get(Calendar.MINUTE);
+
+            // Create a new instance of TimePickerDialog and return it
+            return new TimePickerDialog(getActivity(), this, hour, minute,
+                    DateFormat.is24HourFormat(getActivity()));
+        }
+
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            // Do something with the time chosen by the user.
+
+            String status = "AM";
+
+            if (hourOfDay > 11) {
+                // If the hour is greater than or equal to 12
+                // Then the current AM PM status is PM
+                status = "PM";
+            }
+            // Initialize a new variable to hold 12 hour format hour value
+            int hour_of_12_hour_format;
+
+            if (hourOfDay > 11) {
+                if (hourOfDay == 12) {
+                    hour_of_12_hour_format = 12;
+                } else {
+                    // If the hour is greater than or equal to 12
+                    // Then we subtract 12 from the hour to make it 12 hour format time
+                    hour_of_12_hour_format = hourOfDay - 12;
+                }
+
+            } else {
+                hour_of_12_hour_format = hourOfDay;
+            }
+            if (et.getId() == R.id.etStartTime) {
+                startTime = convertTo(hourOfDay) + ":" + convertTo(minute) + ":00";
+                startTimeCalendar = Calendar.getInstance();
+                startTimeCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                startTimeCalendar.set(Calendar.MINUTE, minute);
+
+                et.setText(convertTo(hour_of_12_hour_format) + ":" + convertTo(minute) + " " + status);
+            }
+            if (et.getId() == R.id.etEndTime) {
+                endTime = convertTo(hourOfDay) + ":" + convertTo(minute) + ":00";
+                endTimeCalendar = Calendar.getInstance();
+                endTimeCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                endTimeCalendar.set(Calendar.MINUTE, minute);
+                if (startTimeCalendar.compareTo(endTimeCalendar) > 0) {
+                    et.setText("");
+
+                    Toast.makeText(getActivity(), "End Time should be after start time", Toast.LENGTH_SHORT).show();
+
+                } else {
+
+                    et.setText(convertTo(hour_of_12_hour_format) + ":" + convertTo(minute) + " " + status);
+                }
+            }
+
+        }
+
+
+    }
+
+    public static class SelectDateFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+
+        private EditText etDateAvailability;
+
+        @SuppressLint("ValidFragment")
+        public SelectDateFragment(EditText etDateAvailability) {
+            this.etDateAvailability = etDateAvailability;
+        }
+
+        public SelectDateFragment() {
+        }
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final Calendar calendar = Calendar.getInstance();
+            int yy = calendar.get(Calendar.YEAR);
+            int mm = calendar.get(Calendar.MONTH);
+            int dd = calendar.get(Calendar.DAY_OF_MONTH);
+            return new DatePickerDialog(getActivity(), this, yy, mm, dd);
+        }
+
+        public void onDateSet(DatePicker view, int yy, int mm, int dd) {
+            populateSetDate(yy, mm, dd);
+        }
+
+        public void populateSetDate(int year, int month, int day) {
+            Calendar calendarToday = Calendar.getInstance();
+            Calendar calendarSelected = Calendar.getInstance();
+            calendarSelected.set(Calendar.YEAR, year);
+            calendarSelected.set(Calendar.MONTH, month);
+            calendarSelected.set(Calendar.DAY_OF_MONTH, day);
+
+            if (calendarSelected.before(calendarToday)) {
+                etDateAvailability.setText("");
+                Toast.makeText(getActivity(), "You can't set Event Date in past.", Toast.LENGTH_SHORT).show();
+            } else {
+                month = month + 1;
+                etDateAvailability.setText(year + "/" + convertTo(month) + "/" + convertTo(day));
+            }
+
+
+        }
+
+    }
+
+    public static String convertTo(int day) {
+        String result;
+        if (day < 10) {
+            result = "0" + day;
+        } else {
+            result = String.valueOf(day);
+        }
+        return result;
+
+    }
 }

@@ -37,11 +37,11 @@ public class EditProfilePresenter extends BasePresenter {
     }
 
 
-    public EditProfilePresenter(ApiService api, View view, String name, Uri imageuri, Context context) {
+    public EditProfilePresenter(ApiService api, View view, String name, Uri imageUri, Context context) {
         super(context);
         this.api = api;
         this.view = view;
-        saveProfile(name, imageuri, context);
+        saveProfile(name, imageUri, context);
 
     }
 

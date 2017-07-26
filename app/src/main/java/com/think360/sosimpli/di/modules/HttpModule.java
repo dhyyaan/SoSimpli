@@ -6,6 +6,8 @@ import com.think360.sosimpli.BuildConfig;
 import com.think360.sosimpli.manager.ApiService;
 import com.think360.sosimpli.utils.AppConstants;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -25,7 +27,7 @@ public class HttpModule {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
         return new OkHttpClient.Builder()
-                .addInterceptor(logging)
+                .addInterceptor(logging).readTimeout(180, TimeUnit.SECONDS)
                 .build();
     }
 

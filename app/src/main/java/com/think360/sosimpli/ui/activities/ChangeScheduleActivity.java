@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class ChangeScheduleActivity extends AppCompatActivity {
+public class ChangeScheduleActivity extends BaseActivity {
 
 
     @BindView(R.id.toolbar)
@@ -56,14 +56,14 @@ public class ChangeScheduleActivity extends AppCompatActivity {
     }
 
     private void animatemy(View view) {
-        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.20, 30);
+
         Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        myAnim.setInterpolator(interpolator);
+        myAnim.setInterpolator(new MyBounceInterpolator(0.20, 30));
         view.startAnimation(myAnim);
     }
 
 
-    class MyBounceInterpolator implements android.view.animation.Interpolator {
+  /*  class MyBounceInterpolator implements android.view.animation.Interpolator {
         private double mAmplitude = 5;
         private double mFrequency = 10;
 
@@ -77,7 +77,7 @@ public class ChangeScheduleActivity extends AppCompatActivity {
                     Math.cos(mFrequency * time) + 1);
         }
     }
-
+*/
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
