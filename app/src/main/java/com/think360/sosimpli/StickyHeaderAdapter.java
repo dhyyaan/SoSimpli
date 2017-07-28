@@ -41,8 +41,8 @@ public class StickyHeaderAdapter extends AbstractAdapter implements StickyRecycl
                 e.printStackTrace();
             }
 
-            String strDate = formatter.format(date);
-            System.out.println("Date Format with MM/dd/yyyy : " + strDate);
+           // String strDate = formatter.format(date);
+          //  System.out.println("Date Format with MM/dd/yyyy : " + strDate);
 
             return date.getTime();
         }

@@ -31,26 +31,26 @@ import retrofit2.http.Part;
 public interface ApiService {
 
     @FormUrlEncoded
-    @POST("login/")
+    @POST("login")
     Call<User> loginUser(@Field("email") String name,
                          @Field("password") String password);
 
 
-    @POST("getcountry/")
+    @POST("getcountry")
     Call<CountryResponse> getCountries();
 
     @FormUrlEncoded
-    @POST("getState ")
+    @POST("getState")
     Call<StateResponse> getStates(@Field("country_id") String country_id, @Field("state_id") String state_id);
 
 
     @FormUrlEncoded
-    @POST("getState ")
+    @POST("getState")
     Call<CityResponse> getCity(@Field("country_id") String country_id, @Field("state_id") String state_id);
 
 
     @FormUrlEncoded
-    @POST("addavailability/")
+    @POST("addavailability")
     Call<AvailabilityResponse> addAvailability(@Field("driver_id") int driver_id, @Field("start_date") String start_date, @Field("from_time") String from_time, @Field("to_time") String to_time, @Field("country_id") String country_id, @Field("state_id") String state_id, @Field("city_id") String city_id, @Field("zones") String zones);
 
 

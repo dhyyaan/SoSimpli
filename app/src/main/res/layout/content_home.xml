@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.think360.sosimpli.ui.activities.HomeActivity"
-    tools:showIn="@layout/activity_home1">
+    tools:showIn="@layout/activity_home">
 
 
 

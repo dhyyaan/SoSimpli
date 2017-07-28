@@ -31,7 +31,6 @@ public class EditProfilePresenter extends BasePresenter {
 
     public interface View {
         void profileSavedSuccessfully();
-
         void onError(Throwable t);
     }
 

@@ -3,7 +3,6 @@ package com.think360.sosimpli.ui.activities;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.animation.Animation;
@@ -30,7 +29,7 @@ public class ChangeScheduleActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.edit_availability);
+        setContentView(R.layout.change_schedule_activity);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Update Availability");

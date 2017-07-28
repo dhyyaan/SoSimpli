@@ -22,10 +22,7 @@ public class LoginPresenter extends BasePresenter {
     private LoginPresenter.View view;
 
     public interface View {
-
-
         void loginSuccessful(String firstName, int workerId);
-
         void loginFailed(Throwable t);
     }
 

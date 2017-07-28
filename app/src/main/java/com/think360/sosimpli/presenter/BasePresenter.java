@@ -17,9 +17,6 @@ public class BasePresenter {
 
     public BasePresenter(Context context) {
 
-
-
-
         pDialog = new ProgressDialog(context);
         pDialog.setMessage("Loading...");
         pDialog.setCancelable(false);

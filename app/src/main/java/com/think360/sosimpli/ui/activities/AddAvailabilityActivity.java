@@ -47,10 +47,14 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class AddAvailabilityActivity extends BaseActivity implements CountriesDialogFragment.CallBack {
 
-    private static String startTime, endTime;
+    private static String startTime, endTime, startDate;
     private static Calendar startTimeCalendar, endTimeCalendar;
-    private static Calendar startdate;
+    private static Calendar startDateCalendar;
     private String country_id, state_id, city_id, zones;
+
+
+    @Inject
+    ApiService apiService;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -76,8 +80,7 @@ public class AddAvailabilityActivity extends BaseActivity implements CountriesDi
     @BindView(R.id.progressBarCity)
     ProgressBar progressBarCity;
 
-    @Inject
-    ApiService apiService;
+
 
     @BindView(R.id.etDateAvailability)
     EditText etDateAvailability;
@@ -160,34 +163,38 @@ public class AddAvailabilityActivity extends BaseActivity implements CountriesDi
 
     @OnClick(R.id.tvAddAvailability)
     public void onClickAddAvailability() {
-        final Dialog dialog = new Dialog(AddAvailabilityActivity.this);
-        dialog.setContentView(R.layout.dialog_send_request);
-        ((ProgressBar) dialog.findViewById(R.id.progressbar)).setIndeterminate(true);
-        (dialog.findViewById(R.id.progressbar)).setVisibility(View.VISIBLE);
-        ((TextView) dialog.findViewById(R.id.text)).setText("Sending Request..");
-        dialog.show();
-
-        apiService.addAvailability(AppController.sharedPreferencesCompat.getInt(AppConstants.DRIVER_ID, 0), String.valueOf(startdate.getTimeInMillis() / 1000L), String.valueOf(startTimeCalendar.getTimeInMillis() / 1000L), String.valueOf(endTimeCalendar.getTimeInMillis() / 1000L), country_id, state_id, city_id, "4").enqueue(new Callback<AvailabilityResponse>() {
-            @Override
-            public void onResponse(Call<AvailabilityResponse> call, Response<AvailabilityResponse> response) {
-                Log.d("ADD_AVAIL", response.body().getMessage());
-                if (response.body().getStatus()) {
-                    (dialog.findViewById(R.id.progressbar)).setVisibility(View.GONE);
-                    (dialog.findViewById(R.id.imageView)).setVisibility(View.VISIBLE);
-                    ((TextView) dialog.findViewById(R.id.text)).setText(response.body().getMessage());
-                    animatemy(dialog.findViewById(R.id.imageView));
-                } else {
-                    dialog.dismiss();
-                    Toast.makeText(AddAvailabilityActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+        if (startDateCalendar != null && startTimeCalendar != null && endTimeCalendar != null) {
+            final Dialog dialog = new Dialog(AddAvailabilityActivity.this);
+            dialog.setContentView(R.layout.dialog_send_request);
+            ((ProgressBar) dialog.findViewById(R.id.progressbar)).setIndeterminate(true);
+            (dialog.findViewById(R.id.progressbar)).setVisibility(View.VISIBLE);
+            ((TextView) dialog.findViewById(R.id.text)).setText("Sending Request..");
+            dialog.show();
+            apiService.addAvailability(AppController.sharedPreferencesCompat.getInt(AppConstants.DRIVER_ID, 0), startDate, startTime, endTime, country_id, state_id, city_id, "4")
+                    // apiService.addAvailability(AppController.sharedPreferencesCompat.getInt(AppConstants.DRIVER_ID, 0), String.valueOf(startDateCalendar.getTimeInMillis() / 1000L), String.valueOf(startTimeCalendar.getTimeInMillis() / 1000L), String.valueOf(endTimeCalendar.getTimeInMillis() / 1000L), country_id, state_id, city_id, "4")
+                    .enqueue(new Callback<AvailabilityResponse>() {
+                        @Override
+                        public void onResponse(Call<AvailabilityResponse> call, Response<AvailabilityResponse> response) {
+                            Log.d("ADD_AVAIL", response.body().getMessage());
+                            if (response.body().getStatus()) {
+                                (dialog.findViewById(R.id.progressbar)).setVisibility(View.GONE);
+                                (dialog.findViewById(R.id.imageView)).setVisibility(View.VISIBLE);
+                                ((TextView) dialog.findViewById(R.id.text)).setText(response.body().getMessage());
+                                animatemy(dialog.findViewById(R.id.imageView));
+                            } else {
+                                dialog.dismiss();
+                                Toast.makeText(AddAvailabilityActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<AvailabilityResponse> call, Throwable t) {
+                        @Override
+                        public void onFailure(Call<AvailabilityResponse> call, Throwable t) {
 
-            }
-        });
-
+                        }
+                    });
+        } else {
+            Toast.makeText(this, "Please select Time/Date correctly", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
@@ -226,6 +233,17 @@ public class AddAvailabilityActivity extends BaseActivity implements CountriesDi
             progressBarStates.setVisibility(View.VISIBLE);
             etCountry.setText(((Country) object).getCountryName());
             country_id = ((Country) object).getId();
+
+            state_id = "";
+            etStates.setText("");
+            etStates.setHint("SELECT STATE");
+            statesDialogFragment = null;
+
+            city_id = "";
+            etCity.setText("");
+            etCity.setHint("SELECT CITY");
+            cityDialogFragment = null;
+
             apiService.getStates(((Country) object).getId() + "", "").enqueue(new Callback<StateResponse>() {
                 @Override
                 public void onResponse(Call<StateResponse> call, Response<StateResponse> response) {
@@ -237,6 +255,8 @@ public class AddAvailabilityActivity extends BaseActivity implements CountriesDi
                         statesDialogFragment.setList((AbstractList) response.body().getData().getState(), AddAvailabilityActivity.this);
                     } else {
                         showSimpleDialog(AddAvailabilityActivity.this, response.body().getMessage());
+                        progressBarStates.setVisibility(View.GONE);
+                        etStates.setText("No State Available");
                     }
                 }
 
@@ -250,6 +270,12 @@ public class AddAvailabilityActivity extends BaseActivity implements CountriesDi
         if (object instanceof StateResponse.State) {
             etStates.setText(((StateResponse.State) object).getName());
             state_id = ((StateResponse.State) object).getId();
+
+            city_id = "";
+            etCity.setText("");
+            etCity.setHint("SELECT CITY");
+            cityDialogFragment = null;
+
             progressBarCity.setVisibility(View.VISIBLE);
             apiService.getCity("", ((StateResponse.State) object).getId() + "").enqueue(new Callback<CityResponse>() {
                 @Override
@@ -262,6 +288,10 @@ public class AddAvailabilityActivity extends BaseActivity implements CountriesDi
                         cityDialogFragment.setList((AbstractList) response.body().getData().getCity(), AddAvailabilityActivity.this);
                     } else {
                         showSimpleDialog(AddAvailabilityActivity.this, response.body().getMessage());
+                        etCity.setText("No City Available");
+                        city_id = "";
+                        cityDialogFragment = null;
+                        progressBarCity.setVisibility(View.GONE);
                     }
                 }
 
@@ -391,9 +421,10 @@ public class AddAvailabilityActivity extends BaseActivity implements CountriesDi
                 etDateAvailability.setText("");
                 Toast.makeText(getActivity(), "You can't set Event Date in past.", Toast.LENGTH_SHORT).show();
             } else {
-                startdate = calendarSelected;
+                startDateCalendar = calendarSelected;
                 month = month + 1;
                 etDateAvailability.setText(year + "/" + convertTo(month) + "/" + convertTo(day));
+                startDate = etDateAvailability.getText().toString();
             }
         }
 

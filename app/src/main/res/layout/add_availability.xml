@@ -205,7 +205,7 @@
                     android:drawableRight="@drawable/ic_down"
                     android:focusable="false"
                     android:hint="SELECT STATE"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName|textNoSuggestions|textFilter" />
 
             </FrameLayout>
 
@@ -238,7 +238,7 @@
                     android:drawableRight="@drawable/ic_down"
                     android:focusable="false"
                     android:hint="SELECT CITY"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName|textNoSuggestions|textFilter" />
 
 
             </FrameLayout>
@@ -251,13 +251,14 @@
 
     <EditText
 
+        android:focusable="false"
         android:id="@+id/editZone"
         style="@style/EditTextRoboto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableRight="@drawable/ic_down"
         android:hint="SELECT ZONE"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName|textNoSuggestions|textFilter" />
 
 
     <TextView

@@ -2,7 +2,6 @@ package com.think360.sosimpli.ui.activities;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.think360.sosimpli.R;
@@ -20,7 +19,7 @@ public class CompletedScheduleDetailActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.zone_specific_detail);
+        setContentView(R.layout.completed_schedule_detail);
 
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);

@@ -71,7 +71,7 @@ public class HomeActivity extends AppCompatActivity implements AvailabilityFragm
         super.onCreate(savedInstanceState);
         ((AppController) getApplication()).getComponent().inject(this);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_home1);
+        setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
 
         // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
