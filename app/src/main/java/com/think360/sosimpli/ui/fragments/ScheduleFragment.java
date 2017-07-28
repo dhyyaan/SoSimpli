@@ -11,6 +11,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,14 +24,24 @@ import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
 import com.mikepenz.fastadapter_extensions.drag.SimpleDragCallback;
 import com.mikepenz.fastadapter_extensions.items.ProgressItem;
 import com.mikepenz.fastadapter_extensions.scroll.EndlessRecyclerOnScrollListener;
+import com.think360.sosimpli.AppController;
 import com.think360.sosimpli.R;
+import com.think360.sosimpli.manager.ApiService;
+import com.think360.sosimpli.model.ApprovedNonResponse;
 import com.think360.sosimpli.model.adapter_items.ScheduleItem;
-import com.think360.sosimpli.model.adapter_items.SimpleItem;
+import com.think360.sosimpli.model.work.WorkHistory;
 import com.think360.sosimpli.ui.activities.AssignedScheduleDeatilActivity;
+import com.think360.sosimpli.utils.AppConstants;
 import com.think360.sosimpli.widgets.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,7 +63,8 @@ public class ScheduleFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-
+    @Inject
+    ApiService apiService;
     //save our FastAdapter
     private FastItemAdapter<ScheduleItem> fastItemAdapter;
     private FooterAdapter<ProgressItem> footerAdapter;
@@ -103,7 +115,7 @@ public class ScheduleFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
+        ((AppController) getActivity().getApplication()).getComponent().inject(ScheduleFragment.this);
         //create our FastAdapter which will manage everything
         fastItemAdapter = new FastItemAdapter<>();
         fastItemAdapter.withSelectable(true);
@@ -150,12 +162,35 @@ public class ScheduleFragment extends Fragment {
             }
         });
 
+        apiService.getAvailabilityApproveNonApprove(AppController.sharedPreferencesCompat.getInt(AppConstants.DRIVER_ID, 0), 1).enqueue(new Callback<ApprovedNonResponse>() {
+            @Override
+            public void onResponse(Call<ApprovedNonResponse> call, Response<ApprovedNonResponse> response) {
+                if (response.isSuccessful() && response.body().getStatus()) {
+                    if (response.body().getData().size() > 0) {
+                        //fill with some sample data (load the first page here)
+                        List<ScheduleItem> items = new ArrayList<>();
+                        for (int i = 1; i < response.body().getData().size(); i++) {
+                            items.add(new ScheduleItem().withItem(response.body().getData().get(i)));
+                        }
+                        fastItemAdapter.add(items);
+                    }
+
+                } else {
+                   // Log.d(ScheduleFragment.class.getSimpleName(), response.body().getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApprovedNonResponse> call, Throwable t) {
+
+            }
+        });
         //fill with some sample data (load the first page here)
-        List<ScheduleItem> items = new ArrayList<>();
+    /*    List<ScheduleItem> items = new ArrayList<>();
         for (int i = 1; i < 16; i++) {
             items.add(new ScheduleItem().withName("Item " + i + " Page " + 1));
         }
-        fastItemAdapter.add(items);
+        fastItemAdapter.add(items);*/
 
         //restore selections (this has to be done after the items were added
         fastItemAdapter.withSavedInstanceState(savedInstanceState);

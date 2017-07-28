@@ -106,7 +106,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, E
             editProfileBinding.tvName.setText(AppController.sharedPreferencesCompat.getString(AppConstants.DRIVER_NAME, ""));
         }
         if (AppController.sharedPreferencesCompat.getInt(AppConstants.DRIVER_ID, 0) != 0) {
-            apiService.getDriverHistory(AppController.sharedPreferencesCompat.getInt(AppConstants.DRIVER_ID, 0)).enqueue(new Callback<UserProfileResponse>() {
+            apiService.getDriverProfile(AppController.sharedPreferencesCompat.getInt(AppConstants.DRIVER_ID, 0)).enqueue(new Callback<UserProfileResponse>() {
                 @Override
                 public void onResponse(Call<UserProfileResponse> call, retrofit2.Response<UserProfileResponse> response) {
                     if (response.isSuccessful()) {

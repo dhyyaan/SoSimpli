@@ -12,7 +12,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -27,21 +26,30 @@ import com.think360.sosimpli.AppController;
 import com.think360.sosimpli.FragmentDrawer;
 import com.think360.sosimpli.R;
 import com.think360.sosimpli.adapter.PagerAdapter;
+import com.think360.sosimpli.manager.ApiService;
+import com.think360.sosimpli.model.logout.LogoutResponse;
 import com.think360.sosimpli.ui.fragments.AvailabilityFragment;
 import com.think360.sosimpli.ui.fragments.ProfileFragment;
 import com.think360.sosimpli.ui.fragments.ScheduleFragment;
 import com.think360.sosimpli.ui.fragments.SoSFragment;
+import com.think360.sosimpli.utils.AppConstants;
 import com.think360.sosimpli.widgets.NonSwipeableViewPager;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class HomeActivity extends AppCompatActivity implements ScheduleFragment.OnFragmentInteractionListener, ProfileFragment.OnFragmentInteractionListener, SoSFragment.OnFragmentInteractionListener, FragmentDrawer.FragmentDrawerListener {
+public class HomeActivity extends AppCompatActivity implements AvailabilityFragment.OnFragmentInteractionListener, ScheduleFragment.OnFragmentInteractionListener, ProfileFragment.OnFragmentInteractionListener, SoSFragment.OnFragmentInteractionListener, FragmentDrawer.FragmentDrawerListener {
 
-
+    @Inject
+    ApiService apiService;
 /*    @BindView(R.id.drawerLayout)
     DrawerLayout drawerLayout;*/
 
@@ -216,7 +224,9 @@ public class HomeActivity extends AppCompatActivity implements ScheduleFragment.
 
     @Override
     public void onFragmentInteraction(Uri uri) {
-
+        if (uri.equals(Uri.parse("http://www.google.com"))) {
+            bottomBar.selectTabWithId(R.id.tab_nearby);
+        }
     }
 
     @Override
@@ -258,14 +268,29 @@ public class HomeActivity extends AppCompatActivity implements ScheduleFragment.
                 break;
             case 3:
 
-                new Handler().postDelayed(new Runnable() {
+                apiService.logoutDriver(AppController.sharedPreferencesCompat.getInt(AppConstants.DRIVER_ID, 0)).enqueue(new Callback<LogoutResponse>() {
                     @Override
-                    public void run() {
-                        startActivity(new Intent(HomeActivity.this, LoginActivity.class));
-                        overridePendingTransition(R.anim.zoom_exit, 0);
-                        finish();
+                    public void onResponse(Call<LogoutResponse> call, Response<LogoutResponse> response) {
+                        if (response.isSuccessful() && response.body().getStatus()) {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                                    overridePendingTransition(R.anim.zoom_exit, 0);
+                                    finish();
+                                }
+                            }, 200);
+                        } else {
+
+                        }
                     }
-                }, 200);
+
+                    @Override
+                    public void onFailure(Call<LogoutResponse> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
+
 
                 break;
         }

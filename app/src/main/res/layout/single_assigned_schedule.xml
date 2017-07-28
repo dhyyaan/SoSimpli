@@ -17,6 +17,7 @@
 
 
         <TextView
+            android:id="@+id/tvDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -26,6 +27,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/tvMonth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -35,6 +37,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/tvTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -56,14 +59,16 @@
         android:padding="12dp">
 
         <TextView
+            android:id="@+id/tvZone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:text="East Zone | Torronoto"
-android:textColor="@color/black"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
         <TextView
+            android:id="@+id/tvUniqueNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"

@@ -1,7 +1,6 @@
 package com.think360.sosimpli.model.adapter_items;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +14,7 @@ import com.mikepenz.fastadapter.items.AbstractItem;
 import com.mikepenz.materialize.holder.StringHolder;
 import com.mikepenz.materialize.util.UIUtils;
 import com.think360.sosimpli.R;
+import com.think360.sosimpli.model.ApprovedNonResponse;
 
 import java.util.List;
 
@@ -30,12 +30,15 @@ public class ScheduleItem extends AbstractItem<ScheduleItem, ScheduleItem.ViewHo
     public StringHolder name;
     public StringHolder description;
 
+
+    private String day, month, fromTime, endTime, zone, cityName;
     private boolean mIsDraggable = true;
 
     public ScheduleItem withHeader(String header) {
         this.header = header;
         return this;
     }
+
 
     public ScheduleItem withName(String Name) {
         this.name = new StringHolder(Name);
@@ -107,6 +110,11 @@ public class ScheduleItem extends AbstractItem<ScheduleItem, ScheduleItem.ViewHo
         StringHolder.applyTo(name, viewHolder.name);
         //set the text for the description or hide
         StringHolder.applyToOrHide(description, viewHolder.description);
+        viewHolder.tvDate.setText(day);
+        viewHolder.tvMonth.setText(month);
+        viewHolder.tvTime.setText(fromTime + " | " + endTime);
+        viewHolder.tvZone.setText(zone + " | " + cityName);
+        // viewHolder.tvUniqueNumber.setText(day);
     }
 
     @Override
@@ -121,10 +129,34 @@ public class ScheduleItem extends AbstractItem<ScheduleItem, ScheduleItem.ViewHo
         return new ViewHolder(v);
     }
 
+    public ScheduleItem withItem(ApprovedNonResponse.Datum datum) {
+        this.day = datum.getDay();
+        this.month = datum.getMonth();
+        this.fromTime = datum.getFromTime();
+        this.endTime = datum.getToTime();
+        this.zone = datum.getZone();
+        this.cityName = datum.getCityname();
+        return this;
+
+    }
+
+
     /**
      * our ViewHolder
      */
     protected static class ViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.tvDate)
+        protected TextView tvDate;
+        @BindView(R.id.tvMonth)
+        protected TextView tvMonth;
+        @BindView(R.id.tvTime)
+        protected TextView tvTime;
+        @BindView(R.id.tvZone)
+        protected TextView tvZone;
+
+        @BindView(R.id.tvUniqueNumber)
+        protected TextView tvUniqueNumber;
         protected View view;
         @BindView(R.id.material_drawer_name)
         TextView name;

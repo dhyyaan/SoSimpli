@@ -1,16 +1,17 @@
 package com.think360.sosimpli.manager;
 
 
+import com.think360.sosimpli.model.ApprovedNonResponse;
 import com.think360.sosimpli.model.WorkerEditProfileModel;
 import com.think360.sosimpli.model.availability.AvailabilityResponse;
 import com.think360.sosimpli.model.city.CityResponse;
 import com.think360.sosimpli.model.country.CountryResponse;
+import com.think360.sosimpli.model.getavailibility.GetAvaliabilityResponse;
+import com.think360.sosimpli.model.logout.LogoutResponse;
 import com.think360.sosimpli.model.states.StateResponse;
 import com.think360.sosimpli.model.user.User;
 import com.think360.sosimpli.model.user.UserProfileResponse;
 import com.think360.sosimpli.model.work.WorkHistory;
-
-import java.util.Date;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -52,14 +53,19 @@ public interface ApiService {
     @POST("addavailability/")
     Call<AvailabilityResponse> addAvailability(@Field("driver_id") int driver_id, @Field("start_date") String start_date, @Field("from_time") String from_time, @Field("to_time") String to_time, @Field("country_id") String country_id, @Field("state_id") String state_id, @Field("city_id") String city_id, @Field("zones") String zones);
 
+
     @FormUrlEncoded
-    @POST("workerprofile")
-    Call<WorkHistory> getWorkHistoryWithCall(@Field("id") int id);
+    @POST("getavalibility")
+    Call<GetAvaliabilityResponse> getAvailability(@Field("driver_id") int driver_id);
+
+    @FormUrlEncoded
+    @POST("availability_ApproveNonapprove")
+    Call<ApprovedNonResponse> getAvailabilityApproveNonApprove(@Field("driver_id") int id, @Field("status") int status);
 
 
     @FormUrlEncoded
-    @POST("workerlogout")
-    Call<WorkerEditProfileModel> logoutWorker(@Field("id") int id);
+    @POST("userlogout")
+    Call<LogoutResponse> logoutDriver(@Field("id") int id);
 
     // for RXJava
     @FormUrlEncoded
@@ -68,8 +74,8 @@ public interface ApiService {
 
 
     @FormUrlEncoded
-    @POST("driver_history/")
-    Call<UserProfileResponse> getDriverHistory(@Field("id") int id);
+    @POST("driver_history")
+    Call<UserProfileResponse> getDriverProfile(@Field("id") int id);
 
 
     @Multipart

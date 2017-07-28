@@ -27,115 +27,205 @@
             android:orientation="vertical">
 
             <TextView
-
                 style="@style/TextViewHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="SELECT DATE" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SELECT DATE" />
 
 
-    <EditText
-        android:id="@+id/etDateAvailability"
-        style="@style/EditTextRoboto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableRight="@drawable/ic_down"
-        android:hint="mm/dd/yyyy"
-        android:inputType="textPersonName" />
-
-    <TextView
-        style="@style/TextViewHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="SELECT TIME" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            <EditText
+                android:id="@+id/etDateAvailability"
+                style="@style/EditTextRoboto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_down"
+                android:editable="false"
+                android:focusable="false"
+                android:hint="mm/dd/yyyy"
+                android:inputType="datetime" />
 
             <TextView
                 style="@style/TextViewHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="START TIME" />
+                android:text="SELECT TIME" />
 
-            <EditText
-
-                style="@style/EditTextRoboto"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableRight="@drawable/ic_down"
-                android:hint="Select Time"
-                android:inputType="textPersonName" />
+                android:layout_height="wrap_content">
 
 
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/textView2"
+                        style="@style/TextViewHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="START TIME" />
+
+                    <EditText
+                        android:id="@+id/etStartTime"
+                        style="@style/EditTextRoboto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/ic_down"
+                        android:editable="false"
+                        android:focusable="false"
+                        android:hint="Select Time"
+                        android:inputType="datetime" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        style="@style/TextViewHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="END TIME" />
+
+                    <EditText
+                        android:id="@+id/etEndTime"
+                        style="@style/EditTextRoboto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/ic_down"
+                        android:editable="false"
+                        android:focusable="false"
+                        android:hint="Select Time"
+                        android:inputType="datetime" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
 
 
             <TextView
                 style="@style/TextViewHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="END TIME" />
+                android:text="COUNTRY" />
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ProgressBar
+                    android:id="@+id/progressBarCountry"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_marginRight="30dp" />
+
+                <EditText
+                    android:id="@+id/etCountry"
+                    style="@style/EditTextRoboto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:drawableRight="@drawable/ic_down"
+                    android:focusable="false"
+                    android:hint="SELECT COUNTRY"
+                    android:inputType="text" />
+
+            </FrameLayout>
+
+
+            <TextView
+                android:id="@+id/textView3"
+                style="@style/TextViewHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="STATE" />
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ProgressBar
+                    android:id="@+id/progressBarStates"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_marginRight="30dp"
+                    android:visibility="gone" />
+
+                <EditText
+                    android:id="@+id/etStates"
+                    style="@style/EditTextRoboto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_down"
+                    android:focusable="false"
+                    android:hint="SELECT STATE"
+                    android:inputType="textPersonName" />
+
+            </FrameLayout>
+
+
+            <TextView
+                style="@style/TextViewHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CITY" />
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ProgressBar
+                    android:id="@+id/progressBarCity"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_marginRight="30dp"
+                    android:visibility="gone" />
+
+                <EditText
+
+                    android:id="@+id/etCity"
+                    style="@style/EditTextRoboto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_down"
+                    android:focusable="false"
+                    android:hint="SELECT CITY"
+                    android:inputType="textPersonName" />
+
+
+            </FrameLayout>
+
+            <TextView
+                style="@style/TextViewHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SELECT ZONE/AREA" />
+
 
             <EditText
 
+                android:id="@+id/editZone"
                 style="@style/EditTextRoboto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableRight="@drawable/ic_down"
-                android:hint="Select Time"
+                android:hint="SELECT ZONE"
                 android:inputType="textPersonName" />
-
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <TextView
-        style="@style/TextViewHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="SELECT CITY" />
-
-
-    <EditText
-        style="@style/EditTextRoboto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableRight="@drawable/ic_down"
-        android:hint="SELECT CITY"
-        android:inputType="textPersonName" />
-
-
-    <TextView
-        style="@style/TextViewHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="SELECT ZONE/AREA" />
-
-
-    <EditText
-
-        style="@style/EditTextRoboto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableRight="@drawable/ic_down"
-        android:hint="SELECT ZONE"
-        android:inputType="textPersonName" />
 
 
     <TextView

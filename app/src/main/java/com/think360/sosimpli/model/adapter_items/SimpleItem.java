@@ -1,18 +1,17 @@
 package com.think360.sosimpli.model.adapter_items;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mikepenz.fastadapter.IDraggable;
 import com.mikepenz.fastadapter.IItem;
 import com.mikepenz.fastadapter.commons.utils.FastAdapterUIUtils;
 import com.mikepenz.fastadapter.items.AbstractItem;
-
 import com.mikepenz.materialize.holder.StringHolder;
 import com.mikepenz.materialize.util.UIUtils;
 import com.think360.sosimpli.R;
@@ -30,6 +29,9 @@ public class SimpleItem extends AbstractItem<SimpleItem, SimpleItem.ViewHolder> 
     public String header;
     public StringHolder name;
     public StringHolder description;
+    public String time;
+    public String zone;
+    public boolean availabilityStatus;
 
     private boolean mIsDraggable = true;
 
@@ -40,6 +42,28 @@ public class SimpleItem extends AbstractItem<SimpleItem, SimpleItem.ViewHolder> 
 
     public SimpleItem withName(String Name) {
         this.name = new StringHolder(Name);
+        return this;
+    }
+
+    public SimpleItem withTime(String time) {
+        this.time = time;
+        return this;
+    }
+
+    public SimpleItem withAvalibalityStatus(String status) {
+        try {
+            this.availabilityStatus = Integer.parseInt(status) != 0;
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            this.availabilityStatus = false;
+        }
+
+        return this;
+    }
+
+
+    public SimpleItem withZone(String zone) {
+        this.zone = time;
         return this;
     }
 
@@ -87,7 +111,7 @@ public class SimpleItem extends AbstractItem<SimpleItem, SimpleItem.ViewHolder> 
     @Override
     public int getLayoutRes() {
 
-        return R.layout.sample_item;
+        return R.layout.single_item_availabality_list;
     }
 
     /**
@@ -105,16 +129,23 @@ public class SimpleItem extends AbstractItem<SimpleItem, SimpleItem.ViewHolder> 
         //set the background for the item
         UIUtils.setBackground(viewHolder.view, FastAdapterUIUtils.getSelectableBackground(ctx, ContextCompat.getColor(viewHolder.itemView.getContext(),R.color.colorAppLightGray), true));
         //set the text for the name
-        StringHolder.applyTo(name, viewHolder.name);
+        // StringHolder.applyTo(name, viewHolder.name);
+        viewHolder.tvTime.setText(time);
+        if (availabilityStatus) {
+            viewHolder.ivAvalibalityStatus.setVisibility(View.VISIBLE);
+            viewHolder.ivAvalibalityStatus.setImageDrawable(ContextCompat.getDrawable(viewHolder.itemView.getContext(), R.drawable.assignd_state));
+        } else {
+            viewHolder.ivAvalibalityStatus.setVisibility(View.INVISIBLE);
+        }
         //set the text for the description or hide
-        StringHolder.applyToOrHide(description, viewHolder.description);
+        // StringHolder.applyToOrHide(description, viewHolder.description);
     }
 
     @Override
     public void unbindView(ViewHolder holder) {
         super.unbindView(holder);
-        holder.name.setText(null);
-        holder.description.setText(null);
+        ///  holder.name.setText(null);
+        //  holder.description.setText(null);
     }
 
     @Override
@@ -127,10 +158,18 @@ public class SimpleItem extends AbstractItem<SimpleItem, SimpleItem.ViewHolder> 
      */
     protected static class ViewHolder extends RecyclerView.ViewHolder {
         protected View view;
-        @BindView(R.id.material_drawer_name)
+      /*  @BindView(R.id.material_drawer_name)
         TextView name;
         @BindView(R.id.material_drawer_description)
-        TextView description;
+        TextView description;*/
+
+        @BindView(R.id.tvTime)
+        TextView tvTime;
+        @BindView(R.id.tvZone)
+        TextView tvZone;
+
+        @BindView(R.id.ivAvalibalityStatus)
+        ImageView ivAvalibalityStatus;
 
         public ViewHolder(View view) {
             super(view);
