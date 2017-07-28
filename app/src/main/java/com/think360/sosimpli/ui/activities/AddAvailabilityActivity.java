@@ -366,7 +366,7 @@ public class AddAvailabilityActivity extends BaseActivity implements CountriesDi
                 startTimeCalendar = Calendar.getInstance();
                 startTimeCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                 startTimeCalendar.set(Calendar.MINUTE, minute);
-
+                startTime = convertTo(hour_of_12_hour_format) + ":" + convertTo(minute) + " " + status;
                 et.setText(convertTo(hour_of_12_hour_format) + ":" + convertTo(minute) + " " + status);
             }
             if (et.getId() == R.id.etEndTime) {
@@ -379,6 +379,7 @@ public class AddAvailabilityActivity extends BaseActivity implements CountriesDi
                     Toast.makeText(getActivity(), "End Time should be after start time", Toast.LENGTH_SHORT).show();
                 } else {
                     et.setText(convertTo(hour_of_12_hour_format) + ":" + convertTo(minute) + " " + status);
+                    endTime=convertTo(hour_of_12_hour_format) + ":" + convertTo(minute) + " " + status;
                 }
             }
         }
