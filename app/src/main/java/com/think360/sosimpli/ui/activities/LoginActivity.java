@@ -7,9 +7,12 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.hbb20.CountryCodeDialog;
+import com.hbb20.CountryCodePicker;
 import com.think360.sosimpli.AppController;
 import com.think360.sosimpli.R;
 import com.think360.sosimpli.databinding.ActivityMainBinding;
@@ -52,7 +55,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
 
     @Override
     public void loginFailed(Throwable t) {
-        Snackbar.make(activityMainBinding.loginMainLayout, t.getStackTrace() + "", Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(activityMainBinding.loginMainLayout, t.getMessage() + "", Snackbar.LENGTH_SHORT).show();
 
         Timber.d("FAILED", t.getStackTrace());
     }
@@ -62,25 +65,44 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
+    private boolean isValidMobile(String phone) {
+        return android.util.Patterns.PHONE.matcher(phone).matches();
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnSignIn:
-               // callMainActivity() ;
-                if (TextUtils.isEmpty(activityMainBinding.etEmail.getText().toString().trim()) || TextUtils.isEmpty(activityMainBinding.etPassword.getText().toString().trim()) | !KeyboardUtil.isValidEmail(activityMainBinding.etEmail.getText().toString().trim())) {
+
+                if (TextUtils.isEmpty(activityMainBinding.etEmail.getText().toString().trim()) || TextUtils.isEmpty(activityMainBinding.etPassword.getText().toString().trim())) {
                     if (!TextUtils.isEmpty(activityMainBinding.etEmail.getText().toString().trim())) {
                         Toast.makeText(LoginActivity.this, "Email can't be empty", Toast.LENGTH_SHORT).show();
 
-                    } else if (!KeyboardUtil.isValidEmail(activityMainBinding.etEmail.getText().toString().trim())) {
-                        Snackbar.make(activityMainBinding.loginMainLayout,"Email should be valid",Snackbar.LENGTH_SHORT).show();
-                      //  Toast.makeText(LoginActivity.this, "Email should be valid", Toast.LENGTH_SHORT).show();
                     } else {
                         Snackbar.make(activityMainBinding.loginMainLayout,"Password can't be empty",Snackbar.LENGTH_SHORT).show();
 
-                       // Toast.makeText(LoginActivity.this, "Password can't be empty", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    new LoginPresenter(this, apiService, activityMainBinding.etEmail.getText().toString().trim(), activityMainBinding.etPassword.getText().toString().trim());
+
+                    if (isValidMobile(activityMainBinding.etEmail.getText().toString().trim())) {
+                        Log.d("ISVALID", "true");
+
+                        CountryCodeDialog.openCountryCodeDialog(activityMainBinding.ccp);
+                        activityMainBinding.ccp.setOnCountryChangeListener(new CountryCodePicker.OnCountryChangeListener() {
+                            @Override
+                            public void onCountrySelected() {
+                                new LoginPresenter(LoginActivity.this, apiService, activityMainBinding.ccp.getSelectedCountryCodeWithPlus() + activityMainBinding.etEmail.getText().toString().trim(), activityMainBinding.etPassword.getText().toString().trim());
+                                Log.d("COUNTRY", activityMainBinding.ccp.getSelectedCountryCodeWithPlus());
+                            }
+                        });
+
+                    } else if (KeyboardUtil.isValidEmail(activityMainBinding.etEmail.getText().toString().trim())) {
+                        new LoginPresenter(LoginActivity.this, apiService, activityMainBinding.etEmail.getText().toString().trim(), activityMainBinding.etPassword.getText().toString().trim());
+
+                    } else {
+                        Snackbar.make(activityMainBinding.loginMainLayout, "Please fill valid email or mobile number", Snackbar.LENGTH_SHORT).show();
+                    }
+
                 }
                 break;
         }

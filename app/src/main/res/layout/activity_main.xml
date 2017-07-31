@@ -37,6 +37,15 @@
                     android:text="@string/email_mobile_no" />
 
 
+                <com.hbb20.CountryCodePicker
+
+                    android:clickable="true"
+                    app:ccp_clickable="true"
+                    android:id="@+id/ccp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
                 <EditText
                     android:text="swamy.think360@gmail.com"
                     android:id="@+id/etEmail"

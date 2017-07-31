@@ -1,5 +1,6 @@
 package com.think360.sosimpli.ui.activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -8,6 +9,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.IdRes;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -62,6 +65,9 @@ public class HomeActivity extends AppCompatActivity implements AvailabilityFragm
 
     @BindView(R.id.bottomBar)
     protected BottomBar bottomBar;
+
+    @BindView(R.id.cl)
+    protected CoordinatorLayout cl;
 
     private TextView title;
     private FragmentDrawer drawerFragment;
@@ -275,18 +281,22 @@ public class HomeActivity extends AppCompatActivity implements AvailabilityFragm
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
+                                    AppController.getSharedPrefEditor().putBoolean(AppConstants.IS_LOGIN, false).apply();
+                                    AppController.getSharedPrefEditor().putBoolean(AppConstants.IS_REMEMBER_TAPPED, false).apply();
                                     startActivity(new Intent(HomeActivity.this, LoginActivity.class));
                                     overridePendingTransition(R.anim.zoom_exit, 0);
                                     finish();
                                 }
                             }, 200);
                         } else {
-
+                            Snackbar.make(cl,response.body().getMessage(),Snackbar.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<LogoutResponse> call, Throwable t) {
+                        Snackbar.make(cl,t.getMessage(),Snackbar.LENGTH_SHORT).show();
+
                         t.printStackTrace();
                     }
                 });
