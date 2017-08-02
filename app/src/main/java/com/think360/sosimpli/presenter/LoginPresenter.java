@@ -5,7 +5,7 @@ package com.think360.sosimpli.presenter;
 import com.think360.sosimpli.AppController;
 import com.think360.sosimpli.manager.ApiService;
 import com.think360.sosimpli.model.user.User;
-import com.think360.sosimpli.ui.activities.LoginActivity;
+import com.think360.sosimpli.ui.activities.login.LoginActivity;
 import com.think360.sosimpli.utils.AppConstants;
 
 import retrofit2.Call;

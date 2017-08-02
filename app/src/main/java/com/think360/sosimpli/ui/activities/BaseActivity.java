@@ -59,7 +59,7 @@ public class BaseActivity extends AppCompatActivity {
         pDialog = new ProgressDialog(context);
         pDialog.setMessage("Loading...");
         pDialog.setCancelable(false);
-        pDialog.setCanceledOnTouchOutside(true);
+        pDialog.setCanceledOnTouchOutside(false);
 
 
     }

@@ -2,6 +2,9 @@ package com.think360.sosimpli.manager;
 
 
 import com.think360.sosimpli.model.ApprovedNonResponse;
+import com.think360.sosimpli.model.ForgetPasswordResponse;
+import com.think360.sosimpli.model.ResendOtpResponse;
+import com.think360.sosimpli.model.VerifyOtpResponse;
 import com.think360.sosimpli.model.WorkerEditProfileModel;
 import com.think360.sosimpli.model.availability.AvailabilityResponse;
 import com.think360.sosimpli.model.city.CityResponse;
@@ -34,6 +37,19 @@ public interface ApiService {
     @POST("login")
     Call<User> loginUser(@Field("email") String name,
                          @Field("password") String password);
+
+
+    @FormUrlEncoded
+    @POST("forget_password")
+    Call<ForgetPasswordResponse> forgetPassword(@Field("mobile") String name);
+
+    @FormUrlEncoded
+    @POST("verify_otp")
+    Call<VerifyOtpResponse> verifyOtp(@Field("id") String driver_id, @Field("otp") String name);
+
+    @FormUrlEncoded
+    @POST("resend_otp")
+    Call<ResendOtpResponse> resendOtp(@Field("id") String driver_id);
 
 
     @POST("getcountry")
@@ -79,10 +95,12 @@ public interface ApiService {
 
 
     @Multipart
-    @POST("driveredit/")
+    @POST("driveredit")
     Call<WorkerEditProfileModel> editDriverProfile(@Part("id") RequestBody userid,
                                                    @Part("driver_name") RequestBody name,
+                                                   @Part("password") RequestBody password,
                                                    @Part MultipartBody.Part file);
+
 
 
 }

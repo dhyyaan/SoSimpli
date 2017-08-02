@@ -1,9 +1,11 @@
 package com.think360.sosimpli.ui.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -18,18 +20,27 @@ import com.think360.sosimpli.AppController;
 import com.think360.sosimpli.R;
 import com.think360.sosimpli.databinding.EditProfileBinding;
 import com.think360.sosimpli.manager.ApiService;
+import com.think360.sosimpli.model.WorkerEditProfileModel;
 import com.think360.sosimpli.model.user.UserProfileResponse;
 import com.think360.sosimpli.presenter.EditProfilePresenter;
 import com.think360.sosimpli.utils.AppConstants;
+import com.think360.sosimpli.utils.FileUtils;
 import com.vansuita.pickimage.bean.PickResult;
 import com.vansuita.pickimage.bundle.PickSetup;
 import com.vansuita.pickimage.dialog.PickImageDialog;
 import com.vansuita.pickimage.listeners.IPickResult;
 
+import java.io.File;
+
 import javax.inject.Inject;
 
+import id.zelory.compressor.Compressor;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,13 +50,13 @@ import retrofit2.Callback;
  * Use the {@link ProfileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProfileFragment extends Fragment implements View.OnClickListener, EditProfilePresenter.View {
+public class ProfileFragment extends RootFragment implements View.OnClickListener, EditProfilePresenter.View {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-
+    protected ProgressDialog pDialog;
     @Inject
     ApiService apiService;
     // TODO: Rename and change types of parameters
@@ -209,15 +220,74 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, E
                 break;
             case R.id.btnSave:
 
-                if (TextUtils.isEmpty(editProfileBinding.editName.getText().toString().trim())) {
+                if (TextUtils.isEmpty(editProfileBinding.editName.getText())) {
+
+                    showMessageInSnackBar("Your name can't be empty");
+
+                } else {
+
+                    if (!TextUtils.isEmpty(editProfileBinding.editPassword.getText()) || !TextUtils.isEmpty(editProfileBinding.EditReEnterPassword.getText())) {
+                        if (!editProfileBinding.editPassword.getText().toString().trim().equals(editProfileBinding.EditReEnterPassword.getText().toString().trim())) {
+                            showMessageInSnackBar("Your password doesn't match");
+                        } else {
+                            showProgressBarWithMessage("Saving your profile");
+                            savingProfile(editProfileBinding.editName.getText().toString().trim(), editProfileBinding.editPassword.getText().toString(), imagePath);
+                        }
+
+                    } else {
+                        savingProfile(editProfileBinding.editName.getText().toString().trim(), null, imagePath);
+
+                    }
+
+                }
+
+
+
+              /*  if (TextUtils.isEmpty(editProfileBinding.editName.getText().toString().trim())) {
                     Toast.makeText(getActivity(), "Name Can't be left empty", Toast.LENGTH_SHORT).show();
                 } else {
                     new EditProfilePresenter(apiService, ProfileFragment.this, editProfileBinding.editName.getText().toString().trim(), imagePath, getActivity());
-                }
+                }*/
 
 
                 break;
         }
+    }
+
+    void savingProfile(String name, String password2, Uri imagePath) {
+
+        pDialog = new ProgressDialog(getActivity());
+        pDialog.setMessage("Saving your profile");
+        pDialog.setCancelable(false);
+        pDialog.setCanceledOnTouchOutside(false);
+
+        RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), AppController.sharedPreferencesCompat.getInt(AppConstants.DRIVER_ID, 0)+"");
+        RequestBody etName = RequestBody.create(MediaType.parse("text/plain"), name);
+
+        Call<WorkerEditProfileModel> call = apiService.editDriverProfile(userId, etName, password2 == null ? null : RequestBody.create(MediaType.parse("text/plain"), password2), imagePath == null ? null : prepareFilePart("image", imagePath));
+
+        call.enqueue(new Callback<WorkerEditProfileModel>() {
+            @Override
+            public void onResponse(Call<WorkerEditProfileModel> call, Response<WorkerEditProfileModel> response) {
+                if (response.isSuccessful()) {
+                    pDialog.hide();
+
+                    if (response.body().getStatus()) {
+                        showMessageInSnackBar(response.body().getMessage());
+                        RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), AppController.sharedPreferencesCompat.getString(AppConstants.IMAGE_URL, ""));
+                    }
+                }else{
+                    pDialog.hide();
+                    showMessageInSnackBar(response.body().getMessage());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<WorkerEditProfileModel> call, Throwable t) {
+                showMessageInSnackBar(t.getMessage());
+            }
+        });
     }
 
     @Override
@@ -243,5 +313,30 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, E
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @NonNull
+    private MultipartBody.Part prepareFilePart(String partName, Uri fileUri) {
+        // https://github.com/iPaulPro/aFileChooser/blob/master/aFileChooser/src/com/ipaulpro/afilechooser/utils/FileUtils.java
+        // use the FileUtils to get the actual file by uri
+        File file = FileUtils.getFile(getActivity(), fileUri);
+
+        File compressedImageFile = Compressor.getDefault(getActivity()).compressToFile(file);
+
+        // create RequestBody instance from file
+        RequestBody requestFile =
+                RequestBody.create(
+                        MediaType.parse("multipart/form-data"),
+                        compressedImageFile
+                );
+
+        // MultipartBody.Part is used to send also the actual file name
+        return MultipartBody.Part.createFormData(partName, compressedImageFile.getName(), requestFile);
+    }
+
+    @NonNull
+    private RequestBody createPartFromString(String descriptionString) {
+        return RequestBody.create(
+                okhttp3.MultipartBody.FORM, descriptionString);
     }
 }

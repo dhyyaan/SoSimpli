@@ -4,6 +4,7 @@
     package="com.think360.sosimpli">
 
     <uses-permission-sdk-23 android:name="android.permission.INTERNET" />
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-permission-sdk-23 android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -11,7 +12,6 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
 
     <application
         android:name=".AppController"
@@ -33,7 +33,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activities.LoginActivity"
+            android:name=".ui.activities.login.LoginActivity"
+            android:launchMode="singleTask"
             android:label="@string/app_name"
             android:theme="@style/AppTheme" />
         <activity
@@ -47,8 +48,7 @@
             android:name=".ui.activities.ChangeScheduleActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".ui.activities.CompletedSchedulesActivity" />
-        <activity android:name=".ui.activities.CompletedScheduleDetailActivity"/>
-
+        <activity android:name=".ui.activities.CompletedScheduleDetailActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -61,6 +61,15 @@
                 android:resource="@xml/picker_provider_paths" />
         </provider>
 
+        <activity
+            android:name=".ui.activities.login.ForgetPasswordActivity"
+            android:label="Forget Password" />
+        <activity
+            android:name=".ui.activities.login.VerifyOtpActivity"
+            android:label="Confirm OTP" />
+        <activity
+            android:name=".ui.activities.login.ConfirmPasswordActivity"
+            android:label="Confirm Password" />
     </application>
 
 </manifest>

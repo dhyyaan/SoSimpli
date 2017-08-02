@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.think360.sosimpli.AppController;
 import com.think360.sosimpli.R;
+import com.think360.sosimpli.ui.activities.login.LoginActivity;
 import com.think360.sosimpli.utils.AppConstants;
 
 /**

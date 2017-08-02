@@ -1,6 +1,5 @@
 package com.think360.sosimpli.ui.activities;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -31,6 +30,7 @@ import com.think360.sosimpli.R;
 import com.think360.sosimpli.adapter.PagerAdapter;
 import com.think360.sosimpli.manager.ApiService;
 import com.think360.sosimpli.model.logout.LogoutResponse;
+import com.think360.sosimpli.ui.activities.login.LoginActivity;
 import com.think360.sosimpli.ui.fragments.AvailabilityFragment;
 import com.think360.sosimpli.ui.fragments.ProfileFragment;
 import com.think360.sosimpli.ui.fragments.ScheduleFragment;

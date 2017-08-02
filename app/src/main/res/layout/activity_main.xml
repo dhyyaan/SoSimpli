@@ -47,7 +47,7 @@
                     android:visibility="gone" />
 
                 <EditText
-                    android:text="swamy.think360@gmail.com"
+                    android:text="@string/swamy_think360_gmail_com"
                     android:id="@+id/etEmail"
                     style="@style/EditTextRoboto"
                     android:layout_width="match_parent"

@@ -106,6 +106,53 @@
                         android:inputType="textPersonName" />
 
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/toolbar"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            style="@style/TextViewHeader"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Password" />
+
+
+                        <EditText
+
+                            android:id="@+id/editPassword"
+                            style="@style/EditTextRoboto"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="password"
+                            android:imeOptions="actionDone"
+                            android:inputType="textEmailAddress"
+                            android:nextFocusForward="@+id/etPassword" />
+
+
+                        <TextView
+                            style="@style/TextViewHeader"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Confrim Password" />
+
+
+                        <EditText
+                            android:id="@+id/EditReEnterPassword"
+                            style="@style/EditTextRoboto"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:hint="Confrim Password"
+                            android:imeOptions="actionNext"
+                            android:inputType="textEmailAddress"
+                            android:nextFocusForward="@+id/etPassword" />
+
+
+                    </LinearLayout>
+
                     <!-- Signup Button -->
                     <!-- Signup Button -->
                     <TextView

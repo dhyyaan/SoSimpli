@@ -35,22 +35,22 @@ public class EditProfilePresenter extends BasePresenter {
     }
 
 
-    public EditProfilePresenter(ApiService api, View view, String name, Uri imageUri, Context context) {
+    public EditProfilePresenter(ApiService api, View view, String name, String password, Uri imageUri, Context context) {
         super(context);
         this.api = api;
         this.view = view;
-        saveProfile(name, imageUri, context);
+        saveProfile(name, password, imageUri, context);
 
     }
 
-    private void saveProfile(String name, Uri imageuri, Context context) {
+    private void saveProfile(String name, String password, Uri imageuri, Context context) {
 
         pDialog.show();
         RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), AppController.sharedPreferencesCompat.getInt(AppConstants.DRIVER_ID, 0) + "");
         RequestBody etName = RequestBody.create(MediaType.parse("text/plain"), name);
+        RequestBody etPassword = RequestBody.create(MediaType.parse("text/plain"), password);
 
-
-        api.editDriverProfile(userId, etName, imageuri == null ? null : prepareFilePart("driver_pic", imageuri, context)).enqueue(new Callback<WorkerEditProfileModel>() {
+        api.editDriverProfile(userId, etName, etPassword, imageuri == null ? null : prepareFilePart("driver_pic", imageuri, context)).enqueue(new Callback<WorkerEditProfileModel>() {
             @Override
             public void onResponse(Call<WorkerEditProfileModel> call, Response<WorkerEditProfileModel> response) {
                 if (response.isSuccessful()) {

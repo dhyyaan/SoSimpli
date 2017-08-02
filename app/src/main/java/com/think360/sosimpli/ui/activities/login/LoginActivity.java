@@ -1,4 +1,4 @@
-package com.think360.sosimpli.ui.activities;
+package com.think360.sosimpli.ui.activities.login;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +18,7 @@ import com.think360.sosimpli.R;
 import com.think360.sosimpli.databinding.ActivityMainBinding;
 import com.think360.sosimpli.manager.ApiService;
 import com.think360.sosimpli.presenter.LoginPresenter;
+import com.think360.sosimpli.ui.activities.HomeActivity;
 import com.think360.sosimpli.utils.AppConstants;
 import com.think360.sosimpli.utils.KeyboardUtil;
 
@@ -33,9 +34,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     @Inject
     ApiService apiService;
 
-
     private ActivityMainBinding activityMainBinding;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +42,12 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
         ((AppController) getApplication()).getComponent().inject(this);
         activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         activityMainBinding.btnSignIn.setOnClickListener(this);
+        activityMainBinding.tvForgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, ForgetPasswordActivity.class));
+            }
+        });
     }
 
     @Override
@@ -68,6 +73,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     private boolean isValidMobile(String phone) {
         return android.util.Patterns.PHONE.matcher(phone).matches();
     }
+
 
     @Override
     public void onClick(View v) {

@@ -24,4 +24,5 @@ public class AppConstants {
     public static final String TIME_ELAPSED_WHEN_PAUSED_BY_WORKDER = "TIME_ELAPSED_WHEN_PAUSED_BY_WORKDER";
 
 
+    public static final String IMAGE_URL = "IMAGE_URL";
 }
