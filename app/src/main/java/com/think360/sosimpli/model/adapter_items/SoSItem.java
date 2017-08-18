@@ -1,7 +1,6 @@
 package com.think360.sosimpli.model.adapter_items;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +14,7 @@ import com.mikepenz.fastadapter.items.AbstractItem;
 import com.mikepenz.materialize.holder.StringHolder;
 import com.mikepenz.materialize.util.UIUtils;
 import com.think360.sosimpli.R;
+import com.think360.sosimpli.model.sos.Datum;
 
 import java.util.List;
 
@@ -27,8 +27,20 @@ import butterknife.ButterKnife;
 public class SoSItem extends AbstractItem<SoSItem, SoSItem.ViewHolder> implements IDraggable<SoSItem, IItem> {
 
     public String header;
-    public StringHolder name;
-    public StringHolder description;
+    public StringHolder zone;
+    public StringHolder id;
+    public String date;
+
+    public Datum getDatum() {
+        return datum;
+    }
+
+    public SoSItem setDatum(Datum datum) {
+        this.datum = datum;
+        return this;
+    }
+
+    public Datum datum;
 
     private boolean mIsDraggable = true;
 
@@ -37,23 +49,23 @@ public class SoSItem extends AbstractItem<SoSItem, SoSItem.ViewHolder> implement
         return this;
     }
 
-    public SoSItem withName(String Name) {
-        this.name = new StringHolder(Name);
+    public SoSItem withZone(String zone) {
+        this.zone = new StringHolder(zone);
         return this;
     }
 
-    public SoSItem withName(@StringRes int NameRes) {
-        this.name = new StringHolder(NameRes);
+    public SoSItem withZone(@StringRes int NameRes) {
+        this.zone = new StringHolder(NameRes);
         return this;
     }
 
-    public SoSItem withDescription(String description) {
-        this.description = new StringHolder(description);
+    public SoSItem withid(String id) {
+        this.id = new StringHolder(id);
         return this;
     }
 
-    public SoSItem withDescription(@StringRes int descriptionRes) {
-        this.description = new StringHolder(descriptionRes);
+    public SoSItem withid(@StringRes int descriptionRes) {
+        this.id = new StringHolder(descriptionRes);
         return this;
     }
 
@@ -103,17 +115,26 @@ public class SoSItem extends AbstractItem<SoSItem, SoSItem.ViewHolder> implement
 
         //set the background for the item
         UIUtils.setBackground(viewHolder.view, FastAdapterUIUtils.getSelectableBackground(ctx, ContextCompat.getColor(viewHolder.itemView.getContext(),R.color.colorAppLightGray), true));
-        //set the text for the name
-        StringHolder.applyTo(name, viewHolder.name);
-        //set the text for the description or hide
-        StringHolder.applyToOrHide(description, viewHolder.description);
+        //set the text for the zone
+        // StringHolder.applyTo(zone, viewHolder.name);
+        //set the text for the id or hide
+        // StringHolder.applyToOrHide(id, viewHolder.description);
+
+        viewHolder.tvZone.setText(datum.getZones());
+        viewHolder.tvDate.setText(datum.getSosTime());
+        viewHolder.tvTime.setText(datum.getZones() + " | " + datum.getState());
+        // StringHolder.applyTo(datum.getZones(), viewHolder.tvZone);
+        // StringHolder.applyTo(zone, viewHolder.tvDate);
+        //StringHolder.applyTo(zone, viewHolder.tvTime);
+
     }
 
     @Override
     public void unbindView(ViewHolder holder) {
         super.unbindView(holder);
-        holder.name.setText(null);
-        holder.description.setText(null);
+        holder.tvZone.setText(null);
+        holder.tvDate.setText(null);
+        holder.tvTime.setText(null);
     }
 
     @Override
@@ -126,10 +147,13 @@ public class SoSItem extends AbstractItem<SoSItem, SoSItem.ViewHolder> implement
      */
     protected static class ViewHolder extends RecyclerView.ViewHolder {
         protected View view;
-        @BindView(R.id.material_drawer_name)
-        TextView name;
-        @BindView(R.id.material_drawer_description)
-        TextView description;
+        @BindView(R.id.tvZone)
+        TextView tvZone;
+        @BindView(R.id.tvDate)
+        TextView tvDate;
+        @BindView(R.id.tvTime)
+        TextView tvTime;
+
 
         public ViewHolder(View view) {
             super(view);

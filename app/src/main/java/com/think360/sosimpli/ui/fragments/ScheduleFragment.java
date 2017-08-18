@@ -4,9 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mikepenz.fastadapter.FastAdapter;
@@ -29,7 +30,6 @@ import com.think360.sosimpli.R;
 import com.think360.sosimpli.manager.ApiService;
 import com.think360.sosimpli.model.ApprovedNonResponse;
 import com.think360.sosimpli.model.adapter_items.ScheduleItem;
-import com.think360.sosimpli.model.work.WorkHistory;
 import com.think360.sosimpli.ui.activities.AssignedScheduleDeatilActivity;
 import com.think360.sosimpli.utils.AppConstants;
 import com.think360.sosimpli.widgets.DividerItemDecoration;
@@ -72,7 +72,8 @@ public class ScheduleFragment extends Fragment {
     //drag & drop
     private SimpleDragCallback touchCallback;
     private ItemTouchHelper touchHelper;
-
+    private SwipeRefreshLayout swipeLayout;
+    private TextView tvNoData;
     public ScheduleFragment() {
         // Required empty public constructor
     }
@@ -116,6 +117,8 @@ public class ScheduleFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ((AppController) getActivity().getApplication()).getComponent().inject(ScheduleFragment.this);
+        swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeLayout);
+        tvNoData = (TextView) view.findViewById(R.id.tvNoData);
         //create our FastAdapter which will manage everything
         fastItemAdapter = new FastItemAdapter<>();
         fastItemAdapter.withSelectable(true);
@@ -146,9 +149,9 @@ public class ScheduleFragment extends Fragment {
         recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(footerAdapter) {
             @Override
             public void onLoadMore(final int currentPage) {
-                footerAdapter.clear();
-                footerAdapter.add(new ProgressItem().withEnabled(false));
-                //simulate networking (2 seconds)
+              //  footerAdapter.clear();
+               // footerAdapter.add(new ProgressItem().withEnabled(false));
+             /*   //simulate networking (2 seconds)
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -158,33 +161,11 @@ public class ScheduleFragment extends Fragment {
                             fastItemAdapter.add(fastItemAdapter.getAdapterItemCount(), new ScheduleItem().withName("Item " + i + " Page " + currentPage));
                         }
                     }
-                }, 2000);
+                }, 2000);*/
             }
         });
 
-        apiService.getAvailabilityApproveNonApprove(AppController.sharedPreferencesCompat.getInt(AppConstants.DRIVER_ID, 0), 1).enqueue(new Callback<ApprovedNonResponse>() {
-            @Override
-            public void onResponse(Call<ApprovedNonResponse> call, Response<ApprovedNonResponse> response) {
-                if (response.isSuccessful() && response.body().getStatus()) {
-                    if (response.body().getData().size() > 0) {
-                        //fill with some sample data (load the first page here)
-                        List<ScheduleItem> items = new ArrayList<>();
-                        for (int i = 1; i < response.body().getData().size(); i++) {
-                            items.add(new ScheduleItem().withItem(response.body().getData().get(i)));
-                        }
-                        fastItemAdapter.add(items);
-                    }
-
-                } else {
-                   // Log.d(ScheduleFragment.class.getSimpleName(), response.body().getMessage());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ApprovedNonResponse> call, Throwable t) {
-
-            }
-        });
+        fetchDataFromRemote();
         //fill with some sample data (load the first page here)
     /*    List<ScheduleItem> items = new ArrayList<>();
         for (int i = 1; i < 16; i++) {
@@ -204,8 +185,49 @@ public class ScheduleFragment extends Fragment {
                 return true;
             }
         });
+
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchDataFromRemote();
+            }
+        });
     }
 
+    private void fetchDataFromRemote() {
+        swipeLayout.setRefreshing(true);
+        apiService.getAvailabilityApproveNonApprove(AppController.sharedPreferencesCompat.getInt(AppConstants.DRIVER_ID, 0), 1).enqueue(new Callback<ApprovedNonResponse>() {
+            @Override
+            public void onResponse(Call<ApprovedNonResponse> call, Response<ApprovedNonResponse> response) {
+                swipeLayout.setRefreshing(false);
+
+                if (response.isSuccessful() && response.body().getStatus()) {
+
+                    if (response.body().getData().size() > 0) {
+                        tvNoData.setVisibility(View.GONE);
+                        //fill with some sample data (load the first page here)
+                        List<ScheduleItem> items = new ArrayList<>();
+                        for (int i = 1; i < response.body().getData().size(); i++) {
+                            items.add(new ScheduleItem().withItem(response.body().getData().get(i)));
+                        }
+                        fastItemAdapter.add(items);
+                    }
+
+                } else {
+                    tvNoData.setVisibility(View.VISIBLE);
+                    // Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.d(ScheduleFragment.class.getSimpleName(), response.body().getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApprovedNonResponse> call, Throwable t) {
+                swipeLayout.setRefreshing(false);
+                tvNoData.setVisibility(View.VISIBLE);
+            }
+        });
+
+    }
 
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -243,7 +265,7 @@ public class ScheduleFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+        // TODO: Update argument type and zone
         void onFragmentInteraction(Uri uri);
     }
 }

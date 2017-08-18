@@ -250,7 +250,6 @@
 
 
     <EditText
-
         android:focusable="false"
         android:id="@+id/editZone"
         style="@style/EditTextRoboto"

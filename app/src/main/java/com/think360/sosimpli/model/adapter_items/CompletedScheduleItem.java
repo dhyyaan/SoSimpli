@@ -14,6 +14,7 @@ import com.mikepenz.fastadapter.items.AbstractItem;
 import com.mikepenz.materialize.holder.StringHolder;
 import com.mikepenz.materialize.util.UIUtils;
 import com.think360.sosimpli.R;
+import com.think360.sosimpli.model.schedule.Datum;
 
 import java.util.List;
 
@@ -28,6 +29,17 @@ public class CompletedScheduleItem extends AbstractItem<CompletedScheduleItem, C
     public String header;
     public StringHolder name;
     public StringHolder description;
+
+    public Datum getDatum() {
+        return datum;
+    }
+
+    public CompletedScheduleItem setDatum(Datum datum) {
+        this.datum = datum;
+        return this;
+    }
+
+    public Datum datum;
 
     private boolean mIsDraggable = true;
 
@@ -102,17 +114,19 @@ public class CompletedScheduleItem extends AbstractItem<CompletedScheduleItem, C
 
         //set the background for the item
         UIUtils.setBackground(viewHolder.view, FastAdapterUIUtils.getSelectableBackground(ctx, ContextCompat.getColor(viewHolder.itemView.getContext(),R.color.colorAppLightGray), true));
-        //set the text for the name
-        StringHolder.applyTo(name, viewHolder.name);
-        //set the text for the description or hide
-        StringHolder.applyToOrHide(description, viewHolder.description);
+        //set the text for the zone
+        StringHolder.applyTo(new StringHolder(datum.getSchduleZone()), viewHolder.tvZone);
+        //set the text for the id or hide
+        StringHolder.applyToOrHide(new StringHolder(datum.getSchduleDate()), viewHolder.tvDate);
+        StringHolder.applyToOrHide(new StringHolder(datum.getTimeFrom() + " - " + datum.getTimeTo()), viewHolder.tvTime);
     }
 
     @Override
     public void unbindView(ViewHolder holder) {
         super.unbindView(holder);
-        holder.name.setText(null);
-        holder.description.setText(null);
+        holder.tvZone.setText(null);
+        holder.tvTime.setText(null);
+        holder.tvDate.setText(null);
     }
 
     @Override
@@ -125,10 +139,12 @@ public class CompletedScheduleItem extends AbstractItem<CompletedScheduleItem, C
      */
     protected static class ViewHolder extends RecyclerView.ViewHolder {
         protected View view;
-        @BindView(R.id.material_drawer_name)
-        TextView name;
-        @BindView(R.id.material_drawer_description)
-        TextView description;
+        @BindView(R.id.tvZone)
+        TextView tvZone;
+        @BindView(R.id.tvTime)
+        TextView tvTime;
+        @BindView(R.id.tvDate)
+        TextView tvDate;
 
         public ViewHolder(View view) {
             super(view);

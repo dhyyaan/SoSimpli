@@ -4,9 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,13 +23,23 @@ import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
 import com.mikepenz.fastadapter_extensions.drag.SimpleDragCallback;
 import com.mikepenz.fastadapter_extensions.items.ProgressItem;
 import com.mikepenz.fastadapter_extensions.scroll.EndlessRecyclerOnScrollListener;
+import com.think360.sosimpli.AppController;
 import com.think360.sosimpli.R;
+import com.think360.sosimpli.manager.ApiService;
 import com.think360.sosimpli.model.adapter_items.SoSItem;
+import com.think360.sosimpli.model.sos.AllSoSResponse;
+import com.think360.sosimpli.model.sos.Datum;
 import com.think360.sosimpli.ui.activities.SoSDetailActivity;
 import com.think360.sosimpli.widgets.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,10 +62,13 @@ public class SoSFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
 
+    @Inject
+    ApiService apiService;
+
     //save our FastAdapter
     private FastItemAdapter<SoSItem> fastItemAdapter;
     private FooterAdapter<ProgressItem> footerAdapter;
-
+    private SwipeRefreshLayout swipeLayout;
     //drag & drop
     private SimpleDragCallback touchCallback;
     private ItemTouchHelper touchHelper;
@@ -101,8 +114,8 @@ public class SoSFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
+        ((AppController) getActivity().getApplication()).getComponent().inject(SoSFragment.this);
+        swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeLayout);
         //create our FastAdapter which will manage everything
         fastItemAdapter = new FastItemAdapter<>();
         fastItemAdapter.withSelectable(true);
@@ -114,7 +127,7 @@ public class SoSFragment extends Fragment {
         fastItemAdapter.withOnClickListener(new FastAdapter.OnClickListener<SoSItem>() {
             @Override
             public boolean onClick(View v, IAdapter<SoSItem> adapter, SoSItem item, int position) {
-                Toast.makeText(v.getContext(), (item).name.getText(v.getContext()), Toast.LENGTH_LONG).show();
+                Toast.makeText(v.getContext(), (item).zone.getText(v.getContext()), Toast.LENGTH_LONG).show();
                 return false;
             }
         });
@@ -128,12 +141,12 @@ public class SoSFragment extends Fragment {
         recyclerView.setAdapter(footerAdapter.wrap(fastItemAdapter));
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), R.drawable.recyclerview_divider));
 
-
+        fetchDataFromRemote();
 
         recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(footerAdapter) {
             @Override
             public void onLoadMore(final int currentPage) {
-                footerAdapter.clear();
+              /*  footerAdapter.clear();
                 footerAdapter.add(new ProgressItem().withEnabled(false));
                 //simulate networking (2 seconds)
                 Handler handler = new Handler();
@@ -142,19 +155,19 @@ public class SoSFragment extends Fragment {
                     public void run() {
                         footerAdapter.clear();
                         for (int i = 1; i < 16; i++) {
-                            fastItemAdapter.add(fastItemAdapter.getAdapterItemCount(), new SoSItem().withName("Item " + i + " Page " + currentPage));
+                            fastItemAdapter.add(fastItemAdapter.getAdapterItemCount(), new SoSItem().withZone("Item " + i + " Page " + currentPage));
                         }
                     }
-                }, 2000);
+                }, 2000);*/
             }
         });
 
-        //fill with some sample data (load the first page here)
+        /*//fill with some sample data (load the first page here)
         List<SoSItem> items = new ArrayList<>();
         for (int i = 1; i < 16; i++) {
             items.add(new SoSItem().withName("Item " + i + " Page " + 1));
         }
-        fastItemAdapter.add(items);
+        fastItemAdapter.add(items);*/
 
         //restore selections (this has to be done after the items were added
         fastItemAdapter.withSavedInstanceState(savedInstanceState);
@@ -162,14 +175,46 @@ public class SoSFragment extends Fragment {
         fastItemAdapter.withOnClickListener(new FastAdapter.OnClickListener<SoSItem>() {
             @Override
             public boolean onClick(View v, IAdapter<SoSItem> adapter, SoSItem item, int position) {
-
-                startActivity(new Intent(getActivity(), SoSDetailActivity.class));
+                startActivity(new Intent(getActivity(), SoSDetailActivity.class).putExtra("SOS_ITEM", item.getDatum()));
 
                 return true;
             }
         });
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchDataFromRemote();
+            }
+        });
     }
 
+    private void fetchDataFromRemote() {
+        swipeLayout.setRefreshing(true);
+        apiService.getAllSoS().enqueue(new Callback<AllSoSResponse>() {
+            @Override
+            public void onResponse(Call<AllSoSResponse> call, Response<AllSoSResponse> response) {
+                swipeLayout.setRefreshing(false);
+                if (response.isSuccessful() && response.body().getStatus()) {
+                    fastItemAdapter.clear();
+                    footerAdapter.clear();
+                    List<SoSItem> items = new ArrayList<>();
+                    for (Datum datum : response.body().getData()) {
+                        items.add(new SoSItem().setDatum(datum));
+                        //items.add(new SoSItem().withZone(datum.getZones() + " | " + datum.getState()));
+                    }
+                    fastItemAdapter.add(items);
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AllSoSResponse> call, Throwable t) {
+                swipeLayout.setRefreshing(false);
+            }
+        });
+
+    }
 
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -207,7 +252,7 @@ public class SoSFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+        // TODO: Update argument type and zone
         void onFragmentInteraction(Uri uri);
     }
 }

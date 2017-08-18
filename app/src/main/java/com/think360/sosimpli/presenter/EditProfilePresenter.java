@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import com.think360.sosimpli.AppController;
 import com.think360.sosimpli.manager.ApiService;
 import com.think360.sosimpli.model.WorkerEditProfileModel;
+import com.think360.sosimpli.model.user.UserProfileResponse;
 import com.think360.sosimpli.utils.AppConstants;
 import com.think360.sosimpli.utils.FileUtils;
 
@@ -50,9 +51,9 @@ public class EditProfilePresenter extends BasePresenter {
         RequestBody etName = RequestBody.create(MediaType.parse("text/plain"), name);
         RequestBody etPassword = RequestBody.create(MediaType.parse("text/plain"), password);
 
-        api.editDriverProfile(userId, etName, etPassword, imageuri == null ? null : prepareFilePart("driver_pic", imageuri, context)).enqueue(new Callback<WorkerEditProfileModel>() {
+        api.editDriverProfile(userId, etName, etPassword, imageuri == null ? null : prepareFilePart("driver_pic", imageuri, context)).enqueue(new Callback<UserProfileResponse>() {
             @Override
-            public void onResponse(Call<WorkerEditProfileModel> call, Response<WorkerEditProfileModel> response) {
+            public void onResponse(Call<UserProfileResponse> call, Response<UserProfileResponse> response) {
                 if (response.isSuccessful()) {
                     pDialog.dismiss();
                     view.profileSavedSuccessfully();
@@ -65,7 +66,7 @@ public class EditProfilePresenter extends BasePresenter {
             }
 
             @Override
-            public void onFailure(Call<WorkerEditProfileModel> call, Throwable t) {
+            public void onFailure(Call<UserProfileResponse> call, Throwable t) {
                 pDialog.dismiss();
                 view.onError(t);
             }
@@ -88,7 +89,7 @@ public class EditProfilePresenter extends BasePresenter {
                         compressedImageFile
                 );
 
-        // MultipartBody.Part is used to send also the actual file name
+        // MultipartBody.Part is used to send also the actual file zone
         return MultipartBody.Part.createFormData(partName, compressedImageFile.getName(), requestFile);
     }
 

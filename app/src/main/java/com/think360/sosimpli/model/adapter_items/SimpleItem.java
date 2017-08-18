@@ -128,8 +128,8 @@ public class SimpleItem extends AbstractItem<SimpleItem, SimpleItem.ViewHolder> 
 
         //set the background for the item
         UIUtils.setBackground(viewHolder.view, FastAdapterUIUtils.getSelectableBackground(ctx, ContextCompat.getColor(viewHolder.itemView.getContext(),R.color.colorAppLightGray), true));
-        //set the text for the name
-        // StringHolder.applyTo(name, viewHolder.name);
+        //set the text for the zone
+        // StringHolder.applyTo(zone, viewHolder.zone);
         viewHolder.tvTime.setText(time);
         if (availabilityStatus) {
             viewHolder.ivAvalibalityStatus.setVisibility(View.VISIBLE);
@@ -137,15 +137,15 @@ public class SimpleItem extends AbstractItem<SimpleItem, SimpleItem.ViewHolder> 
         } else {
             viewHolder.ivAvalibalityStatus.setVisibility(View.INVISIBLE);
         }
-        //set the text for the description or hide
-        // StringHolder.applyToOrHide(description, viewHolder.description);
+        //set the text for the id or hide
+        // StringHolder.applyToOrHide(id, viewHolder.id);
     }
 
     @Override
     public void unbindView(ViewHolder holder) {
         super.unbindView(holder);
-        ///  holder.name.setText(null);
-        //  holder.description.setText(null);
+        ///  holder.zone.setText(null);
+        //  holder.id.setText(null);
     }
 
     @Override
@@ -159,9 +159,9 @@ public class SimpleItem extends AbstractItem<SimpleItem, SimpleItem.ViewHolder> 
     protected static class ViewHolder extends RecyclerView.ViewHolder {
         protected View view;
       /*  @BindView(R.id.material_drawer_name)
-        TextView name;
+        TextView zone;
         @BindView(R.id.material_drawer_description)
-        TextView description;*/
+        TextView id;*/
 
         @BindView(R.id.tvTime)
         TextView tvTime;

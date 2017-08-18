@@ -6,14 +6,12 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -24,15 +22,18 @@ import android.widget.Toast;
 import com.think360.sosimpli.AppController;
 import com.think360.sosimpli.R;
 import com.think360.sosimpli.manager.ApiService;
+import com.think360.sosimpli.model.Zone;
 import com.think360.sosimpli.model.availability.AvailabilityResponse;
 import com.think360.sosimpli.model.city.CityResponse;
 import com.think360.sosimpli.model.country.Country;
 import com.think360.sosimpli.model.country.CountryResponse;
 import com.think360.sosimpli.model.states.StateResponse;
 import com.think360.sosimpli.ui.fragments.CountriesDialogFragment;
+import com.think360.sosimpli.utils.AddAvailbailtyChanged;
 import com.think360.sosimpli.utils.AppConstants;
 
 import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.inject.Inject;
@@ -77,6 +78,9 @@ public class AddAvailabilityActivity extends BaseActivity implements CountriesDi
     @BindView(R.id.etCity)
     EditText etCity;
 
+    @BindView(R.id.editZone)
+    EditText editZone;
+
     @BindView(R.id.progressBarCity)
     ProgressBar progressBarCity;
 
@@ -94,6 +98,8 @@ public class AddAvailabilityActivity extends BaseActivity implements CountriesDi
     private CountriesDialogFragment countriesDialogFragment;
     private CountriesDialogFragment statesDialogFragment;
     private CountriesDialogFragment cityDialogFragment;
+    private CountriesDialogFragment zoneDialogFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,17 +176,24 @@ public class AddAvailabilityActivity extends BaseActivity implements CountriesDi
             (dialog.findViewById(R.id.progressbar)).setVisibility(View.VISIBLE);
             ((TextView) dialog.findViewById(R.id.text)).setText("Sending Request..");
             dialog.show();
-            apiService.addAvailability(AppController.sharedPreferencesCompat.getInt(AppConstants.DRIVER_ID, 0), startDate, startTime, endTime, country_id, state_id, city_id, "4")
+            apiService.addAvailability(AppController.sharedPreferencesCompat.getInt(AppConstants.DRIVER_ID, 0), startDate, startTime, endTime, country_id, state_id, city_id, zones)
                     // apiService.addAvailability(AppController.sharedPreferencesCompat.getInt(AppConstants.DRIVER_ID, 0), String.valueOf(startDateCalendar.getTimeInMillis() / 1000L), String.valueOf(startTimeCalendar.getTimeInMillis() / 1000L), String.valueOf(endTimeCalendar.getTimeInMillis() / 1000L), country_id, state_id, city_id, "4")
                     .enqueue(new Callback<AvailabilityResponse>() {
                         @Override
                         public void onResponse(Call<AvailabilityResponse> call, Response<AvailabilityResponse> response) {
-                            Log.d("ADD_AVAIL", response.body().getMessage());
+
                             if (response.body().getStatus()) {
+                                ((AppController) getApplication()).bus().send(new AddAvailbailtyChanged(response.body()));
                                 (dialog.findViewById(R.id.progressbar)).setVisibility(View.GONE);
                                 (dialog.findViewById(R.id.imageView)).setVisibility(View.VISIBLE);
                                 ((TextView) dialog.findViewById(R.id.text)).setText(response.body().getMessage());
                                 animatemy(dialog.findViewById(R.id.imageView));
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        onBackPressed();
+                                    }
+                                }, 100);
                             } else {
                                 dialog.dismiss();
                                 Toast.makeText(AddAvailabilityActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -189,7 +202,7 @@ public class AddAvailabilityActivity extends BaseActivity implements CountriesDi
 
                         @Override
                         public void onFailure(Call<AvailabilityResponse> call, Throwable t) {
-
+                            dialog.dismiss();
                         }
                     });
         } else {
@@ -216,11 +229,21 @@ public class AddAvailabilityActivity extends BaseActivity implements CountriesDi
             cityDialogFragment.show(getSupportFragmentManager(), "");
     }
 
-    private void animatemy(View view) {
-        Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        myAnim.setInterpolator(new MyBounceInterpolator(0.20, 30));
-        view.startAnimation(myAnim);
+    @OnClick(R.id.editZone)
+    public void onClickZone() {
+        if (cityDialogFragment != null) {
+            zoneDialogFragment = CountriesDialogFragment.newInstance();
+            AbstractList<Zone> abstractList = new ArrayList();
+            abstractList.add(new Zone(0, "NORTH ZONE"));
+            abstractList.add(new Zone(1, "WEST ZONE"));
+            abstractList.add(new Zone(2, "EAST ZONE"));
+            abstractList.add(new Zone(3, "SOUTH ZONE"));
+            zoneDialogFragment.setList(abstractList, AddAvailabilityActivity.this);
+            zoneDialogFragment.show(getSupportFragmentManager(), "");
+        }
+
     }
+
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -308,6 +331,11 @@ public class AddAvailabilityActivity extends BaseActivity implements CountriesDi
             progressBarCity.setVisibility(View.GONE);
             etCity.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_down, 0);
             etCity.setClickable(true);
+        }
+
+        if (object instanceof Zone) {
+            editZone.setText(((Zone) object).getZoneName());
+            zones = ((Zone) object).getZoneName();
         }
     }
 

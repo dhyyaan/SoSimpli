@@ -22,208 +22,210 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_height="match_parent"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
 
             <LinearLayout
                 android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:animateLayoutChanges="true"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="22dp">
+                android:orientation="horizontal">
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_horizontal">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:animateLayoutChanges="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="22dp">
 
-                    <ImageView
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:src="@drawable/ic_access_time" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:padding="5dp"
+                            android:src="@drawable/ic_access_time" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:padding="5dp"
+                            android:text="DATE"
+                            android:textColor="@color/md_black_1000"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
 
                     <TextView
-                        android:padding="5dp"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tvDate"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="DATE"
-                        android:textColor="@color/md_black_1000" />
+                        android:padding="2.5dp"
+                        android:text="12:00AM - 15:00AM" />
+
+
                 </LinearLayout>
-
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="2.5dp"
-                    android:text="12:00AM - 15:00AM" />
-
-
-            </LinearLayout>
 
                 <View
                     android:layout_width="0.25dp"
                     android:layout_height="match_parent"
                     android:background="@color/appGray" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:animateLayoutChanges="true"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="22dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:animateLayoutChanges="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="22dp">
 
-                    <ImageView
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_access_time" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/ic_access_time" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:padding="5dp"
+                            android:text="TIME"
+                            android:textColor="@color/md_black_1000"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
 
                     <TextView
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tvTime"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:padding="5dp"
-                        android:text="TIME"
-                        android:textColor="@color/md_black_1000" />
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_horizontal"
+                        android:padding="2.5dp"
+                        android:text="02:00AM-12:00PM" />
+
+
                 </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.25dp"
+                android:background="@color/appGray" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="7.5dp">
 
 
                 <TextView
-
-                    android:layout_width="match_parent"
+                    android:id="@+id/tvZone"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center_horizontal"
-                    android:padding="2.5dp"
-                    android:text="02:00AM-12:00PM" />
+                    android:padding="5dp"
+                    android:text="North Zone, Toronto"
+                    android:textColor="@color/md_black_1000"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
 
             </LinearLayout>
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.25dp"
-            android:background="@color/appGray" />
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="7.5dp">
-
-
-            <TextView
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="North Zone, Toronto"
-                android:textColor="@color/md_black_1000" />
+                android:orientation="vertical"
+                android:padding="@dimen/activity_horizontal_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Schedule Info"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
 
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/scheduleInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="2.5dp"
+                    android:text="@string/dummy"
+                    android:textColor="@color/appGray" />
 
+            </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/activity_horizontal_margin">
-
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Schedule Info"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:orientation="horizontal"
+
+                android:paddingLeft="15dp">
+
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:background="@drawable/circle_green"
+                    android:padding="7.5dp"
+                    android:src="@drawable/ic_check" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="5dp"
+                    android:text="Trip Completed"
+                    android:textColor="@color/md_black_1000" />
 
 
-            <TextView
-                android:padding="2.5dp"
-                android:layout_width="wrap_content"
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/dummy"
-                android:textColor="@color/appGray" />
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingTop="5dp">
 
-        </LinearLayout>
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:background="@drawable/circle_green"
+                    android:padding="7.5dp"
+                    android:src="@drawable/ic_check" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-
-            android:paddingLeft="15dp">
-
-            <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:background="@drawable/circle_green"
-                android:padding="7.5dp"
-                android:src="@drawable/ic_check" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:padding="5dp"
-                android:text="Trip Completed"
-                android:textColor="@color/md_black_1000" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="5dp"
+                    android:text="Payment Done"
+                    android:textColor="@color/md_black_1000" />
 
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:paddingLeft="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="5dp">
-
-            <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:background="@drawable/circle_green"
-                android:padding="7.5dp"
-                android:src="@drawable/ic_check" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:padding="5dp"
-                android:text="Payment Done"
-                android:textColor="@color/md_black_1000" />
-
-
-        </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

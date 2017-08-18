@@ -12,6 +12,7 @@ import com.think360.sosimpli.AppController;
 import com.think360.sosimpli.R;
 import com.think360.sosimpli.manager.ApiService;
 import com.think360.sosimpli.model.WorkerEditProfileModel;
+import com.think360.sosimpli.model.user.UserProfileResponse;
 import com.think360.sosimpli.ui.activities.BaseActivity;
 import com.think360.sosimpli.utils.AppConstants;
 
@@ -86,9 +87,9 @@ public class ConfirmPasswordActivity extends BaseActivity {
         } else {
             showProgressDialog(this);
             pDialog.show();
-            apiService.editDriverProfile(RequestBody.create(MediaType.parse("text/plain"), driverId), null, RequestBody.create(MediaType.parse("text/plain"), etEmail.getText().toString().trim()), null).enqueue(new Callback<WorkerEditProfileModel>() {
+            apiService.editDriverProfile(RequestBody.create(MediaType.parse("text/plain"), driverId), null, RequestBody.create(MediaType.parse("text/plain"), etEmail.getText().toString().trim()), null).enqueue(new Callback<UserProfileResponse>() {
                 @Override
-                public void onResponse(Call<WorkerEditProfileModel> call, Response<WorkerEditProfileModel> response) {
+                public void onResponse(Call<UserProfileResponse> call, Response<UserProfileResponse> response) {
                     if (response.isSuccessful() && response.body().getStatus()) {
                         if (pDialog != null)
                             pDialog.dismiss();
@@ -103,7 +104,7 @@ public class ConfirmPasswordActivity extends BaseActivity {
                 }
 
                 @Override
-                public void onFailure(Call<WorkerEditProfileModel> call, Throwable t) {
+                public void onFailure(Call<UserProfileResponse> call, Throwable t) {
                     Snackbar.make(loginMainLayout, "Fill Otp", Snackbar.LENGTH_SHORT).show();
 
                 }

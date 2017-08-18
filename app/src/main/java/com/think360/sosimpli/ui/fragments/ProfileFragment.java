@@ -2,6 +2,7 @@ package com.think360.sosimpli.ui.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,10 +21,11 @@ import com.think360.sosimpli.AppController;
 import com.think360.sosimpli.R;
 import com.think360.sosimpli.databinding.EditProfileBinding;
 import com.think360.sosimpli.manager.ApiService;
-import com.think360.sosimpli.model.WorkerEditProfileModel;
 import com.think360.sosimpli.model.user.UserProfileResponse;
 import com.think360.sosimpli.presenter.EditProfilePresenter;
+import com.think360.sosimpli.ui.activities.login.LoginActivity;
 import com.think360.sosimpli.utils.AppConstants;
+import com.think360.sosimpli.utils.DriverHistoryChanged;
 import com.think360.sosimpli.utils.FileUtils;
 import com.vansuita.pickimage.bean.PickResult;
 import com.vansuita.pickimage.bundle.PickSetup;
@@ -121,9 +123,14 @@ public class ProfileFragment extends RootFragment implements View.OnClickListene
                 @Override
                 public void onResponse(Call<UserProfileResponse> call, retrofit2.Response<UserProfileResponse> response) {
                     if (response.isSuccessful()) {
+                        ((AppController) getActivity().getApplication()).bus().send(new DriverHistoryChanged(response.body()));
                         if (!TextUtils.isEmpty(response.body().getData().getDriverImage())) {
                             Picasso.with(getActivity()).load(response.body().getData().getDriverImage()).error(R.drawable.user).placeholder(R.drawable.user).into(editProfileBinding.ivUser);
+
                         }
+                        editProfileBinding.editName.setText(response.body().getData().getDriverName());
+                        editProfileBinding.tvName.setText(response.body().getData().getDriverName());
+
                     } else {
                         Log.d("PROFILE_RES", response.body().getMessage());
                     }
@@ -135,6 +142,9 @@ public class ProfileFragment extends RootFragment implements View.OnClickListene
                     t.printStackTrace();
                 }
             });
+        } else {
+            startActivity(new Intent(getActivity(), LoginActivity.class));
+            getActivity().finish();
         }
 
 
@@ -222,7 +232,7 @@ public class ProfileFragment extends RootFragment implements View.OnClickListene
 
                 if (TextUtils.isEmpty(editProfileBinding.editName.getText())) {
 
-                    showMessageInSnackBar("Your name can't be empty");
+                    showMessageInSnackBar("Your zone can't be empty");
 
                 } else {
 
@@ -256,35 +266,36 @@ public class ProfileFragment extends RootFragment implements View.OnClickListene
 
     void savingProfile(String name, String password2, Uri imagePath) {
 
-        pDialog = new ProgressDialog(getActivity());
-        pDialog.setMessage("Saving your profile");
-        pDialog.setCancelable(false);
-        pDialog.setCanceledOnTouchOutside(false);
+
 
         RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), AppController.sharedPreferencesCompat.getInt(AppConstants.DRIVER_ID, 0)+"");
         RequestBody etName = RequestBody.create(MediaType.parse("text/plain"), name);
 
-        Call<WorkerEditProfileModel> call = apiService.editDriverProfile(userId, etName, password2 == null ? null : RequestBody.create(MediaType.parse("text/plain"), password2), imagePath == null ? null : prepareFilePart("image", imagePath));
+        Call<UserProfileResponse> call = apiService.editDriverProfile(userId, etName, password2 == null ? null : RequestBody.create(MediaType.parse("text/plain"), password2), imagePath == null ? null : prepareFilePart("image", imagePath));
 
-        call.enqueue(new Callback<WorkerEditProfileModel>() {
+        call.enqueue(new Callback<UserProfileResponse>() {
             @Override
-            public void onResponse(Call<WorkerEditProfileModel> call, Response<WorkerEditProfileModel> response) {
+            public void onResponse(Call<UserProfileResponse> call, Response<UserProfileResponse> response) {
                 if (response.isSuccessful()) {
-                    pDialog.hide();
+                    pDialog.dismiss();
 
                     if (response.body().getStatus()) {
+                        ((AppController) getActivity().getApplication()).bus().send(new DriverHistoryChanged(response.body()));
                         showMessageInSnackBar(response.body().getMessage());
+                        editProfileBinding.editName.setText(response.body().getData().getDriverName());
+                        editProfileBinding.tvName.setText(response.body().getData().getDriverName());
                         RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), AppController.sharedPreferencesCompat.getString(AppConstants.IMAGE_URL, ""));
                     }
                 }else{
-                    pDialog.hide();
+                    pDialog.dismiss();
                     showMessageInSnackBar(response.body().getMessage());
                 }
 
             }
 
             @Override
-            public void onFailure(Call<WorkerEditProfileModel> call, Throwable t) {
+            public void onFailure(Call<UserProfileResponse> call, Throwable t) {
+                pDialog.dismiss();
                 showMessageInSnackBar(t.getMessage());
             }
         });
@@ -292,12 +303,12 @@ public class ProfileFragment extends RootFragment implements View.OnClickListene
 
     @Override
     public void profileSavedSuccessfully() {
-
+        pDialog.dismiss();
     }
 
     @Override
     public void onError(Throwable t) {
-
+        t.printStackTrace();
     }
 
     /**
@@ -311,7 +322,7 @@ public class ProfileFragment extends RootFragment implements View.OnClickListene
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+        // TODO: Update argument type and zone
         void onFragmentInteraction(Uri uri);
     }
 
@@ -330,7 +341,7 @@ public class ProfileFragment extends RootFragment implements View.OnClickListene
                         compressedImageFile
                 );
 
-        // MultipartBody.Part is used to send also the actual file name
+        // MultipartBody.Part is used to send also the actual file zone
         return MultipartBody.Part.createFormData(partName, compressedImageFile.getName(), requestFile);
     }
 

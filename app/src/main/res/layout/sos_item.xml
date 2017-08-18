@@ -1,37 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#f5f9f7"
     android:gravity="center_vertical|start"
-    android:orientation="vertical">
+    android:orientation="horizontal"
+    android:padding="7.5dp"
+    android:weightSum="1">
 
-    <include layout="@layout/single_item_sos" />
 
-    <TextView
-        android:id="@+id/material_drawer_name"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/layoutLeft"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-medium"
-        android:gravity="center_vertical|start"
-        android:lines="1"
-        android:singleLine="true"
-        android:textDirection="anyRtl"
-        android:textSize="@dimen/material_drawer_item_primary_text"
-        android:visibility="gone"
-        tools:text="Some drawer text" />
+        android:layout_weight="0.85"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/material_drawer_description"
-        android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvZone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            android:text="SOUTH ZONE"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="2.5dp"
+            android:text="6th April, 2017"
+            android:textColor="@color/colorDarkGrey"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="2.5dp"
+            android:text="12:00AM - 15:00PM"
+            android:textColor="@color/colorDarkGrey"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_Right"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
-        android:gravity="center_vertical|start"
-        android:lines="1"
-        android:singleLine="true"
-        android:textDirection="anyRtl"
-        android:textSize="@dimen/material_drawer_item_primary_description"
-        android:visibility="gone"
-        tools:text="Some drawer text" />
+        android:layout_gravity="center_vertical"
+        android:layout_weight="0.15"
+        android:foregroundGravity="center_vertical"
+        android:src="@drawable/ic_right" />
+
+
 </LinearLayout>

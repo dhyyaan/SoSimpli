@@ -8,6 +8,7 @@ import com.think360.sosimpli.di.components.AppComponent;
 import com.think360.sosimpli.di.components.DaggerAppComponent;
 import com.think360.sosimpli.di.modules.ApplicationModule;
 import com.think360.sosimpli.di.modules.HttpModule;
+import com.think360.sosimpli.utils.RxBus;
 
 import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -24,13 +25,13 @@ public class AppController extends Application {
 
     private AppComponent component;
 
+    private RxBus bus;
     @Override
     public void onCreate() {
         super.onCreate();
 
-
         FlowManager.init(this);
-
+        bus = new RxBus();
         sharedPreferencesCompat = getSharedPreferences("APP_PREF", MODE_PRIVATE);
 
         component = DaggerAppComponent.builder()
@@ -46,6 +47,10 @@ public class AppController extends Application {
                 .build()
         );
 
+    }
+
+    public RxBus bus() {
+        return bus;
     }
 
 

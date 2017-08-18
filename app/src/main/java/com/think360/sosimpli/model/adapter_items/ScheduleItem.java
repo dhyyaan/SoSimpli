@@ -106,9 +106,9 @@ public class ScheduleItem extends AbstractItem<ScheduleItem, ScheduleItem.ViewHo
 
         //set the background for the item
         UIUtils.setBackground(viewHolder.view, FastAdapterUIUtils.getSelectableBackground(ctx, ContextCompat.getColor(viewHolder.itemView.getContext(),R.color.colorAppLightGray), true));
-        //set the text for the name
+        //set the text for the zone
         StringHolder.applyTo(name, viewHolder.name);
-        //set the text for the description or hide
+        //set the text for the id or hide
         StringHolder.applyToOrHide(description, viewHolder.description);
         viewHolder.tvDate.setText(day);
         viewHolder.tvMonth.setText(month);

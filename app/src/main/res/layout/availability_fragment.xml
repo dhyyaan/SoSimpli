@@ -27,14 +27,22 @@
             android:text="ADD AVAILABILITY"
             android:textColor="@color/white" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv"
+
+        <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/swipeLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/bottomLayoutToSort"
-            android:layout_below="@id/tvAddAvailability"
-            tools:listitem="@layout/layout_header" />
+            android:layout_below="@id/tvAddAvailability">
 
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/layout_header" />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
 
         <LinearLayout
             android:id="@id/bottomLayoutToSort"
@@ -50,18 +58,23 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/rectangle_dark_grey_boundary"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white"
                 android:gravity="center"
                 android:text="APPROVED SHIFTS"
                 android:textStyle="bold" />
 
 
+            <android.support.v4.widget.Space
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent" />
             <TextView
+                android:id="@+id/tvNonApprovedShifts"
                 android:layout_width="0dp"
-
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/rectangle_dark_grey_boundary"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white"
                 android:gravity="center"
                 android:text="NON-APPROVED SHIFTS"
                 android:textStyle="bold" />

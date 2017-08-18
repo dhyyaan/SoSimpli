@@ -6,6 +6,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+
+import com.think360.sosimpli.AppController;
+import com.think360.sosimpli.R;
+import com.think360.sosimpli.utils.AppConstants;
 
 /**
  * Created by surinder on 17-Jul-17.
@@ -15,6 +22,8 @@ public class BaseActivity extends AppCompatActivity {
     protected ProgressDialog pDialog;
 
     protected AlertDialog alertDialog;
+
+    protected int driverId = AppController.sharedPreferencesCompat.getInt(AppConstants.DRIVER_ID, 0);
 
 
     protected void navigateToOtherActivity(Context context, Class aClass) {
@@ -36,6 +45,12 @@ public class BaseActivity extends AppCompatActivity {
             return (float) (-1 * Math.pow(Math.E, -time / mAmplitude) *
                     Math.cos(mFrequency * time) + 1);
         }
+    }
+
+    protected void animatemy(View view) {
+        Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
+        myAnim.setInterpolator(new MyBounceInterpolator(0.20, 30));
+        view.startAnimation(myAnim);
     }
 
 

@@ -40,7 +40,7 @@ public class FileUtils {
     public static final String HIDDEN_PREFIX = ".";
 
     /**
-     * Gets the extension of a file name, like ".png" or ".jpg".
+     * Gets the extension of a file zone, like ".png" or ".jpg".
      *
      * @param uri
      * @return Extension including the dot("."); "" if there is no extension;
@@ -92,7 +92,7 @@ public class FileUtils {
     }
 
     /**
-     * Returns the path only (without file name).
+     * Returns the path only (without file zone).
      *
      * @param file
      * @return
@@ -106,7 +106,7 @@ public class FileUtils {
                 String filename = file.getName();
                 String filepath = file.getAbsolutePath();
 
-                // Construct path without file name.
+                // Construct path without file zone.
                 String pathwithoutname = filepath.substring(0,
                         filepath.length() - filename.length());
                 if (pathwithoutname.endsWith("/")) {

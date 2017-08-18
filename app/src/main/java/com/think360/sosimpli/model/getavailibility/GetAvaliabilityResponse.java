@@ -69,7 +69,7 @@ public class GetAvaliabilityResponse {
         @SerializedName("city_id")
         @Expose
         private String cityId;
-        @SerializedName("name")
+        @SerializedName("zone")
         @Expose
         private String name;
 

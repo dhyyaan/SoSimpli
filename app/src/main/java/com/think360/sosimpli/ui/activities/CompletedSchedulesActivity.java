@@ -3,8 +3,7 @@ package com.think360.sosimpli.ui.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,23 +16,35 @@ import com.mikepenz.fastadapter.IAdapter;
 import com.mikepenz.fastadapter.adapters.FooterAdapter;
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
 import com.mikepenz.fastadapter_extensions.items.ProgressItem;
-import com.mikepenz.fastadapter_extensions.scroll.EndlessRecyclerOnScrollListener;
+import com.think360.sosimpli.AppController;
 import com.think360.sosimpli.R;
+import com.think360.sosimpli.manager.ApiService;
 import com.think360.sosimpli.model.adapter_items.CompletedScheduleItem;
+import com.think360.sosimpli.model.schedule.CompletedScheduleResponse;
 import com.think360.sosimpli.widgets.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class CompletedSchedulesActivity extends BaseActivity {
 
+    @Inject
+    ApiService apiService;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+
+    @BindView(R.id.swipeLayout)
+    SwipeRefreshLayout swipeLayout;
     //save our FastAdapter
     private FastItemAdapter<CompletedScheduleItem> fastItemAdapter;
     private FooterAdapter<ProgressItem> footerAdapter;
@@ -41,6 +52,8 @@ public class CompletedSchedulesActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((AppController) getApplication()).getComponent().inject(this);
+
         setContentView(R.layout.activity_completed_schedules);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
@@ -71,9 +84,28 @@ public class CompletedSchedulesActivity extends BaseActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(footerAdapter.wrap(fastItemAdapter));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, R.drawable.recyclerview_divider));
+        swipeLayout.setRefreshing(true);
+        apiService.getCompleteSchdule(driverId).enqueue(new Callback<CompletedScheduleResponse>() {
+            @Override
+            public void onResponse(Call<CompletedScheduleResponse> call, Response<CompletedScheduleResponse> response) {
+                swipeLayout.setRefreshing(false);
+                if (response.isSuccessful() && response.body().getStatus()) {
+                    //fill with some sample data (load the first page here)
+                    List<CompletedScheduleItem> items = new ArrayList<>();
+                    for (int i = 1; i < response.body().getData().size(); i++) {
+                        items.add(new CompletedScheduleItem().setDatum(response.body().getData().get(i)));
+                    }
+                    fastItemAdapter.add(items);
+                }
+            }
 
+            @Override
+            public void onFailure(Call<CompletedScheduleResponse> call, Throwable t) {
+                swipeLayout.setRefreshing(false);
+            }
+        });
 
-        recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(footerAdapter) {
+        /*recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(footerAdapter) {
             @Override
             public void onLoadMore(final int currentPage) {
                 footerAdapter.clear();
@@ -90,14 +122,8 @@ public class CompletedSchedulesActivity extends BaseActivity {
                     }
                 }, 2000);
             }
-        });
+        });*/
 
-        //fill with some sample data (load the first page here)
-        List<CompletedScheduleItem> items = new ArrayList<>();
-        for (int i = 1; i < 16; i++) {
-            items.add(new CompletedScheduleItem().withName("Item " + i + " Page " + 1));
-        }
-        fastItemAdapter.add(items);
 
         //restore selections (this has to be done after the items were added
         fastItemAdapter.withSavedInstanceState(savedInstanceState);
@@ -106,7 +132,7 @@ public class CompletedSchedulesActivity extends BaseActivity {
             @Override
             public boolean onClick(View v, IAdapter<CompletedScheduleItem> adapter, CompletedScheduleItem item, int position) {
 
-                startActivity(new Intent(CompletedSchedulesActivity.this, CompletedScheduleDetailActivity.class));
+                startActivity(new Intent(CompletedSchedulesActivity.this, CompletedScheduleDetailActivity.class).putExtra("SCHEDULE", item.getDatum()));
 
                 return true;
             }

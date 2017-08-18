@@ -148,7 +148,7 @@ public class LocalStorageProvider extends DocumentsProvider {
         for (File file : parent.listFiles()) {
             // Don't show hidden files/folders
             if (!file.getName().startsWith(".")) {
-                // Adds the file's display name, MIME type, size, and so on.
+                // Adds the file's display zone, MIME type, size, and so on.
                 includeFile(result, file);
             }
         }

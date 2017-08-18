@@ -3,24 +3,35 @@ package com.think360.sosimpli;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.think360.sosimpli.adapter.NavigationDrawerAdapter;
 import com.think360.sosimpli.model.NavDrawerItem;
+import com.think360.sosimpli.utils.DriverHistoryChanged;
 import com.think360.sosimpli.widgets.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 
 public class FragmentDrawer extends Fragment {
@@ -32,9 +43,12 @@ public class FragmentDrawer extends Fragment {
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private View containerView;
+    private TextView tvName;
     private FragmentDrawerListener drawerListener;
 
+    private ImageView ivUser;
 
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     public FragmentDrawer() {
 
@@ -63,6 +77,23 @@ public class FragmentDrawer extends Fragment {
 
         // drawer labels
         titles = getActivity().getResources().getStringArray(R.array.nav_drawer_labels);
+
+        compositeDisposable.add(((AppController) getActivity().getApplication()).bus().toObservable().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<Object>() {
+            @Override
+            public void accept(@NonNull Object o) throws Exception {
+                if (o instanceof DriverHistoryChanged) {
+                    ((DriverHistoryChanged) o).getworkerEditProfileModel().getData().getDriverEmail();
+                    if (!TextUtils.isEmpty(((DriverHistoryChanged) o).getworkerEditProfileModel().getData().getDriverImage())) {
+                        Picasso.with(getActivity()).load(((DriverHistoryChanged) o).getworkerEditProfileModel().getData().getDriverImage()).error(R.drawable.user).placeholder(R.drawable.user).into(ivUser);
+                        tvName.setText(((DriverHistoryChanged) o).getworkerEditProfileModel().getData().getDriverName().substring(0,1).toUpperCase()+((DriverHistoryChanged) o).getworkerEditProfileModel().getData().getDriverName().substring(1));
+                       // String upperString = myString.substring(0,1).toUpperCase() + myString.substring(1);
+
+                    }
+
+                }
+
+            }
+        }));
     }
 
     @Override
@@ -72,6 +103,8 @@ public class FragmentDrawer extends Fragment {
         View layout = inflater.inflate(R.layout.navigation_drawer_layout, container, false);
 
         recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
+        ivUser = (ImageView) layout.findViewById(R.id.ivUser);
+        tvName = (TextView) layout.findViewById(R.id.tvName);
 
         adapter = new NavigationDrawerAdapter(getActivity(), getData());
         recyclerView.setAdapter(adapter);

@@ -165,6 +165,7 @@
 
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tvTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -174,6 +175,20 @@
                 android:padding="12dp"
                 android:text="00:00:00"
                 android:textColor="@color/md_black_1000"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:id="@+id/tvCheckOut"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:background="@drawable/rectangle_red"
+                android:elevation="3dp"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="CHECK OUT"
+                android:textColor="@color/white"
                 android:textSize="18sp" />
 
             <TextView

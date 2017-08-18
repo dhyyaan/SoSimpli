@@ -6,8 +6,8 @@
     tools:context="com.think360.sosimpli.ui.fragments.ScheduleFragment">
 
 
-    <RelativeLayout
-        android:id="@+id/frame_container"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -18,6 +18,14 @@
             android:layout_height="match_parent"
             android:nextFocusDown="@id/rv"
             tools:listitem="@layout/single_item_sos" />
-    </RelativeLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tvNoData"
+        android:text="No Data Available"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
 
 </FrameLayout>

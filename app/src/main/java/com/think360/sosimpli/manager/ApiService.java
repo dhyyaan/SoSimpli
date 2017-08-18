@@ -1,17 +1,24 @@
 package com.think360.sosimpli.manager;
 
 
+import com.think360.sosimpli.model.AcceptRejectSosResponse;
 import com.think360.sosimpli.model.ApprovedNonResponse;
 import com.think360.sosimpli.model.ForgetPasswordResponse;
 import com.think360.sosimpli.model.ResendOtpResponse;
 import com.think360.sosimpli.model.VerifyOtpResponse;
-import com.think360.sosimpli.model.WorkerEditProfileModel;
 import com.think360.sosimpli.model.availability.AvailabilityResponse;
 import com.think360.sosimpli.model.city.CityResponse;
 import com.think360.sosimpli.model.country.CountryResponse;
 import com.think360.sosimpli.model.getavailibility.GetAvaliabilityResponse;
 import com.think360.sosimpli.model.logout.LogoutResponse;
+import com.think360.sosimpli.model.schedule.CompletedScheduleResponse;
+import com.think360.sosimpli.model.schedule.detail.ScheduleDetailResponse;
+import com.think360.sosimpli.model.schedule.pending.PedningScheduleResponse;
+import com.think360.sosimpli.model.sos.AllSoSResponse;
+import com.think360.sosimpli.model.sos.count.SosCountResponse;
+import com.think360.sosimpli.model.sos.detail.SoSDetailResponse;
 import com.think360.sosimpli.model.states.StateResponse;
+import com.think360.sosimpli.model.trip.TripFinishStartResponse;
 import com.think360.sosimpli.model.user.User;
 import com.think360.sosimpli.model.user.UserProfileResponse;
 import com.think360.sosimpli.model.work.WorkHistory;
@@ -35,9 +42,7 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("login")
-    Call<User> loginUser(@Field("email") String name,
-                         @Field("password") String password);
-
+    Call<User> loginUser(@Field("email") String name, @Field("password") String password);
 
     @FormUrlEncoded
     @POST("forget_password")
@@ -51,7 +56,6 @@ public interface ApiService {
     @POST("resend_otp")
     Call<ResendOtpResponse> resendOtp(@Field("id") String driver_id);
 
-
     @POST("getcountry")
     Call<CountryResponse> getCountries();
 
@@ -59,16 +63,13 @@ public interface ApiService {
     @POST("getState")
     Call<StateResponse> getStates(@Field("country_id") String country_id, @Field("state_id") String state_id);
 
-
     @FormUrlEncoded
     @POST("getState")
     Call<CityResponse> getCity(@Field("country_id") String country_id, @Field("state_id") String state_id);
 
-
     @FormUrlEncoded
     @POST("addavailability")
     Call<AvailabilityResponse> addAvailability(@Field("driver_id") int driver_id, @Field("start_date") String start_date, @Field("from_time") String from_time, @Field("to_time") String to_time, @Field("country_id") String country_id, @Field("state_id") String state_id, @Field("city_id") String city_id, @Field("zones") String zones);
-
 
     @FormUrlEncoded
     @POST("getavalibility")
@@ -78,29 +79,68 @@ public interface ApiService {
     @POST("availability_ApproveNonapprove")
     Call<ApprovedNonResponse> getAvailabilityApproveNonApprove(@Field("driver_id") int id, @Field("status") int status);
 
-
     @FormUrlEncoded
     @POST("userlogout")
     Call<LogoutResponse> logoutDriver(@Field("id") int id);
 
-    // for RXJava
     @FormUrlEncoded
-    @POST("workerprofile/")
-    Observable<WorkHistory> getWorkHistory(@Field("id") int password);
+    @POST("acceptReject_sos")
+    Call<AcceptRejectSosResponse> acceptRejectSos(@Field("driver_id") int driver_id, @Field("sos_id") String sos_id, @Field("Status") int status);
 
+    @POST("get_sosall")
+    Call<AllSoSResponse> getAllSoS();
+
+    @FormUrlEncoded
+    @POST("sos_details")
+    Call<SoSDetailResponse> getSoSDetail(@Field("sos_id") String sos_id);
+
+    @FormUrlEncoded
+    @POST("completeschdule")
+    Call<CompletedScheduleResponse> getCompleteSchdule(@Field("driver_id") int driver_id);
+
+    @FormUrlEncoded
+    @POST("schdule_details")
+    Call<ScheduleDetailResponse> getSchduleDetails(@Field("schdule_id") String schdule_id);
+
+
+    @FormUrlEncoded
+    @POST("driver_trip")
+    Call<TripFinishStartResponse> tripStart(@Field("driver_id") int driver_id, @Field("start_trip") String start_trip, @Field("avail_id") String avail_id);
+
+    @FormUrlEncoded
+    @POST("driver_tripFinish")
+    Call<TripFinishStartResponse> tripFinish(@Field("driver_id") int driver_id, @Field("end_trip") String start_trip, @Field("avail_id") String avail_id, @Field("tripid") String tripid);
+
+
+    @FormUrlEncoded
+    @POST("contact_operator")
+    Call<TripFinishStartResponse> contactToOperator(@Field("driver_id") int driver_id, @Field("schdule_id") String schdule_id, @Field("message") String message, @Field("Subject") String Subject);
+
+    @FormUrlEncoded
+    @POST("pending_schdule")
+    Call<PedningScheduleResponse> getPendingSchedule(@Field("driver_id") int driver_id);
 
     @FormUrlEncoded
     @POST("driver_history")
     Call<UserProfileResponse> getDriverProfile(@Field("id") int id);
 
 
+    @FormUrlEncoded
+    @POST("sos_count")
+    Call<SosCountResponse> getSosCount(@Field("id") int id);
+
+    @FormUrlEncoded
+    @POST("sos_count")
+    Call<SosCountResponse> readSosCount(@Field("id") int id);
+
     @Multipart
     @POST("driveredit")
-    Call<WorkerEditProfileModel> editDriverProfile(@Part("id") RequestBody userid,
-                                                   @Part("driver_name") RequestBody name,
-                                                   @Part("password") RequestBody password,
-                                                   @Part MultipartBody.Part file);
+    Call<UserProfileResponse> editDriverProfile(@Part("id") RequestBody userid, @Part("driver_name") RequestBody name, @Part("password") RequestBody password, @Part MultipartBody.Part file);
 
+    // for RXJava
+    @FormUrlEncoded
+    @POST("workerprofile/")
+    Observable<WorkHistory> getWorkHistory(@Field("id") int password);
 
 
 }

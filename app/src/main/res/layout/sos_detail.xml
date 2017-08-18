@@ -54,18 +54,17 @@
                             android:src="@drawable/ic_access_time" />
 
                         <TextView
-                            android:textStyle="bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="2.5dp"
                             android:text="DATE"
-                            android:textColor="@color/md_black_1000" />
+                            android:textColor="@color/md_black_1000"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
 
                     <TextView
-
-                        android:id="@+id/textView"
+                        android:id="@+id/tvTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="2.5dp"
@@ -102,16 +101,18 @@
                             android:src="@drawable/ic_location_on" />
 
                         <TextView
-                            android:textStyle="bold"
+                            android:id="@+id/tvZone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="2.5dp"
                             android:text="NORTH ZONE"
-                            android:textColor="@color/md_black_1000" />
+                            android:textColor="@color/md_black_1000"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
 
                     <TextView
+                        android:id="@+id/tvCity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -144,6 +145,7 @@
 
 
                 <TextView
+                    android:id="@+id/tvDetailContent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"

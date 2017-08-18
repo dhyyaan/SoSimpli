@@ -14,7 +14,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.WindowManager;
@@ -30,6 +29,7 @@ import com.think360.sosimpli.R;
 import com.think360.sosimpli.adapter.PagerAdapter;
 import com.think360.sosimpli.manager.ApiService;
 import com.think360.sosimpli.model.logout.LogoutResponse;
+import com.think360.sosimpli.model.sos.count.SosCountResponse;
 import com.think360.sosimpli.ui.activities.login.LoginActivity;
 import com.think360.sosimpli.ui.fragments.AvailabilityFragment;
 import com.think360.sosimpli.ui.fragments.ProfileFragment;
@@ -49,7 +49,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class HomeActivity extends AppCompatActivity implements AvailabilityFragment.OnFragmentInteractionListener, ScheduleFragment.OnFragmentInteractionListener, ProfileFragment.OnFragmentInteractionListener, SoSFragment.OnFragmentInteractionListener, FragmentDrawer.FragmentDrawerListener {
+public class HomeActivity extends BaseActivity implements AvailabilityFragment.OnFragmentInteractionListener, ScheduleFragment.OnFragmentInteractionListener, ProfileFragment.OnFragmentInteractionListener, SoSFragment.OnFragmentInteractionListener, FragmentDrawer.FragmentDrawerListener {
 
     @Inject
     ApiService apiService;
@@ -71,7 +71,7 @@ public class HomeActivity extends AppCompatActivity implements AvailabilityFragm
 
     private TextView title;
     private FragmentDrawer drawerFragment;
-
+    private BottomBarTab nearby;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -156,6 +156,23 @@ public class HomeActivity extends AppCompatActivity implements AvailabilityFragm
                     case R.id.tab_friends1:
                         toolbar.setTitle("SOS Notifications");
                         viewPager.setCurrentItem(2);
+
+                        apiService.readSosCount(driverId).enqueue(new Callback<SosCountResponse>() {
+                            @Override
+                            public void onResponse(Call<SosCountResponse> call, Response<SosCountResponse> response) {
+                                if (response.isSuccessful()) {
+                                    nearby.setBadgeCount(0);
+                                } else {
+                                    nearby.setBadgeCount(0);
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<SosCountResponse> call, Throwable t) {
+
+                            }
+                        });
+
                         break;
                     case R.id.tab_friend:
                         toolbar.setTitle("Profile Settings");
@@ -178,8 +195,24 @@ public class HomeActivity extends AppCompatActivity implements AvailabilityFragm
             }
         });
 
-        BottomBarTab nearby = bottomBar.getTabWithId(R.id.tab_friends1);
-        nearby.setBadgeCount(5);
+        nearby = bottomBar.getTabWithId(R.id.tab_friends1);
+
+        apiService.getSosCount(driverId).enqueue(new Callback<SosCountResponse>() {
+            @Override
+            public void onResponse(Call<SosCountResponse> call, Response<SosCountResponse> response) {
+                if (response.isSuccessful()) {
+                    nearby.setBadgeCount(Integer.parseInt(response.body().getData().getCount()));
+                } else {
+                    nearby.setBadgeCount(0);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SosCountResponse> call, Throwable t) {
+
+            }
+        });
+
 
 
 
@@ -266,7 +299,7 @@ public class HomeActivity extends AppCompatActivity implements AvailabilityFragm
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        startActivity(new Intent(HomeActivity.this, ChangeScheduleActivity.class));
+                        startActivity(new Intent(HomeActivity.this, ContactToOperatorActivity.class));
                         overridePendingTransition(R.anim.zoom_exit, 0);
                     }
                 }, 200);

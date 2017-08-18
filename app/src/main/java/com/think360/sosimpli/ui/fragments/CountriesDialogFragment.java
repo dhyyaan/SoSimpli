@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import com.think360.sosimpli.BR;
 import com.think360.sosimpli.R;
 import com.think360.sosimpli.adapter.RecyclerBindingAdapter;
+import com.think360.sosimpli.model.Zone;
 import com.think360.sosimpli.model.city.CityResponse;
 import com.think360.sosimpli.model.country.Country;
 import com.think360.sosimpli.model.states.StateResponse;
@@ -72,6 +73,10 @@ public class CountriesDialogFragment extends DialogFragment implements View.OnCl
             recyclerBindingAdapter = new RecyclerBindingAdapter<>(R.layout.single_item_state, BR.category, arrayList);
         if (arrayList.get(0) instanceof CityResponse.City)
             recyclerBindingAdapter = new RecyclerBindingAdapter<>(R.layout.single_item_city, BR.category, arrayList);
+
+        if(arrayList.get(0) instanceof Zone){
+            recyclerBindingAdapter = new RecyclerBindingAdapter<>(R.layout.single_item_zone, BR.category, arrayList);
+        }
 
         recyclerView.setAdapter(recyclerBindingAdapter);
 
