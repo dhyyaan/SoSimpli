@@ -203,16 +203,7 @@ public class AvailabilityFragment extends Fragment {
             }
         });*/
 
-
-        // We're doing nothing with this listener here this time. Check example usage
-        // from ThreeTabsActivity on how to use it.
-      /*  bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
-            @Override
-            public void onTabSelected(@IdRes int tabId) {
-
-            }
-        });*/
-
+        
         fastItemAdapter.withOnClickListener(new FastAdapter.OnClickListener<AvailabilityItem>() {
             @Override
             public boolean onClick(View v, IAdapter<AvailabilityItem> adapter, AvailabilityItem item, int position) {
