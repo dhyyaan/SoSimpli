@@ -36,6 +36,7 @@
             android:textColor="@color/white" />
 
         <TextView
+            android:id="@+id/tvDriverName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -95,7 +96,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView2"
                 style="@style/TextViewHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -149,7 +149,7 @@
         style="@style/TextViewHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="COUNTRY" />
+        android:text="SELECT COUNTRY" />
 
 
             <FrameLayout
@@ -182,7 +182,7 @@
                 style="@style/TextViewHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="STATE" />
+                android:text="SELECT STATE" />
 
 
             <FrameLayout
@@ -214,7 +214,7 @@
                 style="@style/TextViewHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="CITY" />
+                android:text="SELECT CITY" />
 
 
             <FrameLayout

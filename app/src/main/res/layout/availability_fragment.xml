@@ -3,7 +3,6 @@
 
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/myCoordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -27,13 +26,15 @@
             android:text="ADD AVAILABILITY"
             android:textColor="@color/white" />
 
-
-        <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/swipeLayout"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/bottomLayoutToSort"
             android:layout_below="@id/tvAddAvailability">
+        <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/swipeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
 
             <android.support.v7.widget.RecyclerView
@@ -44,6 +45,15 @@
 
         </android.support.v4.widget.SwipeRefreshLayout>
 
+            <TextView
+                android:id="@+id/tvNoData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="No Data Available"
+                android:visibility="gone" />
+
+        </FrameLayout>
         <LinearLayout
             android:id="@id/bottomLayoutToSort"
             android:layout_width="match_parent"

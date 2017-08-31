@@ -8,13 +8,12 @@
 
     <LinearLayout
         android:id="@+id/layoutTimeDate"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
         android:layout_margin="5dp"
         android:background="@color/appRed"
         android:gravity="center"
         android:orientation="vertical">
-
 
         <TextView
             android:id="@+id/tvDate"

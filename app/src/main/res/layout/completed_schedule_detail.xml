@@ -66,11 +66,13 @@
 
 
                     <TextView
+                        android:layout_gravity="center"
+                        android:gravity="center"
                         android:id="@+id/tvDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="2.5dp"
-                        android:text="12:00AM - 15:00AM" />
+                        android:text="" />
 
 
                 </LinearLayout>
@@ -113,13 +115,14 @@
 
 
                     <TextView
+
                         android:id="@+id/tvTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:gravity="center_horizontal"
                         android:padding="2.5dp"
-                        android:text="02:00AM-12:00PM" />
+                        android:text="" />
 
 
                 </LinearLayout>
@@ -144,7 +147,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:text="North Zone, Toronto"
+                    android:text=""
                     android:textColor="@color/md_black_1000"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -172,7 +175,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="2.5dp"
-                    android:text="@string/dummy"
                     android:textColor="@color/appGray" />
 
             </LinearLayout>

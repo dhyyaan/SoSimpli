@@ -9,7 +9,7 @@
         barColorWhenSelected="@color/colorAppBackGround"
         icon="@drawable/ic_nearby"
         id="@+id/tab_nearby"
-        title="Schedule" />
+        title="Schedules" />
     <tab
         barColorWhenSelected="@color/colorAppBackGround"
         icon="@drawable/ic_friends"

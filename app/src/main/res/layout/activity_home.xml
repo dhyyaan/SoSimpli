@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.think360.sosimpli.ui.activities.HomeActivity">
+    tools:context="com.think360.sosimpli.com.think360.sosimply.ui.activities.HomeActivity">
 
 
     <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -29,14 +29,14 @@
                 app:titleTextColor="@color/white" />
 
 
-            <com.think360.sosimpli.widgets.NonSwipeableViewPager
+            <com.think360.sosimply.widgets.NonSwipeableViewPager
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/bottomBar"
                 android:layout_below="@id/toolbar">
 
-            </com.think360.sosimpli.widgets.NonSwipeableViewPager>
+            </com.think360.sosimply.widgets.NonSwipeableViewPager>
 
 
             <!--      <it.sephiroth.android.library.bottomnavigation.BottomNavigation
@@ -67,7 +67,7 @@
         <!-- The navigation drawer -->
         <fragment
             android:id="@+id/fragment_navigation_drawer"
-            android:name="com.think360.sosimpli.FragmentDrawer"
+            android:name="com.think360.sosimply.ui.fragments.FragmentDrawer"
             android:layout_width="250dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"

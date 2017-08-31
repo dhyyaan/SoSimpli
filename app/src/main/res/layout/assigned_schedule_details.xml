@@ -65,7 +65,7 @@
 
 
                     <TextView
-                        android:id="@+id/textView"
+                        android:id="@+id/tvScheduleTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="2.5dp"
@@ -113,6 +113,7 @@
 
 
                     <TextView
+                        android:id="@+id/tvCity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -145,6 +146,7 @@
                     android:src="@drawable/ic_check" />
 
                 <TextView
+                    android:id="@+id/tvZone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
@@ -155,6 +157,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tvBookingId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorAppGreyOverlay"
@@ -165,7 +168,6 @@
 
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/tvTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -175,21 +177,35 @@
                 android:padding="12dp"
                 android:text="00:00:00"
                 android:textColor="@color/md_black_1000"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:visibility="gone" />
 
-
-            <TextView
-                android:id="@+id/tvCheckOut"
+            <LinearLayout
+                android:id="@+id/layoutStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/activity_horizontal_margin"
-                android:background="@drawable/rectangle_red"
-                android:elevation="3dp"
-                android:gravity="center"
-                android:padding="12dp"
-                android:text="CHECK OUT"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:orientation="vertical"
+                android:visibility="gone">
+
+
+                <TextView
+                    android:id="@+id/tvCheckOut"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Trip is Running"
+                    android:textColor="@color/appGreen"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tvTimeForTrip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Time"
+                    android:textColor="@color/colorDarkGrey"
+                    android:textSize="18sp" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tvCheckIn"
@@ -211,53 +227,62 @@
                 android:orientation="vertical"
                 android:padding="@dimen/activity_horizontal_margin">
 
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Schedule Info"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
-
-
                 <TextView
-
+                    android:id="@+id/tvInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/dummy"
                     android:textColor="@color/appGray" />
 
+
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tvCancel"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:id="@+id/contactFormLayout"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/activity_horizontal_margin"
-                android:background="@drawable/rectangle_dark_grey"
-                android:elevation="3dp"
-                android:gravity="center"
-                android:padding="12dp"
-                android:text="REQUEST FOR CHANGE SCHEDULE"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:layout_width="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvCancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/activity_horizontal_margin"
+                    android:background="@drawable/rectangle_dark_grey"
+                    android:elevation="3dp"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:text="REQUEST FOR CHANGE SCHEDULE"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
 
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="@string/incase"
-                android:textColor="@color/appGray" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/incase"
+                    android:textColor="@color/appGray" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:autoLink="phone"
-                android:gravity="center_horizontal"
-                android:padding="5dp"
-                android:text="+1-256-565-7854"
-                android:textColor="@color/colorDarkGrey"
-                android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/phoneNumberOperator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autoLink="phone"
+                    android:gravity="center_horizontal"
+                    android:padding="5dp"
+                    android:text="+1-256-565-7854"
+                    android:textColor="@color/colorDarkGrey"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

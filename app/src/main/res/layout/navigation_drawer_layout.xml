@@ -41,7 +41,7 @@
                             android:layout_gravity="center"
                             android:gravity="center">
 
-                            <com.think360.sosimpli.widgets.CircleImageview
+                            <com.think360.sosimply.widgets.CircleImageview
                                 android:id="@+id/ivUser"
                                 android:src="@drawable/hugh"
                                 android:layout_width="match_parent"

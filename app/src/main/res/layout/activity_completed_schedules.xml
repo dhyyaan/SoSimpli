@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.think360.sosimpli.ui.activities.CompletedSchedulesActivity">
+    tools:context="com.think360.sosimply.ui.activities.CompletedSchedulesActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -17,8 +17,12 @@
         app:subtitleTextColor="@color/white"
         app:titleTextColor="@color/white" />
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <android.support.v4.widget.SwipeRefreshLayout
+
+        <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -31,4 +35,15 @@
             tools:listitem="@layout/single_assigned_schedule" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
+
+
+        <TextView
+            android:id="@+id/tvNoData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="No Data Available"
+            android:visibility="gone" />
+
+    </FrameLayout>
 </LinearLayout>

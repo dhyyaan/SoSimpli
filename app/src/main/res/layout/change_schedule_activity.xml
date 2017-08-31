@@ -62,7 +62,6 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView2"
                         style="@style/TextViewHeader"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -116,7 +115,7 @@
                 style="@style/TextViewHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="COUNTRY" />
+                android:text="SELECT COUNTRY" />
 
 
             <FrameLayout
@@ -149,7 +148,7 @@
                 style="@style/TextViewHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="STATE" />
+                android:text="SELECT STATE" />
 
 
             <FrameLayout
@@ -181,7 +180,7 @@
                 style="@style/TextViewHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="CITY" />
+                android:text="SELECT CITY" />
 
 
             <FrameLayout
@@ -218,28 +217,28 @@
 
 
             <EditText
-                android:focusable="false"
                 android:id="@+id/editZone"
                 style="@style/EditTextRoboto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableRight="@drawable/ic_down"
+                android:focusable="false"
                 android:hint="SELECT ZONE"
                 android:inputType="textPersonName" />
 
 
-    <TextView
-        android:id="@+id/updateAvailability"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        android:background="@drawable/rectangle_red"
-        android:elevation="3dp"
-        android:gravity="center"
-        android:padding="12dp"
-        android:text="UPADTE AVAILABILITY"
-        android:textColor="@color/white"
-        android:textSize="18sp" />
+            <TextView
+                android:id="@+id/updateAvailability"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:background="@drawable/rectangle_red"
+                android:elevation="3dp"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="UPADTE AVAILABILITY"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
 
 
         </LinearLayout>

@@ -14,7 +14,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/sgn"
-            android:layout_marginBottom="@dimen/activity_horizontal_margin"
             android:focusableInTouchMode="true"
             android:orientation="vertical"
             android:visibility="visible">
@@ -40,8 +39,9 @@
                             android:layout_gravity="center"
                             android:gravity="center">
 
-                            <com.think360.sosimpli.widgets.CircleImageview
+                            <com.think360.sosimply.widgets.CircleImageview
                                 android:id="@+id/ivUser"
+                                android:elevation="3dp"
                                 android:src="@drawable/hugh"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -50,30 +50,34 @@
                                 app:civ_border_width="7.5dp"
                                 app:civ_fill_color="@color/appYellow" />
 
-                            <com.think360.sosimpli.widgets.CircleImageview
+                            <com.think360.sosimply.widgets.CircleImageview
                                 android:id="@+id/fabImagePickup"
                                 android:layout_width="28dp"
                                 android:layout_height="28dp"
                                 android:layout_alignParentRight="true"
                                 android:layout_alignParentTop="true"
-                                android:layout_marginRight="10dp"
-                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="16dp"
+                                android:layout_marginTop="16dp"
                                 android:elevation="3dp"
                                 android:padding="5dp"
-                                android:src="@drawable/ic_edit"
-                                app:civ_fill_color="@color/white" />
+                                android:src="@drawable/ic_cam"
+                                app:civ_border_color="@color/white"
+                                app:civ_border_width="1.5dp"
+                                app:civ_fill_color="@color/colorPrimaryDark" />
 
                         </RelativeLayout>
 
                         <LinearLayout
+
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginBottom="@dimen/activity_horizontal_margin"
                             android:layout_marginTop="@dimen/activity_horizontal_margin"
-                            android:orientation="horizontal">
+                            android:orientation="vertical">
 
                             <TextView
+                                android:textSize="14sp"
                                 android:id="@+id/tvName"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -83,6 +87,20 @@
                                 android:hint="Roger Fed."
                                 android:textColor="@color/white"
                                 android:textColorHint="@color/white"
+
+                                />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
+                                android:gravity="center"
+                                android:hint="User Type : Driver"
+                                android:textColor="@color/white"
+                                android:textColorHint="@color/white"
+                                android:textSize="12sp"
 
                                 />
 
@@ -98,12 +116,13 @@
 
 
                     <EditText
+
                         android:id="@+id/editName"
                         style="@style/EditTextRoboto"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Roger Fed."
-                        android:inputType="textPersonName" />
+                        android:inputType="textCapCharacters" />
 
 
                     <LinearLayout
@@ -125,7 +144,7 @@
                             style="@style/EditTextRoboto"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="password"
+                            android:hint="Password"
                             android:imeOptions="actionDone"
                             android:inputType="textPassword"
                             android:nextFocusForward="@+id/etPassword" />
@@ -135,7 +154,7 @@
                             style="@style/TextViewHeader"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Confrim Password" />
+                            android:text="@string/confirm_password" />
 
 
                         <EditText
@@ -145,7 +164,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
 
-                            android:hint="Confrim Password"
+                            android:hint="@string/confirm_password"
                             android:imeOptions="actionNext"
                             android:inputType="textPassword"
                             android:nextFocusForward="@+id/etPassword" />

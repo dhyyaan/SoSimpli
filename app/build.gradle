@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
     defaultConfig {
-        applicationId "com.think360.sosimpli"
+        applicationId "com.think360.sosimply"
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
@@ -69,6 +69,8 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
     //https://github.com/JakeWharton/butterknife
 
+    compile 'com.google.firebase:firebase-core:11.2.0'
+    compile 'com.google.firebase:firebase-messaging:11.2.0'
     // rx java
 
     //image picker
@@ -95,4 +97,6 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+
 }
+apply plugin: 'com.google.gms.google-services'

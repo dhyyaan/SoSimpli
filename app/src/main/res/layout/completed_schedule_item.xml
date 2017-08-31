@@ -9,7 +9,6 @@
     android:weightSum="1">
 
     <LinearLayout
-        android:id="@+id/layoutLeft"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.65"
