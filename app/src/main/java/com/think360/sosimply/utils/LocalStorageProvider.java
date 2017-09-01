@@ -31,8 +31,7 @@ public class LocalStorageProvider extends DocumentsProvider {
     /**
      * Default root projection: everything but Root.COLUMN_MIME_TYPES
      */
-    private final static String[] DEFAULT_ROOT_PROJECTION = new String[] {
-            Root.COLUMN_ROOT_ID,
+    private final static String[] DEFAULT_ROOT_PROJECTION = new String[] {Root.COLUMN_ROOT_ID,
             Root.COLUMN_FLAGS, Root.COLUMN_TITLE, Root.COLUMN_DOCUMENT_ID, Root.COLUMN_ICON,
             Root.COLUMN_AVAILABLE_BYTES
     };
