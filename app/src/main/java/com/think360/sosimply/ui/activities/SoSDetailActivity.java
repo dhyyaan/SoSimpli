@@ -71,7 +71,7 @@ public class SoSDetailActivity extends BaseActivity {
             datum = getIntent().getParcelableExtra("SOS_ITEM");
             tvCity.setText(datum.getCity());
             tvZone.setText(datum.getZones());
-            tvTime.setText(datum.getSos_time());
+           // tvTime.setText(datum.getSos_time());
             tvDetailContent.setText(datum.getText());
 
         }
@@ -83,7 +83,7 @@ public class SoSDetailActivity extends BaseActivity {
 
                     tvCity.setText(response.body().getData().getCity());
                     tvZone.setText(response.body().getData().getZones());
-                    tvTime.setText(response.body().getData().getTimeFrom() + " - " + response.body().getData().getTimeTo());
+                    tvTime.setText(response.body().getData().getSosDate());
                     tvDetailContent.setText(response.body().getData().getMessage());
 
 

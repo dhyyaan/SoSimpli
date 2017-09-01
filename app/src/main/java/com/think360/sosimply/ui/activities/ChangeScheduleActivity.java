@@ -7,7 +7,6 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.Toolbar;
@@ -22,6 +21,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.think360.sosimply.AppConstants;
 import com.think360.sosimply.AppController;
 import com.think360.sosimply.R;
 import com.think360.sosimply.manager.ApiService;
@@ -34,7 +34,6 @@ import com.think360.sosimply.model.country.CountryResponse;
 import com.think360.sosimply.model.states.StateResponse;
 import com.think360.sosimply.ui.fragments.ChooserDialogFragment;
 import com.think360.sosimply.utils.AddAvailbailtyChanged;
-import com.think360.sosimply.AppConstants;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,6 +41,7 @@ import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -162,7 +162,7 @@ public class ChangeScheduleActivity extends BaseActivity implements ChooserDialo
                         // changing it into calendar event time1
                         Date date1 = null;
                         try {
-                            date1 = new SimpleDateFormat("hh:mm a").parse(startTime);
+                            date1 = new SimpleDateFormat("hh:mm a", Locale.ENGLISH).parse(startTime);
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
@@ -177,12 +177,12 @@ public class ChangeScheduleActivity extends BaseActivity implements ChooserDialo
                         endTime = response.body().getData().getTo_time();
                         Date date2 = null;
                         try {
-                            date2 = new SimpleDateFormat("hh:mm a").parse(endTime);
+                            date2 = new SimpleDateFormat("hh:mm a", Locale.ENGLISH).parse(endTime);
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
                         Calendar calendar2 = Calendar.getInstance();
-                        calendar2.setTime(date1);
+                        calendar2.setTime(date2);
                         calendar2.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH));
                         calendar2.set(Calendar.YEAR, calendar.get(Calendar.YEAR));
                         calendar2.set(Calendar.MONTH, calendar.get(Calendar.MONTH));

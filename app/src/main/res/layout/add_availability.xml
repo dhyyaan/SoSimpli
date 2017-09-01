@@ -246,7 +246,7 @@
         style="@style/TextViewHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SELECT ZONE/AREA" />
+        android:text="SELECT ZONE AREA" />
 
 
     <EditText

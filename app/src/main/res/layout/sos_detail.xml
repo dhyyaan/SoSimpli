@@ -70,7 +70,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="2.5dp"
-                        android:text="12:00AM - 15:00AM" />
+                        android:text="" />
 
 
                 </LinearLayout>
@@ -109,7 +109,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="2.5dp"
-                            android:text="NORTH ZONE"
+                            android:text="ZONE"
                             android:textColor="@color/md_black_1000"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -122,7 +122,7 @@
                         android:layout_gravity="center_horizontal"
                         android:gravity="center_horizontal"
                         android:padding="2.5dp"
-                        android:text="Toronto" />
+                        android:text="" />
 
 
                 </LinearLayout>
@@ -143,7 +143,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Gym Equipments"
+                    android:text="Schedule Name"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
@@ -153,7 +153,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:text="@string/dummy"
                     android:textColor="@color/appGray" />
 
             </LinearLayout>
