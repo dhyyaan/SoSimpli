@@ -2,6 +2,7 @@ package com.think360.sosimply.ui.activities;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.Toolbar;
@@ -15,7 +16,6 @@ import android.widget.Toast;
 import com.think360.sosimply.AppController;
 import com.think360.sosimply.R;
 import com.think360.sosimply.manager.ApiService;
-import com.think360.sosimply.model.country.Country;
 import com.think360.sosimply.model.schedule.pending.Datum;
 import com.think360.sosimply.model.schedule.pending.PedningScheduleResponse;
 import com.think360.sosimply.model.trip.TripFinishStartResponse;
@@ -132,12 +132,13 @@ public class ContactToOperatorActivity extends BaseActivity implements ChooserDi
                         (dialog.findViewById(R.id.imageView)).setVisibility(View.VISIBLE);
                         ((TextView) dialog.findViewById(R.id.text)).setText(response.body().getMessage());
                         animatemy(dialog.findViewById(R.id.imageView));
-                        new Handler().postDelayed(new Runnable() {
+                        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                             @Override
-                            public void run() {
+                            public void onDismiss(DialogInterface dialog) {
                                 onBackPressed();
                             }
-                        }, 100);
+                        });
+
                     } else {
                         dialog.dismiss();
                         Toast.makeText(ContactToOperatorActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -168,8 +169,8 @@ public class ContactToOperatorActivity extends BaseActivity implements ChooserDi
     @Override
     public void callBackMethod(Object object) {
         if (object instanceof Datum) {
-            etScheduleName.setText(((Country) object).getCountryName());
-            etScheduleId = ((Country) object).getId();
+            etScheduleName.setText(((com.think360.sosimply.model.schedule.pending.Datum) object).getSchduleName());
+            etScheduleId = ((com.think360.sosimply.model.schedule.pending.Datum) object).getSchduleId();
         }
     }
 }

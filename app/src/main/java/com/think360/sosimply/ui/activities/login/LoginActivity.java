@@ -26,7 +26,7 @@ import com.think360.sosimply.utils.KeyboardUtil;
 
 import javax.inject.Inject;
 
-import timber.log.Timber;
+
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
@@ -64,7 +64,6 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     public void loginFailed(Throwable t) {
         Snackbar.make(activityMainBinding.loginMainLayout, t.getMessage() + "", Snackbar.LENGTH_SHORT).show();
 
-        Timber.d("FAILED", t.getStackTrace());
     }
 
     @Override

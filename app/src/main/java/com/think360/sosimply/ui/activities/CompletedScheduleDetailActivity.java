@@ -62,6 +62,7 @@ public class CompletedScheduleDetailActivity extends BaseActivity {
                             tvTime.setText(response.body().getData().getTimeFrom() + " - " + response.body().getData().getTimeTo());
                             tvDate.setText(response.body().getData().getSchduleDate());
                             scheduleInfo.setText(response.body().getData().getSchduleInfo());
+                            tvZone.setText(getZoneName(response.body().getData().getSchduleZone()) + "," + response.body().getData().getCity().toUpperCase());
                         }
                     }
 
@@ -81,6 +82,8 @@ public class CompletedScheduleDetailActivity extends BaseActivity {
                             tvTime.setText(response.body().getData().getTimeFrom() + " - " + response.body().getData().getTimeTo());
                             tvDate.setText(response.body().getData().getSchduleDate());
                             scheduleInfo.setText(response.body().getData().getSchduleInfo());
+                            tvZone.setText(getZoneName(response.body().getData().getSchduleZone()) + "," + response.body().getData().getCity().toUpperCase());
+
                         }
                     }
 
@@ -93,7 +96,26 @@ public class CompletedScheduleDetailActivity extends BaseActivity {
 
         }
 
+
     }
+
+    private String getZoneName(String schduleZone) {
+
+        if (schduleZone.equals("1")) {
+            return "East Zone";
+        }
+        if (schduleZone.equals("2")) {
+            return "West Zone";
+        }
+        if (schduleZone.equals("3")) {
+            return "North Zone";
+        }
+        if (schduleZone.equals("4")) {
+            return "South Zone";
+        }
+        return schduleZone;
+    }
+
 
     @Override
     public boolean onSupportNavigateUp() {

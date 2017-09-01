@@ -42,6 +42,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
     compile('com.mikepenz:fastadapter:2.6.2@aar') {
         transitive = true
     }
@@ -50,14 +51,7 @@ dependencies {
     compile "com.squareup.okhttp3:okhttp:$okHttpVersion"
     compile "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
 
-    //rxjava
-    // Because RxAndroid releases are few and far between, it is recommended you also
-    // explicitly depend on RxJava's latest version for bug fixes and new features.
 
-    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
-    compile "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
-    compile "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"
-    // for debuging
 
     //retrofit
     compile "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
@@ -71,32 +65,41 @@ dependencies {
 
     compile 'com.google.firebase:firebase-core:11.2.0'
     compile 'com.google.firebase:firebase-messaging:11.2.0'
-    // rx java
 
-    //image picker
-    compile project(path: ':ccp')
+    //rxjava
+    // Because RxAndroid releases are few and far between, it is recommended you also
+    // explicitly depend on RxJava's latest version for bug fixes and new features.
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'io.reactivex.rxjava2:rxjava:2.0.8'
     compile 'de.hdodenhof:circleimageview:2.1.0'
-    compile 'it.sephiroth.android.library.bottomnavigation:bottom-navigation:2.0.1-rc1'
+
+    //image compression , image picker and loading libs
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'id.zelory:compressor:1.0.4'
     compile 'com.github.jrvansuita:PickImage:2.1.1'
-    compile 'com.jakewharton.timber:timber:4.5.1'
+
+    //fast adapter for recyclerview
     compile 'com.mikepenz:fastadapter-extensions:2.6.0@aar'
     compile 'com.mikepenz:fastadapter-commons:2.6.0@aar'
     compile 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
     compile 'com.mikepenz:materialize:1.0.2@aar'
+
+    //butter knife dependency injection
     compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+
+    // navigation bar
+    compile 'it.sephiroth.android.library.bottomnavigation:bottom-navigation:2.0.1-rc1'
     compile 'com.roughike:bottom-bar:2.3.1'
+
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:support-vector-drawable:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'uk.co.chrisjenx:calligraphy:2.3.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    compile project(path: ':ccp')
+
 
 }
 apply plugin: 'com.google.gms.google-services'

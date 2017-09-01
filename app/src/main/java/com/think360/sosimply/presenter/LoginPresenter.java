@@ -11,7 +11,7 @@ import com.think360.sosimply.ui.activities.login.LoginActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import timber.log.Timber;
+
 
 /**
  * Created by think360 on 18/04/17.
@@ -46,7 +46,7 @@ public class LoginPresenter extends BasePresenter {
                     pDialog.dismiss();
                     alertDialog.setMessage(response.body().getMessage());
                     alertDialog.show();
-                    Timber.d("LOGIN_ELSE", response.body());
+
 
                 }
             }

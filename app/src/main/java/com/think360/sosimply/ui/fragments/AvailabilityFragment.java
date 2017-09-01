@@ -203,7 +203,7 @@ public class AvailabilityFragment extends Fragment {
             }
         });*/
 
-        
+
         fastItemAdapter.withOnClickListener(new FastAdapter.OnClickListener<AvailabilityItem>() {
             @Override
             public boolean onClick(View v, IAdapter<AvailabilityItem> adapter, AvailabilityItem item, int position) {
