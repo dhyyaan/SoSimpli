@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">SoSimply</string>
+    <string name="app_name">SoSimpli</string>
     <string name="userName">Name</string>
-    <string name="password">password</string>
+    <string name="password">Password</string>
     <string name="email">Email</string>
     <string name="login">LOGIN</string>
 
@@ -15,10 +15,7 @@
     <string name="incase">In Case Of Emergency/Sick Leave</string>
     <string name="title_activity_home">Availability List</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <!-- navigation drawer item labels  -->
     <string-array name="nav_drawer_labels">
-
 
         <item>Add Availability</item>
         <item>Completed Schedules</item>

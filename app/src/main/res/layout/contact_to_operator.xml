@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:focusableInTouchMode="true"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
@@ -19,7 +18,7 @@
         app:titleTextColor="@color/white" />
 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -46,13 +45,14 @@
 
             <EditText
                 android:id="@+id/etCountry"
-                style="@style/EditTextRoboto"
+                style="@style/EditTextRobotoss"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="false"
                 android:drawableRight="@drawable/ic_down"
+
                 android:focusable="false"
-                android:hint="Select Schedule"
+                android:hint="Select name"
                 android:inputType="text" />
 
         </FrameLayout>
@@ -67,11 +67,13 @@
 
         <EditText
             android:id="@+id/etSubject"
-            style="@style/EditTextRoboto"
+            style="@style/EditTextRobotos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:imeOptions="actionNext"
             android:minLines="2"
+            android:maxLines="3"
+            android:focusableInTouchMode="true"
+            android:hint="Enter Subject"
             android:nextFocusForward="@+id/etPassword" />
 
         <TextView
@@ -83,11 +85,13 @@
 
         <EditText
             android:id="@+id/etDescription"
-            style="@style/EditTextRoboto"
+            style="@style/EditTextRobotos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:imeOptions="actionDone"
+
             android:minLines="2"
+            android:maxLines="5"
+            android:hint="Enter Description Here"
             android:nextFocusForward="@+id/etPassword" />
 
         <TextView

@@ -52,13 +52,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:src="@drawable/ic_access_time" />
+                            android:src="@drawable/ic_calendar" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="2.5dp"
-                            android:text="DATE"
+                            android:gravity="center"
+                            android:text="Date"
                             android:textColor="@color/md_black_1000"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -101,13 +102,14 @@
                             android:gravity="center"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:src="@drawable/ic_location_on" />
+                          />
 
                         <TextView
                             android:gravity="center"
                             android:id="@+id/tvZone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+
                             android:padding="2.5dp"
                             android:text="ZONE"
                             android:textColor="@color/md_black_1000"

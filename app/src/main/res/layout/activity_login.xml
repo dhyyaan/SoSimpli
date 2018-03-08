@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <layout>
-
-    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/loginMainLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-         >
-
-
-            <LinearLayout
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -38,7 +29,6 @@
 
 
                 <com.hbb20.CountryCodePicker
-
                     android:clickable="true"
                     app:ccp_clickable="true"
                     android:id="@+id/ccp"
@@ -47,7 +37,7 @@
                     android:visibility="gone" />
 
                 <EditText
-                    android:text="@string/swamy_think360_gmail_com"
+
                     android:id="@+id/etEmail"
                     style="@style/EditTextRoboto"
                     android:layout_width="match_parent"
@@ -72,7 +62,7 @@
                     android:hint="Password"
                     android:imeOptions="actionDone"
                     android:inputType="textPassword"
-                    android:text="@string/_123456" />
+                  />
 
 
                 <!-- Password Re-enter Label -->
@@ -86,35 +76,6 @@
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:visibility="visible">
-
-
-                    <RelativeLayout
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="left|center_vertical"
-                        android:gravity="left|center_vertical">
-
-                        <CheckBox
-                            android:id="@+id/switch_gprs"
-                            style="@style/CustomSwitchButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:checked="false"
-                            android:gravity="center_vertical"
-                            app:buttonTint="@color/appYellow" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_toRightOf="@+id/switch_gprs"
-                            android:checked="false"
-                            android:gravity="center_vertical"
-                            android:text="Remember me"
-                            android:textColor="@color/appGray"
-                            app:buttonTint="@color/appYellow" />
-
-                    </RelativeLayout>
 
                     <TextView
                         android:id="@+id/tvForgetPassword"
@@ -151,6 +112,5 @@
 
             </LinearLayout>
 
-        </RelativeLayout>
-    </android.support.design.widget.CoordinatorLayout>
+    </ScrollView>
 </layout>

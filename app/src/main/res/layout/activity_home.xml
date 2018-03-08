@@ -5,10 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.think360.sosimply.ui.activities.HomeActivity">
+    tools:context="com.sosimpli.ui.activities.HomeActivity">
 
 
-    <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -26,30 +26,29 @@
                 android:elevation="3dp"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
                 app:subtitleTextColor="@color/white"
-                app:titleTextColor="@color/white" />
+                app:titleTextColor="@color/white" >
+                <FrameLayout
+                    android:layout_gravity="end|right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <android.support.v7.widget.SwitchCompat
+                        android:layout_gravity="center"
+                        android:id="@+id/switchForActionBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/SCBSwitch"/>
+                </FrameLayout>
+            </android.support.v7.widget.Toolbar>
 
 
-            <com.think360.sosimply.widgets.NonSwipeableViewPager
+            <com.sosimpli.widgets.NonSwipeableViewPager
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/bottomBar"
                 android:layout_below="@id/toolbar">
 
-            </com.think360.sosimply.widgets.NonSwipeableViewPager>
-
-
-            <!--      <it.sephiroth.android.library.bottomnavigation.BottomNavigation
-                      android:id="@+id/bottomBar"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:layout_alignParentBottom="true"
-                      android:layout_gravity="bottom"
-                      app:bbn_badgeProvider="@string/bbn_badgeProvider"
-                      app:bbn_entries="@menu/bottombar_menu_3items_no_background"
-                      app:bbn_scrollEnabled="true"
-                      app:layout_behavior="@string/bbn_phone_view_behavior" />-->
-
+            </com.sosimpli.widgets.NonSwipeableViewPager>
 
             <com.roughike.bottombar.BottomBar
                 android:id="@id/bottomBar"
@@ -64,10 +63,10 @@
 
 
         </RelativeLayout>
-        <!-- The navigation drawer -->
+        <!-- menution drawer -->
         <fragment
             android:id="@+id/fragment_navigation_drawer"
-            android:name="com.think360.sosimply.ui.fragments.FragmentDrawer"
+            android:name="com.sosimpli.ui.fragments.FragmentDrawer"
             android:layout_width="250dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"

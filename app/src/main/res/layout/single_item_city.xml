@@ -6,7 +6,7 @@
 
         <variable
             name="category"
-            type="com.think360.sosimply.model.city.CityResponse.City" />
+            type="com.sosimpli.model.city.CityResponse.City" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

@@ -59,7 +59,31 @@
         <item name="android:layout_marginRight">20dp</item>
     </style>
 
+    <style name="EditTextRobotos" parent="@style/AppTheme">
 
+        <item name="android:textSize">16sp</item>
+        <item name="colorControlNormal">#9e9e9e</item>
+        <item name="colorControlActivated">@color/accent</item>
+        <item name="colorControlHighlight">@color/accent</item>
+        <item name="android:padding">3dp</item>
+        <item name="android:textCursorDrawable">@drawable/color_cursor_blue</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_marginRight">15dp</item>
+    </style>
+    <style name="EditTextRobotoss" parent="@style/AppTheme">
+
+        <item name="android:textSize">16sp</item>
+        <item name="colorControlNormal">#9e9e9e</item>
+        <item name="colorControlActivated">@color/accent</item>
+        <item name="colorControlHighlight">@color/accent</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingLeft">3dp</item>
+        <item name="android:paddingRight">3dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:textCursorDrawable">@drawable/color_cursor_blue</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_marginRight">15dp</item>
+    </style>
     <style name="TextViewRoboto" parent="@style/AppTheme">
 
         <item name="android:textSize">16sp</item>
@@ -99,5 +123,15 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="SCBSwitch" parent="Theme.AppCompat.Light">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">#006600</item>
 
+        <!-- inactive thumb color -->
+        <item name="colorSwitchThumbNormal">@color/appYellow</item>
+
+        <!-- inactive track color (30% transparency) -->
+        <item name="android:colorForeground">#009900
+        </item>
+    </style>
 </resources>

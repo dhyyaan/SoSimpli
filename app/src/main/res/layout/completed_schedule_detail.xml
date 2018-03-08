@@ -25,11 +25,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:orientation="horizontal">
 
 
@@ -45,14 +44,14 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center_horizontal">
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:padding="5dp"
-                            android:src="@drawable/ic_access_time" />
+                            android:src="@drawable/ic_calendar" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -66,11 +65,12 @@
 
 
                     <TextView
-                        android:layout_gravity="center"
-                        android:gravity="center"
+
                         android:id="@+id/tvDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_horizontal"
                         android:padding="2.5dp"
                         android:text="" />
 
@@ -127,6 +127,8 @@
 
                 </LinearLayout>
             </LinearLayout>
+
+
 
             <View
                 android:layout_width="match_parent"
@@ -205,6 +207,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"

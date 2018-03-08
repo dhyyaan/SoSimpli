@@ -23,3 +23,4 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file zone.
 #-renamesourcefileattribute SourceFile
+-ignorewarnings

@@ -25,7 +25,73 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="Your Reg. Time Zone"
+                        android:id="@+id/tvLRegTimeZone"
+                        android:layout_width="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:textSize="16dp"
+                        android:textColor="@color/md_black_1000" />
 
+                    <TextView
+                        android:id="@+id/tvRegTimeZone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:textColor="@color/md_black_1000" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvLCurrentTime"
+                        android:layout_width="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:text="Your Current Time "
+                        android:textColor="@color/md_black_1000" />
+
+                    <TextView
+                        android:id="@+id/tvCurrrentTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
+                        android:gravity="center"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:textColor="@color/md_black_1000" />
+                </LinearLayout>
+            </LinearLayout>
             <TextView
                 style="@style/TextViewHeader"
                 android:layout_width="match_parent"
@@ -115,8 +181,8 @@
                 style="@style/TextViewHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="SELECT COUNTRY" />
-
+                android:text="COUNTRY" />
+          <!--  android:text="SELECT COUNTRY"-->
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -135,11 +201,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="false"
-                    android:drawableRight="@drawable/ic_down"
-                    android:focusable="false"
-                    android:hint="SELECT COUNTRY"
-                    android:inputType="text" />
 
+                    android:focusable="false"
+
+                    android:inputType="text" />
+                <!--
+                  android:hint="SELECT COUNTRY"
+                android:drawableRight="@drawable/ic_down"-->
             </FrameLayout>
 
 
@@ -148,8 +216,8 @@
                 style="@style/TextViewHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="SELECT STATE" />
-
+                android:text="STATE" />
+       <!--     android:text="SELECT STATE"-->
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -168,11 +236,11 @@
                     style="@style/EditTextRoboto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_down"
+
                     android:focusable="false"
                     android:hint="SELECT STATE"
                     android:inputType="textPersonName" />
-
+               <!-- android:drawableRight="@drawable/ic_down"-->
             </FrameLayout>
 
 
@@ -180,8 +248,8 @@
                 style="@style/TextViewHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="SELECT CITY" />
-
+                android:text="CITY" />
+          <!--  android:text="SELECT CITY"-->
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -201,31 +269,36 @@
                     style="@style/EditTextRoboto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_down"
-                    android:focusable="false"
-                    android:hint="SELECT CITY"
-                    android:inputType="textPersonName" />
 
+                    android:focusable="false"
+
+                    android:inputType="textPersonName" />
+        <!--        android:hint="SELECT CITY"
+                android:drawableRight="@drawable/ic_down"-->
 
             </FrameLayout>
 
             <TextView
+                android:id="@+id/tvLZone"
+                android:visibility="visible"
                 style="@style/TextViewHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="SELECT ZONE AREA" />
-
+                android:text="ZONE" />
+           <!-- android:text="SELECT ZONE AREA"-->
 
             <EditText
+                android:visibility="visible"
                 android:id="@+id/editZone"
                 style="@style/EditTextRoboto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableRight="@drawable/ic_down"
-                android:focusable="false"
-                android:hint="SELECT ZONE"
-                android:inputType="textPersonName" />
 
+                android:focusable="false"
+
+                android:inputType="textPersonName" />
+       <!--     android:drawableRight="@drawable/ic_down"
+            android:hint="SELECT ZONE"-->
 
             <TextView
                 android:id="@+id/updateAvailability"

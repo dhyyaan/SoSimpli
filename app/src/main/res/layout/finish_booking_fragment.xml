@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/appYellow">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           android:layout_alignParentTop="true"
+            android:textColor="#ffffff"
+            android:padding="15dp"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:text="FINISH BOOKING" />
+        </RelativeLayout>
+    <ImageView
+        android:id="@+id/iv_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="135dp"
+        app:srcCompat="@drawable/tick" />
+
+    <TextView
+        android:id="@+id/tvCongratulaton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#333333"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:layout_marginTop="35dp"
+        android:text="Congratulation..!"
+        android:layout_below="@+id/iv_check"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/tvMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_below="@+id/tvCongratulaton"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:layout_marginTop="15dp"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:text="You have successfully complete your booking trip.Click below to check your Other Schedules" />
+    <TextView
+        android:id="@+id/btnViewSchedule"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/rectanglefilled"
+        android:clickable="true"
+        android:elevation="3dp"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="VIEW SCHEDULE"
+        android:textColor="@color/white"
+        android:layout_below="@+id/tvMsg" />
+
+
+</RelativeLayout>

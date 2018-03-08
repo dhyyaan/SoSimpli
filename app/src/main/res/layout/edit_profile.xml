@@ -39,7 +39,7 @@
                             android:layout_gravity="center"
                             android:gravity="center">
 
-                            <com.think360.sosimply.widgets.CircleImageview
+                            <com.sosimpli.widgets.CircleImageview
                                 android:id="@+id/ivUser"
                                 android:elevation="3dp"
                                 android:src="@drawable/hugh"
@@ -50,7 +50,7 @@
                                 app:civ_border_width="7.5dp"
                                 app:civ_fill_color="@color/appYellow" />
 
-                            <com.think360.sosimply.widgets.CircleImageview
+                            <com.sosimpli.widgets.CircleImageview
                                 android:id="@+id/fabImagePickup"
                                 android:layout_width="28dp"
                                 android:layout_height="28dp"
@@ -84,7 +84,7 @@
                                 android:layout_marginLeft="5dp"
                                 android:layout_marginRight="5dp"
                                 android:gravity="center"
-                                android:hint="Roger Fed."
+
                                 android:textColor="@color/white"
                                 android:textColorHint="@color/white"
 
@@ -121,8 +121,8 @@
                         style="@style/EditTextRoboto"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Roger Fed."
-                        android:inputType="textCapCharacters" />
+                        android:hint="Name"
+                        android:inputType="textCapCharacters|textPersonName" />
 
 
                     <LinearLayout
@@ -136,21 +136,25 @@
                             style="@style/TextViewHeader"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Password" />
+                            android:text="Change Password" />
 
 
                         <EditText
+                            android:drawableRight="@drawable/gray_edit"
+                            android:editable="false"
+                            android:focusable="false"
                             android:id="@+id/editPassword"
                             style="@style/EditTextRoboto"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Password"
+                            android:hint="Change Password"
                             android:imeOptions="actionDone"
                             android:inputType="textPassword"
                             android:nextFocusForward="@+id/etPassword" />
 
 
                         <TextView
+                            android:visibility="gone"
                             style="@style/TextViewHeader"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -158,7 +162,7 @@
 
 
                         <EditText
-
+                            android:visibility="gone"
                             android:id="@+id/EditReEnterPassword"
                             style="@style/EditTextRoboto"
                             android:layout_width="match_parent"
@@ -172,8 +176,6 @@
 
                     </LinearLayout>
 
-                    <!-- Signup Button -->
-                    <!-- Signup Button -->
                     <TextView
                         android:id="@+id/btnSave"
                         android:layout_width="match_parent"
